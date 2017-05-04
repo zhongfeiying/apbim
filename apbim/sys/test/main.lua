@@ -1,0 +1,12 @@
+-- require'sys.api._G'
+-- require'sys.test.os'
+-- require'sys.test.zip'
+-- require'sys.test.net'
+-- require'sys.test.net_msg'
+-- require'sys.test.str'
+-- require'sys.test.table'
+-- require'sys.test.scene'
+-- require'sys.test.load'
+-- require'sys.test.dxf'
+-- require'sys.test.hid'
+
