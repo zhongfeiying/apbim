@@ -60,6 +60,15 @@ return  {
   	 	 	};
   	 	};
   	};
+	{
+		name = "Project Manager";
+		subs = {
+			{
+				name = "Project";
+				keyword = 'AP.ProjectMgr.Project.New';
+			};
+		}
+	};
  	{
   	 	name = "View";
   	 	subs = {
