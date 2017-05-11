@@ -1,24 +1,37 @@
-_ENV = module(...,ap.adv)
+local require = require
+local type = type
+local pairs = pairs
+local string = string
+
+_ENV = module(...)
+
+local IO = require'sys.io'
+local Mgr = require'sys.mgr'
+local Iup = require'sys.iup'
+local Code = require'sys.api.code'
+
+local Link_SQLServer = require"app.Work.Link_SQLServer".Class
+local Report_Dlg = require'app.Work.link_report_dlg'
 
 local function export_items(its)
-	local str = require'sys.iup'.save_file_dlg{extension="LUA";directory="C:\\";};
+	local str = Iup.save_file_dlg{extension="LUA";directory="C:\\";};
 	if not str or str=="" then return end
 	if type(its)~='table' then return end
-	-- require'sys.table'.tofile{src=its,file=str}
 	require'app.Contacts.File.file_op'.save_table_to_file(str,its);
+	Code.save{file=str,data=its,returnKey=true};
 end
 
 local function import_items(sc)
-	sc = require'sys.mgr'.new_scene{name='Import'};
-	local str = require'sys.iup'.open_file_dlg{extension="LUA";directory="C:\\";};
+	sc = sc or Mgr.new_scene{name='Import'};
+	local str = Iup.open_file_dlg{extension="LUA";directory="C:\\";};
 	if not str or str=="" then return end
-	local its = require'sys.io'.read_file{file=str,key='db'};
+	local its = IO.read_file{file=str,key='db'};
 	if type(its)~='table' then return end
 	for k,v in pairs(its) do
-		require'sys.mgr'.add(v);
-		require'sys.mgr'.draw(v,sc);
+		Mgr.add(v);
+		Mgr.draw(v,sc);
 	end
-	require'sys.mgr'.update(sc);
+	Mgr.update(sc);
 end
 
 function Import_Lua(sc)
@@ -26,11 +39,7 @@ function Import_Lua(sc)
 end
 
 function Export_Lua(sc)
-	export_items(require'sys.mgr'.curs());
-end
-
-function Export_All(sc)
-	export_items(require'sys.mgr'.get_all());
+	export_items(Mgr.curs());
 end
 
 function Link_Show(sc)
@@ -44,38 +53,41 @@ local function is_link(it,f)
 end
 
 function Link_Find(sc)
-	local str = require'sys.iup'.open_file_dlg{extension='LUA';directory='C:\\';}
+	local str = Iup.open_file_dlg{extension='LUA';directory='C:\\';}
 	if not str or str=='' then return end
-	if not require'sys.io'.is_there_file(str) then return end
+	if not IO.is_there_file(str) then return end
 	str = string.sub(str,1,-5);
 	_G.package.loaded[str] = nil;
 	local f = require(str);
 	
-	local all = require"sys.mgr".get_class_all(require"app.Work.Link_SQLServer".Class);
+	local all = Mgr.get_class_all(Link_SQLServer);
 	if type(all)~='table' then return end
 	
 	for k,v in pairs(all) do
 		local t = require'app.Work.SQLServer_dlg'.get_sql_row(v.src.Table,v.src.id)
 		if type(t)=='table' then
 			if f(t) then
-				local it = require'sys.mgr'.get_table(v.dstid);
-				require'sys.mgr'.select(it,true);
-				require'sys.mgr'.redraw(it);
+				local it = Mgr.get_table(v.dstid);
+				Mgr.select(it,true);
+				Mgr.redraw(it);
 			end
 		end
 	end
-	require'sys.mgr'.update(sc);
+	Mgr.update(sc);
 end
 
-function Link_Report(sc)
-	require'app.Work.link_report_dlg'.pop();
+function Link_Report_Selection(sc)
+	local s = Mgr.curs();
+	Report_Dlg.pop{src=s};
 end
 
-function load()
-	require"sys.menu".add{app="Work",frame=true,view=true,pos={"File","Close"},name={"File","Import","LUA"},f=Import_Lua};
-	require"sys.menu".add{app="Work",frame=true,view=true,pos={"File","Close"},name={"File","Export","LUA"},f=Export_Lua};
-	require"sys.menu".add{app="Work",view=true,pos={"Windows"},name={"Model","Database","Show",},f=Link_Show};
-	require"sys.menu".add{app="Work",view=true,pos={"Windows"},name={"Model","Database","Find",},f=Link_Find};
-	require"sys.menu".add{app="Work",view=true,pos={"Windows"},name={"Model","Database","Report","Section"},f=Link_Report};
-	require"sys.menu".add{app="Work",view=true,pos={"Windows"},name={"Model","Database","Report","Mat"},f=Link_Report};
+function Link_Report_View(sc)
+	local s = Mgr.get_scene_all(sc);
+	Report_Dlg.pop{src=s};
 end
+
+function Link_Report_All(sc)
+	local s = Mgr.get_all();
+	Report_Dlg.pop{src=s};
+end
+
