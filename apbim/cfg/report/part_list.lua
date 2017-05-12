@@ -1,4 +1,4 @@
-
+--[[
 return {
 	Remark = "Section,Mat,Lenth,Weight and Price.";
 	{--Sheet1
@@ -68,8 +68,20 @@ return {
 		end;
 	};
 };
+--]]
 
--- return function(dat)
-	-- local sheets = {};
-	
--- end
+return function(dat)
+	local book = {{from=1}};
+	local sheet = book[1];
+	local row,col = 3,1;
+	for k,v in pairs(dat) do
+		sheet[row] = {};
+		local cols = sheet[row];
+		cols[2] = v.Section or "";
+		cols[3] = v.Mat or "";
+		cols[4] = v.Count or 1;
+		cols[5] = type(v.get_length)=='function' and v:get_length() or 0;
+		row = row + 1;
+	end
+	return book;
+end
