@@ -11,7 +11,7 @@ local Iup = require'sys.iup'
 local Dir = require'sys.dir'
 local Tab = require'sys.table'
 
-local Pos = 'D:\\code\\3d\\apbim\\'
+local Pos = 'D:\\demo\\apbim\\'
 local Path = 'cfg/report/'
 local Exname = 'xls'
 local DotExname = '.'..Exname
@@ -49,7 +49,8 @@ local fields_ = {
 		Head = "Remark";
 		Text = function(k,v,s)
 			local name = string.sub(k,1,-2-string.len(v));
-			return require(Path..name).Remark
+			-- return require(Path..name).Remark
+			return ""
 		end
 	};
 };
@@ -68,7 +69,7 @@ function pop(arg)
 		init_list();
 		Dlg:show();
 	end
-
+--[[
 	local function on_export()
 		local dstfile = Iup.save_file_dlg{extension=Exname;directory='D:/';}
 		if not dstfile or dstfile=='' then return end
@@ -102,6 +103,43 @@ function pop(arg)
 		xls:Quit(0)
 		os.execute('start " " '..dstfile..'\n');
 	end
+--]]
+	local function on_export()
+		local dstfile = Iup.save_file_dlg{extension=Exname;directory='D:/';}
+		if not dstfile or dstfile=='' then return end
+		
+	
+		local name = Mat.get_selection_lin_text{mat=mat_,col=1};
+		local xls = luacom.CreateObject("Excel.Application")
+		xls.Visble = true;
+		local book = xls.Workbooks:Open(Pos..Path..name..DotExname);
+		local sheet = book.Sheets(1)
+		
+		local tempf = reload(Path..name);
+		local tbook = tempf(arg.src);
+		
+		for isheet,vsheet in ipairs(tbook) do
+			for krow,vrow in pairs(vsheet) do
+				if type(vrow)=='table' then
+					for kcol,vcol in pairs(vrow) do
+						trace_out(vcol..',');
+						sheet.Cells(krow,kcol).Value2 = vcol;
+					end
+					trace_out('\n');
+				else
+					trace_out('copy from; '..vrow..'\n');
+				end
+			end
+		end
+		
+		
+		-- sheet.Cells(3,3).Value2 = "abc"
+		
+		book:SaveAs(dstfile);
+		book:Close(0)
+		xls:Quit(0)
+		os.execute('start " " '..dstfile..'\n');
+	end
 
 	local function on_select_lin(i)
 		Mat.select_lin{mat=mat_,lin=i}
@@ -114,4 +152,6 @@ function pop(arg)
 	on_select_lin(1);
 	Key.register_k_any{dlg=Dlg,[iup.K_CR]=on_export};
 end
+
+
 
