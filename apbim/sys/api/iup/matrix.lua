@@ -61,6 +61,11 @@ function init_list(t)
 	mat.redraw = "ALL";
 end
 
+function init(t)
+	init_head(t);
+	init_list(t);
+end
+
 -- t={mat=,col=}
 function get_selection_lin_text(t)
 	local mat = t.mat;

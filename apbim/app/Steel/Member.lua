@@ -152,6 +152,8 @@ function Class:get_foucs_pt()
 	return (require"sys.geometry".Point:new(self.Points[1])+require"sys.geometry".Point:new(self.Points[2]))*0.5;
 end
 
-
+function Class:get_length()
+	return require"sys.geometry".Point:new(self.Points[1]):distance(self.Points[2]);
+end
 
 

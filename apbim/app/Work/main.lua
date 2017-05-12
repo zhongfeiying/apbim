@@ -10,6 +10,7 @@ function on_load()
 		keyword='AP.Work.Import.Lua',
 		action=Action.Import_Lua;
 		view = true,
+		frame = true;
 	}
 	MENU.add{
 		keyword='AP.Work.Export.Lua',
@@ -27,9 +28,20 @@ function on_load()
 		view = true,
 	}
 	MENU.add{
-		keyword='AP.Work.Database.Report.Section',
-		action=Action.Link_Report;
+		keyword='AP.Work.Database.Report.Selection',
+		action=Action.Link_Report_Selection;
 		view = true,
+	}
+	MENU.add{
+		keyword='AP.Work.Database.Report.View',
+		action=Action.Link_Report_View;
+		view = true,
+	}
+	MENU.add{
+		keyword='AP.Work.Database.Report.All',
+		action=Action.Link_Report_All;
+		view = true,
+		frame = true;
 	}
 end
 

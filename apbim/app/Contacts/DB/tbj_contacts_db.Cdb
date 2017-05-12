@@ -1,0 +1,11 @@
+db = {}
+db["Contacts"] = {}
+db["Contacts"]["BETTER"] = {}
+db["Contacts"]["BETTER"]["Name"] = "BETTER"
+db["Contacts"]["BETTER"]["Mail"] = ""
+db["Contacts"]["BETTER"]["Note"] = ""
+db["Contacts"]["BETTER"]["Time"] = 1476343141
+db["Contacts"]["BETTER"]["Phone"] = ""
+db["Contacts"]["BETTER"]["Group"] = "Friends"
+db["Channels"] = {}
+db["Groups"] = {}

@@ -1,0 +1,4 @@
+db = {}
+db["Contacts"] = {}
+db["Groups"] = {}
+db["Channels"] = {}

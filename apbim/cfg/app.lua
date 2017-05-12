@@ -7,10 +7,10 @@ return  {
 	'app.Snap.main';
 	'app.Graphics.main';
 	'app.Steel.main';
-	'app.Work.main';
 	'app.Model.main';
+	'app.Report.main';
+	'app.Work.main';
 	'app.sketchup.main';
 	'app.Revit.main';
 	'app.tekla.main';
-	--'app.ProjectMgr.main';
 };

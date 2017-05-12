@@ -251,6 +251,23 @@ return  {
 					};
 				};
   	 	 	};
+			{
+				name = "Report";
+				subs = {
+					{
+						name = "Selection";
+						keyword ='AP.Report.Selection';
+					};
+					{
+						name = "View";
+						keyword ='AP.Report.View';
+					};
+					{
+						name = "All";
+						keyword ='AP.Report.All';
+					};
+				};
+			};
   	 	 	{
   	 	 	 	name = "Database";
 				subs = {
@@ -261,15 +278,6 @@ return  {
 					{
 						name = "Find";
 						keyword ='AP.Work.Database.Find';
-					};
-					{
-						name = "Report";
-						subs = {
-							{
-								name = "Section";
-								keyword ='AP.Work.Database.Report.Section';
-							};
-						};
 					};
 				};
   	 	 	};
