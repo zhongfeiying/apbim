@@ -132,6 +132,11 @@ return {
 			image = 32;
 		};
 		{
+			name = 'Report';
+			keyword = 'AP.Report.All',
+			image = 33;
+		};
+		{
 			name = 'About';
 			keyword = 'AP.Help.About',
 			image = 35;

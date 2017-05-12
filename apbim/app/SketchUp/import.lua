@@ -30,7 +30,7 @@ local function turn_points(data)
 	local points = {}
 	for k,v in ipairs (data) do 
 		local t = points_[v]
-		if not t then print(v) return false end 
+		if not t then return false end 
 		table.insert(points,t)
 	end 
 	return points
@@ -141,14 +141,14 @@ function open_model(file)
 	times.loadfiletime = time2 - time1
 	-- print("loadfiletime = ",times.loadfiletime)
 	for k,v in ipairs (faces_) do 
-		 print('cur : ' .. k,'Total : ' .. #faces_)
+		-- print('cur : ' .. k,'Total : ' .. #faces_)
 		deal_add_face(v)
 	end 
 	-- require"sys.mgr".update();	
 	local time3 = os_time_()
 	times.totaltime = time3 - time1
 	-- print("totaltime = ",times.totaltime)
-	 require 'sys.table'.totrace(typenames_)
+	-- require 'sys.table'.totrace(typenames_)
 end
 
 
