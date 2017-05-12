@@ -11,7 +11,7 @@ local Iup = require'sys.iup'
 local Dir = require'sys.dir'
 local Tab = require'sys.table'
 
-local Pos = 'D:\\code\\3d\\apbim\\'
+local Pos = 'D:\\demo\\apbim\\'
 local Path = 'cfg/report/'
 local Exname = 'xls'
 local DotExname = '.'..Exname
