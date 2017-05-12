@@ -125,9 +125,9 @@ function pop(arg)
 						trace_out(vcol..',');
 						sheet.Cells(krow,kcol).Value2 = vcol;
 					end
-					trace_out('\n');
+					-- trace_out('\n');
 				else
-					trace_out('copy from; '..vrow..'\n');
+					-- trace_out('copy from; '..vrow..'\n');
 				end
 			end
 		end
