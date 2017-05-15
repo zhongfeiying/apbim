@@ -11,9 +11,8 @@ local Iup = require'sys.iup'
 local Dir = require'sys.dir'
 local Tab = require'sys.table'
 
-local Pos = 'D:\\github\\apbim\\'
-local Path = 'cfg/report/'
-local Exname = 'xls'
+local Path = 'cfg/BIM/Project'
+local Exname = 'lua'
 local DotExname = '.'..Exname
 
 
@@ -69,41 +68,6 @@ function pop(arg)
 		init_list();
 		Dlg:show();
 	end
---[[
-	local function on_export()
-		local dstfile = Iup.save_file_dlg{extension=Exname;directory='D:/';}
-		if not dstfile or dstfile=='' then return end
-		
-	
-		local name = Mat.get_selection_lin_text{mat=mat_,col=1};
-		local xls = luacom.CreateObject("Excel.Application")
-		xls.Visble = true;
-		local book = xls.Workbooks:Open(Pos..Path..name..DotExname);
-		local sheet = book.Sheets(1)
-		
-		local rule = reload(Path..name);
-		local dat = arg.src;
-		dat = Tab.filter(dat,function(k,v,t)return rule[1].Filter{k=k,v=v,t=dat} end);
-		idat = Tab.sortk(dat,function(k1,k2)return rule[1].Sort{k1=k1,k2=k2,v1=dat[k1],v2=dat[k2],t=dat} end);
-		local index = 1;
-		for i,k in ipairs(idat) do
-			local v = dat[k];
-			for col,f in pairs(rule[1].Columns) do
-				local row = rule[1].Row+index-1;
-				local val = f{k=k,v=v,t=dat,i=row};
-				-- trace_out('('..row..','..col..') = '..tostring(val)..'\n');
-				sheet.Cells(row,col).Value2 = val;
-			end
-			index = index + 1;
-		end
-		-- sheet.Cells(3,3).Value2 = "abc"
-		
-		book:SaveAs(dstfile);
-		book:Close(0)
-		xls:Quit(0)
-		os.execute('start " " '..dstfile..'\n');
-	end
---]]
 	local function on_export()
 		local dstfile = Iup.save_file_dlg{extension=Exname;directory='D:/';}
 		if not dstfile or dstfile=='' then return end
