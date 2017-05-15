@@ -13,4 +13,5 @@ return  {
 	'app.sketchup.main';
 	'app.Revit.main';
 	'app.tekla.main';
+	'app.ProjectMgr.main';
 };

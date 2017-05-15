@@ -1,3 +1,4 @@
-
-apbim/app/Revit/textures/*.bmp
-apbim/app/Contacts/dlg/
+#apbim/app/Revit/textures/*.bmp
+#apbim/app/Contacts/dlg/
+*.dll
+*.exe
