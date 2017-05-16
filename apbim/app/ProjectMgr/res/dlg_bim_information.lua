@@ -85,7 +85,7 @@ local txt_project_id_;
 local dlg_;
 
 local function init_language()
-	-- language_ = require 'sys.language'.get()
+	language_ = require 'sys.language'.get()
 	if not language_ or not language_pack_[language_] then 
 		language_ ='English'  --'English' 
 	end
