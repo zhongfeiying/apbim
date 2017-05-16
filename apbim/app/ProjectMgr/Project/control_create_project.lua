@@ -12,15 +12,21 @@ local dlg_create_project_ =  require 'app.ProjectMgr.project.dlg_create_project'
 local op_create_project_ =  require 'app.ProjectMgr.project.op_create_project'
 
 function main()
-	print('main')
 	op_create_project_.init()
 	dlg_create_project_.pop{
-		data = op_create_project_.get_data();
+		data = op_create_project_.init();
 		on_next = op_create_project_.on_next;
 		languagePack = op_create_project_.get_language_data();
 		language = op_create_project_.get_cur_language();
 	}
-	print('here')
+	-- return op_create_project_.get_data()
+end
+
+function next()
+	op_create_project_.next() 
+end
+
+function get_data()
 	return op_create_project_.get_data()
 end
 

@@ -6,10 +6,9 @@ _G[modname] = M
 package.loaded[modname] = M
 _ENV = M
 
-local require_ =  require 'app.projectmgr.require_file'
-local appMenu_ = require_.app_menu() 
-local appToolbar_ = require_.app_toolbar() 
-local appWorkspace_ = require_.app_workspace() 
+local appMenu_ =require 'app.projectmgr.interface.menu'
+local appToolbar_ = require 'app.projectmgr.interface.toolbar'
+local appWorkspace_ = require 'app.projectmgr.interface.workspace'
 
 function on_load()
 	appMenu_.on_load()

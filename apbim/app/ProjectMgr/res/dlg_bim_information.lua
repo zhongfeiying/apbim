@@ -173,8 +173,11 @@ local function init_dlg()
 end
 
 local function init_callback()
-	function btn_cancel_:action()
+	local function exit_dlg()
 		dlg_:hide()
+	end
+	function btn_cancel_:action()
+		exit_dlg()
 	end
 	
 	function btn_ok_:action()
@@ -186,7 +189,7 @@ local function init_callback()
 		return_data_.start_time = txt_start_time_.value
 		return_data_.plan_time = txt_plan_time_.value
 		return_data_.end_time = txt_end_time_.value
-		dlg_:hide()
+		exit_dlg()
 	end
 	
 	function dlg_:map_cb()
@@ -221,7 +224,6 @@ local function show()
 	dlg_:map()
 	init_data()
 	dlg_:popup()
-	-- iup.MainLoop()
 end
 
 local function set_data(data)

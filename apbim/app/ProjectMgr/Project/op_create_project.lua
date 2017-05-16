@@ -47,32 +47,43 @@ local function init_files()
 		end
 	end 
 	return t
-end 
+end
+
+local function init_data()
+	db_ = nil
+end  
 
 function init()
-	db_ = {}
+	init_data()
+	local data = {}
 	local tempt = init_files()
 	for k,v in pairs(tempt) do 
 		if type(v) =='table' and v.name then 
-			db_[v.name] = v
-			table.insert(db_,v.name)
+			data[v.name] = v
+			table.insert(data,v.name)
 		end
+	end
+	return data
+end
+
+
+
+--arg = {name,location,data_tpl}
+function on_next(arg)
+	db_ = arg 
+end
+
+function next()
+	if not db_ then return end 
+	local t = db_.data_tpl 
+	if type(t) == 'table' and t.SettingBaseInformation then 
+		local dlg_base_info = require_data_file(t.SettingBaseInformation)
+		db_.data = dlg_base_info.main()
 	end
 end
 
 function get_data()
 	return db_
-end
-
---arg = {name,location,data_tpl}
-function on_next(arg)
-	db_ = arg
-	local t = arg.data_tpl 
-	print(t,t.SettingBaseInformation)
-	if type(t) == 'table' and t.SettingBaseInformation then 
-		local dlg_base_info = require_data_file(t.SettingBaseInformation)
-		db_.data = dlg_base_info.main()
-	end
 end
 
 

@@ -23,14 +23,7 @@ function get_tree_data()
 	return {
 		{
 			attributes = {kind = 'branch',title = 'Project'};
-			{
-				{
-					attributes = {kind = 'leaf',title = 'file'};
-				};
-				{
-					attributes = {kind = 'branch',title = '11'};
-				};
-			};
+			-- userdata = {name = ,};
 		};
 	}
 end

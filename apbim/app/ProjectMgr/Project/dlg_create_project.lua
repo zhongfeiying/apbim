@@ -121,6 +121,12 @@ end
 
 local function init_callback(arg)
 	arg = arg or {}
+	local function exit_dlg()
+		dlg_:hide()
+		iup.Destroy(dlg_)
+		dlg_ = nil
+	end
+	
 	local data = arg.data or {}
 	function btn_next_:action()
 		local  selected_item = tonumber(list_template_.value)
@@ -134,12 +140,14 @@ local function init_callback(arg)
 				location = txt_location_.value;
 				data_tpl = data[selected_item] and data[data[selected_item]];
 			}
-		dlg_:hide()	
+		exit_dlg()
 		end
+		
 	end
 	
 	function btn_cancel_:action()
-		dlg_:hide()
+		-- dlg_:hide()
+		exit_dlg()
 	end
 	
 	function btn_dir_:action()
@@ -165,13 +173,10 @@ local function init_callback(arg)
 		end
 	end
 	
-	-- function list_template_:button_cb(button, pressed, x, y, status)
-		-- print(button,pressed,x,y,status)
-		-- if button == 49 and pressed == 1
-	-- end
 end
 
 local function init_data(data)
+	list_template_[1] = nil
 	if type(data) ~= 'table' then return end 
 	for k,v in ipairs (data) do 
 		list_template_.APPENDITEM  = v
@@ -199,9 +204,9 @@ function pop(arg)
 		dlg_:map()
 		init_data(arg.data)
 		dlg_:popup()
-		-- iup.MainLoop()
 	end
 	
-	if not dlg_ then init() end
+	-- if not dlg_ then init() end
+	init()
 	show()
 end
