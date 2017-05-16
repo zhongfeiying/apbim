@@ -1,4 +1,12 @@
-_ENV = module(...,ap.adv)
+local ipairs = ipairs
+local pairs = pairs
+local reload = reload
+local require = require
+local string = string
+local table = table
+local type = type
+
+_ENV = module(...)
 
 require'luacom'
 
@@ -38,7 +46,7 @@ local Dlg = iup.dialog{
 local fields_ = {
 	{
 		Width = 100;
-		Head = "Excel";
+		Head = "Name";
 		Text = function(k,v,s)
 			return string.sub(k,1,-2-string.len(v));
 		end
@@ -49,14 +57,13 @@ local fields_ = {
 		Text = function(k,v,s)
 			local name = string.sub(k,1,-2-string.len(v));
 			return reload(Path..'/'..name).readme();
-			-- return ""
 		end
 	};
 };
 
 function pop(arg)
 
-	local function init_list()
+	local function init_mat()
 		local all = Dir.get_name_list(Path);
 		if type(all)~='table' then return end
 		dat = Tab.filter(all,function(k,v,t) if v==Exname then return true end end)
@@ -65,11 +72,11 @@ function pop(arg)
 	end
 
 	local function init()
-		init_list();
+		init_mat();
 		Dlg:show();
 	end
 	local function on_start()
-		local name = Mat.get_selected_text{mat=mat_,col=1};
+		local name = Mat.get_selection_lin_text{mat=mat_,col=1};
 		reload(Path..'/'..name).start();
 		Dlg:hide();
 	end
