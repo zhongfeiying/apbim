@@ -168,6 +168,7 @@
 			Class:init_node_data(data,id)
 			-- 初始化 iup.tree 中某个文件夹节点显示的内容。data须符合db结构，id为指定节点的id。
 ]]
+
 local require = require
 local type = type
 local ipairs = ipairs
