@@ -17,10 +17,10 @@ local DotExname = '.'..Exname
 
 
 local mat_ = iup.matrix{READONLY="YES",rastersize="350X480"};
-local export_ = iup.button{title="Export",rastersize="60X"};
+local start_ = iup.button{title="Start",rastersize="60X"};
 
 local Dlg = iup.dialog{
-	title = "Report";
+	title = "BIM";
 	margin = "5x5";
 	alignment = "aRight";
 	rastersize = "480X620";
@@ -29,7 +29,7 @@ local Dlg = iup.dialog{
 			title = 'Template';
 			iup.vbox{
 				iup.hbox{mat_};
-				iup.hbox{iup.fill{},export_};
+				iup.hbox{iup.fill{},start_};
 			};
 		};
 	};
@@ -48,8 +48,8 @@ local fields_ = {
 		Head = "Remark";
 		Text = function(k,v,s)
 			local name = string.sub(k,1,-2-string.len(v));
-			-- return require(Path..name).Remark
-			return ""
+			return reload(Path..'/'..name).readme();
+			-- return ""
 		end
 	};
 };
@@ -68,53 +68,22 @@ function pop(arg)
 		init_list();
 		Dlg:show();
 	end
-	local function on_export()
-		local dstfile = Iup.save_file_dlg{extension=Exname;directory='D:/';}
-		if not dstfile or dstfile=='' then return end
-		
-	
-		local name = Mat.get_selection_lin_text{mat=mat_,col=1};
-		local xls = luacom.CreateObject("Excel.Application")
-		xls.Visble = true;
-		local book = xls.Workbooks:Open(Pos..Path..name..DotExname);
-		local sheet = book.Sheets(1)
-		
-		local tempf = reload(Path..name);
-		local tbook = tempf(arg.src);
-		
-		for isheet,vsheet in ipairs(tbook) do
-			for krow,vrow in pairs(vsheet) do
-				if type(vrow)=='table' then
-					for kcol,vcol in pairs(vrow) do
-						trace_out(vcol..',');
-						sheet.Cells(krow,kcol).Value2 = vcol;
-					end
-					trace_out('\n');
-				else
-					trace_out('copy from; '..vrow..'\n');
-				end
-			end
-		end
-		
-		
-		-- sheet.Cells(3,3).Value2 = "abc"
-		
-		book:SaveAs(dstfile);
-		book:Close(0)
-		xls:Quit(0)
-		os.execute('start " " '..dstfile..'\n');
+	local function on_start()
+		local name = Mat.get_selected_text{mat=mat_,col=1};
+		reload(Path..'/'..name).start();
+		Dlg:hide();
 	end
 
 	local function on_select_lin(i)
 		Mat.select_lin{mat=mat_,lin=i}
 	end
 
-	function export_:action()on_export()end
+	function start_:action()on_start()end
 	function mat_:click_cb(lin,col,str)on_select_lin()end
 	
 	init();
 	on_select_lin(1);
-	Key.register_k_any{dlg=Dlg,[iup.K_CR]=on_export};
+	Key.register_k_any{dlg=Dlg,[iup.K_CR]=on_start};
 end
 
 
