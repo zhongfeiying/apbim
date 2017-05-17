@@ -7,7 +7,7 @@ local reload = reload
 _ENV = module(...)
 
 local Mgr = require'sys.mgr'
-local Dlg = reload'app.BIM.dlg'
+local Dlg = require'app.BIM.dlg'
 
 function New()
 	Dlg.pop();

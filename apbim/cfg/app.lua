@@ -1,4 +1,5 @@
 return  {
+	'app.BIM.main';
 	'app.Project.main';
 	'app.View.main';
 	'app.Show.main';
