@@ -70,8 +70,19 @@ local function init_controls(language)
 		list_template_;
 		title = language.frame_list[cur_];
 	}
-	lab_info_ = iup.label{expand = 'YES',ALIGNMENT='ALEFT:ATOP',fontsize = 12,multiline = 'yes',wordwrap = 'yes'}
-	lab_image_ = iup.label{rastersize = '200x200';ALIGNMENT='ACENTER:ACENTER',IMAGE ='yes'}
+	lab_info_ = iup.label{
+		expand = 'YES',
+		ALIGNMENT='ALEFT:ATOP',
+		fontsize = 12,
+		multiline = 'yes',
+		wordwrap = 'yes',
+		ellipsis = 'yes';	
+	}
+	lab_image_ = iup.label{
+		rastersize = '200x200';
+		ALIGNMENT='ACENTER:ACENTER',
+		IMAGE ='yes'
+	}
 	frame_info_ = iup.frame{
 		iup.vbox{
 			lab_info_;
