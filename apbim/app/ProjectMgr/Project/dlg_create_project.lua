@@ -86,13 +86,13 @@ local function init_controls(language)
 	frame_info_ = iup.frame{
 		iup.vbox{
 			lab_info_;
-			iup.label{SEPARATOR  = 'HORIZONTAL'};
-			iup.frame{
-				lab_image_;
-				bgcolor = '255 255 255';
-				title =  language.frame_image[cur_];
-			};
-			
+		--	iup.label{SEPARATOR  = 'HORIZONTAL'};
+			--iup.frame{
+			lab_image_;
+		--		bgcolor = '255 255 255';
+		--		title =  language.frame_image[cur_];
+		--	};
+			margin = '5x10';
 		};
 		title = language.frame_info[cur_];
 	}
