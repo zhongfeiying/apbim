@@ -38,7 +38,7 @@ function on_load()
 		name='User.Login',
 		frame = true,
 		view = true,
-		languages = get_languages('Login');
+	--	languages = get_languages('Login');
 	}
 	menu_.add{
 		keyword = 'ApBIM.User.Logout';
@@ -46,7 +46,7 @@ function on_load()
 		name='User.Logout',
 		frame = true,
 		view = true,
-		languages = get_languages('Logout');
+	--	languages = get_languages('Logout');
 	}
 	menu_.add{
 		keyword = 'ApBIM.User.Change Password';
@@ -54,7 +54,7 @@ function on_load()
 		name='User.Change Password',
 		frame = true,
 		view = true,
-		languages = get_languages('Change Password');
+	--	languages = get_languages('Change Password');
 	}
 end
 
