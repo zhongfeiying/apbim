@@ -81,6 +81,11 @@ return function(dat)
 		cols[3] = v.Mat or "";
 		cols[4] = v.Count or 1;
 		cols[5] = type(v.get_length)=='function' and v:get_length() or 0;
+		cols[6] = type(v.get_length)=='function' and v:get_length() * (v.Count or 0) or 0;
+		cols[7] = v.Weight or 0;
+		cols[8] = (v.Weight or 0) * (v.Count or 0);
+		cols[9] = v.Price or 0;
+		cols[10] = (v.Price or 0) * (v.Count or 0);
 		row = row + 1;
 	end
 	return book;

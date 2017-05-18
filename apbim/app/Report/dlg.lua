@@ -122,7 +122,7 @@ function pop(arg)
 			for krow,vrow in pairs(vsheet) do
 				if type(vrow)=='table' then
 					for kcol,vcol in pairs(vrow) do
-						trace_out(vcol..',');
+						-- trace_out(vcol..',');
 						sheet.Cells(krow,kcol).Value2 = vcol;
 					end
 					-- trace_out('\n');
