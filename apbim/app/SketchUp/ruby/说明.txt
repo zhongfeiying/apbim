@@ -1,1 +1,0 @@
-默认生成文件：D:\sketchup.lua
