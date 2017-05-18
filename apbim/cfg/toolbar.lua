@@ -1,4 +1,76 @@
-return {}
+return {
+	{
+		bmpname = 'cfg/bmp/Project.bmp';
+		{
+			name = 'User Login';
+			keyword = 'ApBIM.User.Login';
+			image = 36;
+		};
+		{
+			name = 'User Logout';
+			keyword = 'ApBIM.User.Logout';
+			image = 37;
+		};
+		{
+			name = 'Change Password';
+			keyword = 'ApBIM.User.Change Password';
+			image = 38;
+		};
+		{};
+		{
+			name = 'New Project';
+			keyword = 'AP.Project.New',
+			image = 1;
+		};
+		{
+			name = 'Open Project';
+			keyword = 'AP.Project.Open',
+			image = 2;
+		};
+		{
+			name = 'Save Project';
+			keyword = 'AP.Project.Save',
+			image = 3;
+		};
+		{
+			name = 'Statistics';
+			keyword = 'AP.Project.Save',
+			image = 39;
+		};
+		{};
+		{
+			name = 'Property';
+			keyword = 'AP.Edit.Property',
+			image = 25;
+		};
+		{
+			name = 'Copy';
+			keyword = 'AP.Edit.Copy',
+			image = 26;
+		};
+		{
+			name = 'Move';
+			keyword = 'AP.Edit.Move',
+			image = 27;
+		};
+		{
+			name = 'Del';
+			keyword = 'AP.Edit.Del',
+			image = 28;
+		};
+		{};
+		{
+			name = 'New View';
+			keyword = 'AP.View.New',
+			image = 6;
+		};
+		{
+			name = 'Centered Show';
+			keyword = 'AP.View.Mode.Default',
+			image = 10;
+		};
+	};
+}
 --[==[
 return {
 	{
