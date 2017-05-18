@@ -9,8 +9,8 @@ local language_list_ = {
 	['English'] = true;
 	['Chinese'] = true;
 }
---local language_ = 'Chinese'--'English'
-local language_ ='English'
+local language_ = 'Chinese'
+--local language_ ='English'
 
 function set(language)
 	if language_list_[language] then 
