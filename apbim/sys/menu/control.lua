@@ -3,7 +3,7 @@ local trace_out = trace_out;
 local ipairs = ipairs;
 local table = table;
 local string = string
-
+local print = print
 local add_menu = add_menu;
 local sub_menu = sub_menu
 local get_submenu = get_submenu
@@ -13,8 +13,23 @@ local MF_POPUP = MF_POPUP;
 local MF_SEPARATOR = MF_SEPARATOR;
 
 local ID_MGR = require "sys.res.id_mgr";
-
+local language_ = require 'sys.language'
 _ENV = module(...)
+local cur_language_;
+local menus_;
+local function init_language()
+	cur_language_ = language_.get() or 'English'
+end
+
+local function set_menus_data(menus)
+	menus_ = menus
+end
+
+local function get_menu_title(keyword)
+	if not menus_ or not menus_[keyword]  then return end 
+	local title =  menus_[keyword].languages[cur_language_]
+	return title
+end
 
 local function create_items(data,items,level)
 	local names,pos;
@@ -51,7 +66,7 @@ local function create_items(data,items,level)
 			if v.name and v.name ~= '' then 
 				local sys_id = ID_MGR.new_id();
 				ID_MGR.map(sys_id,v.keyword);
-				table.insert(items,{name = v.name,id = sys_id})
+				table.insert(items,{name = get_menu_title(v.keyword) or v.name,id = sys_id})
 			else 
 				table.insert(items,{name = '' ,flags =  MF_SEPARATOR })
 			end 
@@ -63,6 +78,8 @@ end
 function create_menus(styles,menus)
 	if type(styles)~='table' then return end
 	if type(menus)~='table' then return end	
+	init_language()
+	set_menus_data(menus)
 	ID_MGR.set_menus(menus);
 	create_items(styles);
 end

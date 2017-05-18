@@ -10,6 +10,8 @@ local menu_ = require'sys.menu'
 local toolbar_ = require'sys.toolbar'
 local statusbar_ = require'sys.statusbar'
 local workspace_ = require 'sys.workspace'
+local login_dlg_ = require 'sys.interface.login_dlg'
+-- local login_dlg_ = require 'app.LoginPro.main'
 function load()
 	menu_.init();
 	toolbar_.init();
@@ -27,7 +29,18 @@ function init()
 	statusbar_.init();
 end
 
-load();
-init();
+function login_ok()
+	
+	load();
+	init();
+end
+
+function login()	
+	login_ok()
+	--login_dlg_.pop{on_ok = login_ok}
+end
+
+login()
+
 --require"sys.dock".create();
 

@@ -1,3 +1,23 @@
+return {
+	{
+		name = 'Login';
+		subs = {
+			{
+				name = 'Login';
+				keyword = 'ApBIM.User.Login';
+			};
+			{
+				name = 'Logout';
+				keyword = 'ApBIM.User.Logout';
+			};
+			{
+				name = 'Change Password';
+				keyword = 'ApBIM.User.Change Password';
+			};
+		};
+	};
+}
+--[==[
 return  {
    	{
   	 	name = "File";
@@ -325,3 +345,4 @@ return  {
   	 	};
   	};
 };
+--]==]

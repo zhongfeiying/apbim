@@ -1,3 +1,5 @@
+return {}
+--[==[
 return {
 	{
 		bmpname = 'cfg/bmp/toolbar1.bmp';
@@ -192,3 +194,4 @@ return {
 		};
 	};
 };
+--]==]

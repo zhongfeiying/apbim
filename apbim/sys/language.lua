@@ -9,6 +9,7 @@ local language_list_ = {
 	['English'] = true;
 	['Chinese'] = true;
 }
+--local language_ = 'Chinese'--'English'
 local language_ ='English'
 
 function set(language)

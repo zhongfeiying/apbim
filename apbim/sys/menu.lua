@@ -14,6 +14,5 @@ function add(t)
 end
 
 function update()
-	style_.update();
+	style_.update()
 end
-
