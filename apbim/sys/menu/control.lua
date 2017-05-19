@@ -66,7 +66,8 @@ local function create_items(data,items,level)
 			if v.name and v.name ~= '' then 
 				local sys_id = ID_MGR.new_id();
 				ID_MGR.map(sys_id,v.keyword);
-				table.insert(items,{name = get_menu_title(v.keyword) or v.name,id = sys_id})
+				--table.insert(items,{name = get_menu_title(v.keyword) or v.name,id = sys_id})
+				table.insert(items,{name =  v.name,id = sys_id})
 			else 
 				table.insert(items,{name = '' ,flags =  MF_SEPARATOR })
 			end 
@@ -78,8 +79,8 @@ end
 function create_menus(styles,menus)
 	if type(styles)~='table' then return end
 	if type(menus)~='table' then return end	
-	init_language()
-	set_menus_data(menus)
+	--init_language()
+	--set_menus_data(menus)
 	ID_MGR.set_menus(menus);
 	create_items(styles);
 end

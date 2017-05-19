@@ -62,7 +62,7 @@ function pop()
 					user.password = password;
 					dlg:hide();
 				else
-					iup.Alarm("Warning","Username already registered") 
+					iup.Message("Warning","Username already registered") 
 				end
 			end
 		}

@@ -92,6 +92,7 @@ function pop(t)
 
 	local function init()
 		init_list()
+		password_txt.value = ''
 	end
 	
 	local function on_ok()
@@ -99,9 +100,13 @@ function pop(t)
 	end
 	local function on_cancel()
 		dlg:hide();
+		if type(t.on_cancel) == 'function' then 
+			t.on_cancel()
+		end
 	end
 	function register_btn:action()
-		local user = require'sys.interface.register_dlg'.pop();
+		--local user = require'sys.interface.register_dlg'.pop();
+		local user = require'app.LoginPro.dlg_register'.pop();
 		username_txt.value = user.name;
 		password_txt.value = user.password;
 	end
@@ -112,6 +117,9 @@ function pop(t)
 		on_cancel();
 	end
 	
+	function dlg:close_cb()
+		on_cancel();
+	end
 	-- local cbfs={};
 	-- cbfs[iup.K_CR] = on_ok;
 	-- function dlg:k_any(n)

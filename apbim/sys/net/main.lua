@@ -394,7 +394,7 @@ end
 function cmds.login(content,line)
 	-- trace_out("line = " .. line .. "\n")
 	local msg = string.match(line,"([^\r\n]*)\r\n")
-	-- trace_out("login:" .. msg .. "\r\n")
+	trace_out("login:" .. msg .. "\r\n")
 	require'sys.net.user'.endof_login(msg)
 	-- on_hubquit(content)
 end
@@ -447,6 +447,7 @@ local function content()
 	if ct_ and cs[ct_] then return ct_ end
 -- require'sys.str'.totrace('content()\n');
 	local cfg = require"sys.io".read_file{file="cfg/net.lua"};
+	
 	local ip = cfg and cfg.ip or "www.apcad.com";
 	local port = cfg and cfg.port or 8000;
 	ct_ = hub_connect(ip,port);
@@ -509,8 +510,8 @@ function get_file(name,path)
 end
 
 function user_login(user,password)
-	-- local str = "login\r\n".. user .. "\r\n".. password .. "\r\n";
-	local str = "auth_soft\r\n".. user .. "\r\n".. password .. "\r\n" .. "apcad" .. "\r\n";
+	local str = "login\r\n".. user .. "\r\n".. password .. "\r\n";
+	--local str = "auth_soft\r\n".. user .. "\r\n".. password .. "\r\n" .. "apcad" .. "\r\n";
 	local s = string.len(str) .. "\r\n" .. str
 	local ct = content();
 	hub_send(ct,s)	
