@@ -55,6 +55,48 @@ return {
 				name = 'Delete';
 			};
 		};
+	};	
+	{
+		name = 'View';
+		subs = {
+			{
+				name = 'New';
+			};
+			{
+				name = 'Centered Show';
+			};
+		};
+	};
+	{
+		name = 'Model';
+		subs = {};
+	};
+	{
+		name = 'File';
+		subs = {};
+	};
+	{
+		name = 'Cooperate';
+		subs = {};
+	};
+	{
+		name = 'Family';
+		subs = {
+			{
+				name = 'System';
+			};
+			{
+				name = 'Company/Personal';
+			};
+		};
+	};
+	{
+		name ='Window';
+		subs = {};
+	};
+	{
+		name ='Help';
+		subs = {};
 	};
 }
 --[==[
