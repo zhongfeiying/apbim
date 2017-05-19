@@ -14,5 +14,6 @@ return  {
 	--'app.sketchup.main';
 	--'app.Revit.main';
 	--'app.tekla.main';
-	'app.LoginPro.main';
+	--'app.LoginPro.main';
+	'app.ProjectMgr.main';
 };
