@@ -1,6 +1,6 @@
 return {
 	{
-		name = 'Login';
+		name = 'User';
 		subs = {
 			{
 				name = 'Login';
@@ -13,6 +13,46 @@ return {
 			{
 				name = 'Change Password';
 				keyword = 'ApBIM.User.Change Password';
+			};
+		};
+	};
+	{
+		name = 'Project';
+		subs = {
+			{
+				name = "New";
+		--		keyword ='AP.Project.New';
+			};
+			{
+				name = "Open";
+		--		keyword ='AP.Project.Open';
+			};
+			{
+				name = "Save";
+		--		keyword ='AP.Project.Save';
+			};
+			{};
+			{
+				name = "Statistics";
+		--		keyword ='AP.Project.Save';
+			};
+		};
+	};
+	{
+		name = 'Edit';
+		subs = {
+			{
+				name = 'Properties';
+			};
+			{};
+			{
+				name = 'Copy';
+			};
+			{
+				name = 'Move';
+			};
+			{
+				name = 'Delete';
 			};
 		};
 	};
