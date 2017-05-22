@@ -12,7 +12,7 @@ require 'iupluacontrols'
 
 local workspace_ = require 'sys.workspace'
 local tree_ = require 'app.projectmgr.workspace.tree_control'
-local tree_project_list_ =  require 'app.projectmgr.workspace.tree_project_list'
+local tree_project_list_ =  require 'app.projectmgr.workspace.tree_workspace'
 local project_list_;
 
 
