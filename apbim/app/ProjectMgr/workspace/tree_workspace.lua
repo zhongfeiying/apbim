@@ -98,9 +98,7 @@ function turn_tree_data(data)
 	local function deal_data(db)
 		local tempt = {}
 		for k,v in ipairs (db) do 
-			print(v.index)
 			if type(v) == 'table' and type(v.index) == 'string' and type(data[v.index]) == 'table' then 
-				print('=======true')
 				local t = {}
 				t.attributes = init_node_attributes( v , data)
 				if #v ~= 0 then 
