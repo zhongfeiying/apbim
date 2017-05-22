@@ -69,14 +69,23 @@ function set_tree_data(data)
 end
 
 local function init_other_attributes(attr,data)
-	local image,color,lbtn,rbtn;
+	local color,lbtn,rbtn;
+	local image_open,image_close;
 	if data.type == 'user' then 
 		image_open = 'app/ProjectMgr/res/user_open.bmp'
 		image_close = 'app/ProjectMgr/res/user_close.bmp'
 	elseif data.type == 'projects' then 
+		image_open = 'app/ProjectMgr/res/user_open.bmp'
+		image_close = 'app/ProjectMgr/res/user_close.bmp'
 	elseif data.type == 'contacts' then 
+		image_open = 'app/ProjectMgr/res/user_open.bmp'
+		image_close = 'app/ProjectMgr/res/user_close.bmp'
 	elseif data.type == 'recycle' then 
+		image_open = 'app/ProjectMgr/res/recycle_have.bmp'
+		image_close = 'app/ProjectMgr/res/recycle_have.bmp'
 	elseif data.type == 'private' then 
+		image_open = 'app/ProjectMgr/res/private_open.bmp'
+		image_close = 'app/ProjectMgr/res/private_close.bmp'
 	end 
 	attr.image ={open =image_open,close =  image_close} 
 	attr.color = color
@@ -109,9 +118,7 @@ function turn_tree_data(data)
 		end 
 		return tempt 
 	end
-	require 'sys.table'.totrace(data)
 	data_ = deal_data(data) or {}
-	require 'sys.table'.totrace(data_)
 end
 
 function get_tree_data()
