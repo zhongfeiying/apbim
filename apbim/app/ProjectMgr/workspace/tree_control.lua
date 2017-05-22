@@ -80,3 +80,22 @@ function change(arg)
 end
 
 
+function turn_tree_data(data)
+	if type(cmd_.turn_tree_data) == 'function' then 
+		return cmd_.turn_tree_data(data)
+	end
+end
+
+function set_tree_data(data)
+	if type(cmd_.set_tree_data) == 'function' then 
+		return cmd_.set_tree_data(data)
+	end
+end
+
+function get_tree_data()
+	if type(cmd_.get_tree_data) == 'function' then 
+		return cmd_.get_tree_data()
+	end
+end
+
+

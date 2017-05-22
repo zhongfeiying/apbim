@@ -1,19 +1,19 @@
 --[[
-æ–‡ä»¶ç›¸å…³è¯´æ˜ï¼š
-	å¼•ç”¨èµ„æºï¼š
-		require "iuplua"ï¼ˆIUP LIBï¼‰
-		require "iupluacontrols"ï¼ˆIUP LIBï¼‰
-		require "iupluaimglibï¼ˆIUP LIBï¼‰
-	æ³¨æ„ï¼š
-		æœ¬æ–‡ä»¶ç”¨äºå¿«é€Ÿå®šåˆ¶iup.tree,åœ¨æœ¬æ–‡ä»¶ä¸­æä¾›äº†ä¸€äº›ç›¸å¯¹ç®€å•çš„æ¥å£ï¼ˆå®è´¨æ˜¯è½¬æ‰äº†iup.treeï¼‰ç”¨æ¥æ“ä½œtreeæ§ä»¶ï¼Œå€¼çš„è®¾ç½®éœ€è¦å‚è€ƒiupä¸­å¯¹treeçš„ç›¸å…³å±æ€§è®¾ç½®æ–¹æ³•ã€‚
-		å¯¹äº iup.tree å…ƒç´ çš„å±æ€§è¿›è¡Œè®¾ç½®ï¼Œè¯·åŠ¡å¿…æŒ‰ç…§è§„èŒƒè®¾ç½®ï¼Œå¦åˆ™å±æ€§ä¸ä¼šå‘ç”Ÿä½œç”¨æˆ–è€…å‡ºç°æœªé¢„æœŸçš„ç»“æœã€‚å¯ä»¥å®šä½åˆ°ç›¸å…³æ¥å£æŸ¥çœ‹ä½¿ç”¨ç¤ºä¾‹ã€‚
-		ä¸ºäº†å¿«é€Ÿå®šåˆ¶å¼€å‘ï¼Œæœ¬æ–‡ä»¶ä¸­ä¹Ÿæä¾›äº†ä¸€äº›ç®€å•çš„æ¥å£ä¸‹é¢ä¼šå¯¹å…¶è¿›è¡Œåˆ†ç±»ä»‹ç»ã€‚
-		ä¸ºäº†ä¾¿äºç†è§£ä½¿ç”¨ï¼Œåœ¨æ¯ä¸ªå…·ä½“æ¥å£å®ç°å‡½æ•°çš„ä½ç½®éƒ½ä¼šæœ‰ä¸€ä¸ªç®€å•çš„è°ƒç”¨ç¤ºä¾‹ï¼Œæ–¹ä¾¿å­¦ä¹ ã€‚ä½¿ç”¨è€…ä¹Ÿå¯å€Ÿæ­¤ä¸iup.treeä¸­çš„å±æ€§è¿›è¡ŒéªŒè¯å­¦ä¹ ã€‚
-	dataæ•°æ®ç»“æ„ï¼š
+ÎÄ¼şÏà¹ØËµÃ÷£º
+	ÒıÓÃ×ÊÔ´£º
+		require "iuplua"£¨IUP LIB£©
+		require "iupluacontrols"£¨IUP LIB£©
+		require "iupluaimglib£¨IUP LIB£©
+	×¢Òâ£º
+		±¾ÎÄ¼şÓÃÓÚ¿ìËÙ¶¨ÖÆiup.tree,ÔÚ±¾ÎÄ¼şÖĞÌá¹©ÁËÒ»Ğ©Ïà¶Ô¼òµ¥µÄ½Ó¿Ú£¨ÊµÖÊÊÇ×ªµôÁËiup.tree£©ÓÃÀ´²Ù×÷tree¿Ø¼ş£¬ÖµµÄÉèÖÃĞèÒª²Î¿¼iupÖĞ¶ÔtreeµÄÏà¹ØÊôĞÔÉèÖÃ·½·¨¡£
+		¶ÔÓÚ iup.tree ÔªËØµÄÊôĞÔ½øĞĞÉèÖÃ£¬ÇëÎñ±Ø°´ÕÕ¹æ·¶ÉèÖÃ£¬·ñÔòÊôĞÔ²»»á·¢Éú×÷ÓÃ»òÕß³öÏÖÎ´Ô¤ÆÚµÄ½á¹û¡£¿ÉÒÔ¶¨Î»µ½Ïà¹Ø½Ó¿Ú²é¿´Ê¹ÓÃÊ¾Àı¡£
+		ÎªÁË¿ìËÙ¶¨ÖÆ¿ª·¢£¬±¾ÎÄ¼şÖĞÒ²Ìá¹©ÁËÒ»Ğ©¼òµ¥µÄ½Ó¿ÚÏÂÃæ»á¶ÔÆä½øĞĞ·ÖÀà½éÉÜ¡£
+		ÎªÁË±ãÓÚÀí½âÊ¹ÓÃ£¬ÔÚÃ¿¸ö¾ßÌå½Ó¿ÚÊµÏÖº¯ÊıµÄÎ»ÖÃ¶¼»áÓĞÒ»¸ö¼òµ¥µÄµ÷ÓÃÊ¾Àı£¬·½±ãÑ§Ï°¡£Ê¹ÓÃÕßÒ²¿É½è´ËÓëiup.treeÖĞµÄÊôĞÔ½øĞĞÑéÖ¤Ñ§Ï°¡£
+	dataÊı¾İ½á¹¹£º
 		db = {
 			{
-				attributes = {title,kind,data,image,color,state,...};--è¯¥å±æ€§è¡¨æ§åˆ¶èŠ‚ç‚¹çš„æ˜¾ç¤ºçŠ¶æ€
-				{--æ–‡ä»¶å¤¹å†…å­æ–‡ä»¶
+				attributes = {title,kind,data,image,color,state,...};--¸ÃÊôĞÔ±í¿ØÖÆ½ÚµãµÄÏÔÊ¾×´Ì¬
+				{--ÎÄ¼ş¼ĞÄÚ×ÓÎÄ¼ş
 					{attributes ={};};
 					{attributes ={};};
 					{	
@@ -21,155 +21,155 @@
 						attributes ={};
 						{
 						
-						}ï¼›
+						}£»
 					};
 				}
 			};
 		}
 
 		
-	å¯¹è±¡åŒ…å«çš„å±æ€§ï¼š
-		tree ï¼ˆå¿…æœ‰ï¼‰ï¼šiup.tree å…ƒç´ åˆ›å»ºçš„å¯¹è±¡
-		data : è¦æ˜¾ç¤ºåœ¨ iup.tree ä¸­çš„æ•°æ®ï¼ˆdbç»“æ„ï¼‰ã€‚ä¹Ÿå¯ä»¥åœ¨ç•Œé¢ç»˜åˆ¶åä½¿ç”¨Class:init_tree_data(data) æ§åˆ¶treeçš„æ˜¾ç¤ºå†…å®¹ã€‚
-		lbtn ï¼š å¤„ç†å•å‡»å·¦é”®æ“ä½œ
-		dlbtn ï¼š å¤„ç†åŒå‡»å·¦é”®æ“ä½œ
-		rbtn ï¼š å¤„ç†å•å‡»å³é”®æ“ä½œ
+	¶ÔÏó°üº¬µÄÊôĞÔ£º
+		tree £¨±ØÓĞ£©£ºiup.tree ÔªËØ´´½¨µÄ¶ÔÏó
+		data : ÒªÏÔÊ¾ÔÚ iup.tree ÖĞµÄÊı¾İ£¨db½á¹¹£©¡£Ò²¿ÉÒÔÔÚ½çÃæ»æÖÆºóÊ¹ÓÃClass:init_tree_data(data) ¿ØÖÆtreeµÄÏÔÊ¾ÄÚÈİ¡£
+		lbtn £º ´¦Àíµ¥»÷×ó¼ü²Ù×÷
+		dlbtn £º ´¦ÀíË«»÷×ó¼ü²Ù×÷
+		rbtn £º ´¦Àíµ¥»÷ÓÒ¼ü²Ù×÷
 		
-	å¯¹è±¡åŒ…å«çš„æ–¹æ³•ï¼š	
-		å°è£…çš„æ¥å£ï¼šï¼ˆè®¾ç½®çš„å€¼éœ€è¦æ»¡è¶³iup.treeçš„å±æ€§ç”¨æ³•ï¼Œè·å¾—çš„å€¼åŒæ ·å¦‚æ­¤ã€‚ï¼‰
+	¶ÔÏó°üº¬µÄ·½·¨£º	
+		·â×°µÄ½Ó¿Ú£º£¨ÉèÖÃµÄÖµĞèÒªÂú×ãiup.treeµÄÊôĞÔÓÃ·¨£¬»ñµÃµÄÖµÍ¬ÑùÈç´Ë¡££©
 			
 			Class:set_leaf_image(str)	
-			--è¯·å‚è€ƒiup.treeä¸­ IMAGELEAF å±æ€§ã€‚è®¾ç½®treeä¸­æ‰€æœ‰ leafï¼ˆæ–‡ä»¶ï¼‰èŠ‚ç‚¹çš„å›¾ç‰‡å±æ€§ã€‚
+			--Çë²Î¿¼iup.treeÖĞ IMAGELEAF ÊôĞÔ¡£ÉèÖÃtreeÖĞËùÓĞ leaf£¨ÎÄ¼ş£©½ÚµãµÄÍ¼Æ¬ÊôĞÔ¡£
 			
 			Class:set_branch_image(arg) 
-			--è¯·å‚è€ƒiup.treeä¸­ IMAGEBRANCHEXPANDED å’Œ IMAGEBRANCHCOLLAPSED å±æ€§ã€‚è®¾ç½®treeä¸­æ‰€æœ‰branchï¼ˆæ–‡ä»¶å¤¹ï¼‰èŠ‚ç‚¹çš„å±•å¼€ã€é—­åˆæ—¶çš„å›¾ç‰‡å±æ€§ã€‚
-			--arg æ—¶ä¸€ä¸ªè¡¨ç»“æ„æ•°æ®ã€‚arg = {expanded = ""ï¼Œcollapsed = ''}ã€‚expandedå¯¹åº”çš„å€¼æ§åˆ¶å±•å¼€æ—¶çš„å›¾ç‰‡ï¼Œcollapsedå¯¹åº”çš„å€¼åˆ™ç›¸åã€‚
+			--Çë²Î¿¼iup.treeÖĞ IMAGEBRANCHEXPANDED ºÍ IMAGEBRANCHCOLLAPSED ÊôĞÔ¡£ÉèÖÃtreeÖĞËùÓĞbranch£¨ÎÄ¼ş¼Ğ£©½ÚµãµÄÕ¹¿ª¡¢±ÕºÏÊ±µÄÍ¼Æ¬ÊôĞÔ¡£
+			--arg Ê±Ò»¸ö±í½á¹¹Êı¾İ¡£arg = {expanded = ""£¬collapsed = ''}¡£expanded¶ÔÓ¦µÄÖµ¿ØÖÆÕ¹¿ªÊ±µÄÍ¼Æ¬£¬collapsed¶ÔÓ¦µÄÖµÔòÏà·´¡£
 			
 			Class:set_fgcolor(str)
-			--è¯·å‚è€ƒiup.treeä¸­ FGCOLOR å±æ€§ã€‚ç”¨æ¥è®¾ç½® iup.tree çš„å‰æ™¯è‰²
+			--Çë²Î¿¼iup.treeÖĞ FGCOLOR ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ iup.tree µÄÇ°¾°É«
 			
 			Class:set_bgcolor(str)
-			--è¯·å‚è€ƒiup.treeä¸­ BGCOLOR å±æ€§ã€‚ç”¨æ¥è®¾ç½® iup.tree çš„èƒŒæ™¯è‰²
+			--Çë²Î¿¼iup.treeÖĞ BGCOLOR ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ iup.tree µÄ±³¾°É«
 			
 			Class:set_hlcolor(str) 
-			--è¯·å‚è€ƒiup.treeä¸­ HLCOLOR å±æ€§ã€‚ç”¨æ¥è®¾ç½® iup.tree çš„è¢«æ ‡è®°èŠ‚ç‚¹çš„é¢œè‰²
+			--Çë²Î¿¼iup.treeÖĞ HLCOLOR ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ iup.tree µÄ±»±ê¼Ç½ÚµãµÄÑÕÉ«
 				
 			Class:set_rastersize(str) 
-			--è¯·å‚è€ƒiup.treeä¸­ RASTERSIZE å±æ€§ã€‚ç”¨æ¥è®¾ç½® iup.tree çš„æ§ä»¶åœ¨åƒç´ ä¸Šçš„å¤§å°ï¼ˆä»¥åƒç´ ä¸ºå•ä½ï¼‰ã€‚
+			--Çë²Î¿¼iup.treeÖĞ RASTERSIZE ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ iup.tree µÄ¿Ø¼şÔÚÏñËØÉÏµÄ´óĞ¡£¨ÒÔÏñËØÎªµ¥Î»£©¡£
 			
 			Class:set_size(str) 
-			--è¯·å‚è€ƒiup.treeä¸­ SIZE å±æ€§ã€‚ç”¨æ¥è®¾ç½® iup.tree çš„æ§ä»¶å¤§å°ï¼ˆä»¥å­—ç¬¦ä¸ºå•ä½ï¼‰ã€‚
+			--Çë²Î¿¼iup.treeÖĞ SIZE ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ iup.tree µÄ¿Ø¼ş´óĞ¡£¨ÒÔ×Ö·ûÎªµ¥Î»£©¡£
 			
 			Class:set_tabtitle(str) 
-			--è¯·å‚è€ƒiup.tree ä¸­ TABTITLE å±æ€§ã€‚ç”¨æ¥è®¾ç½®å½“treeæ§ä»¶æ‰€åœ¨é¡µï¼ˆiup.tabï¼‰çš„æ ‡é¢˜ã€‚	
+			--Çë²Î¿¼iup.tree ÖĞ TABTITLE ÊôĞÔ¡£ÓÃÀ´ÉèÖÃµ±tree¿Ø¼şËùÔÚÒ³£¨iup.tab£©µÄ±êÌâ¡£	
 			
 			Class:set_node_data(data,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ TreeSetUserId æè¿°ã€‚ç”¨æ¥å¤„ç†èŠ‚ç‚¹ç»‘å®šçš„æ•°æ®ã€‚	
+			--Çë²Î¿¼iup.tree ÖĞ TreeSetUserId ÃèÊö¡£ÓÃÀ´´¦Àí½Úµã°ó¶¨µÄÊı¾İ¡£	
 			
 			Class:set_node_title(text,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ TITLE å±æ€§ã€‚ç”¨æ¥è®¾ç½®æˆ–è€…æ”¹å˜ç»™å®šèŠ‚ç‚¹æ˜¾ç¤ºçš„æ–‡æœ¬ã€‚
+			--Çë²Î¿¼iup.tree ÖĞ TITLE ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ»òÕß¸Ä±ä¸ø¶¨½ÚµãÏÔÊ¾µÄÎÄ±¾¡£
 			
 			Class:set_node_color(color,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ COLOR å±æ€§ã€‚ç”¨æ¥è®¾ç½®èŠ‚ç‚¹çš„æ–‡æœ¬é¢œè‰²ã€‚
+			--Çë²Î¿¼iup.tree ÖĞ COLOR ÊôĞÔ¡£ÓÃÀ´ÉèÖÃ½ÚµãµÄÎÄ±¾ÑÕÉ«¡£
 			
 			Class:set_node_state(state,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ STATE å±æ€§ã€‚ç”¨æ¥è®¾ç½®BRANCHï¼ˆæ–‡ä»¶å¤¹ï¼‰èŠ‚ç‚¹çš„å±•å¼€é—­åˆçŠ¶æ€ã€‚
+			--Çë²Î¿¼iup.tree ÖĞ STATE ÊôĞÔ¡£ÓÃÀ´ÉèÖÃBRANCH£¨ÎÄ¼ş¼Ğ£©½ÚµãµÄÕ¹¿ª±ÕºÏ×´Ì¬¡£
 
 			Class:set_node_image(image,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ IMAGE å±æ€§ã€‚è®¾ç½®èŠ‚ç‚¹çš„imageã€‚
+			--Çë²Î¿¼iup.tree ÖĞ IMAGE ÊôĞÔ¡£ÉèÖÃ½ÚµãµÄimage¡£
 		
 			Class:set_expanded_image(image,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ IMAGEEXPANDED å±æ€§ã€‚è®¾ç½®branchï¼ˆæ–‡ä»¶å¤¹ï¼‰èŠ‚ç‚¹å±•å¼€çŠ¶æ€ä¸‹çš„å›¾æ ‡ã€‚
+			--Çë²Î¿¼iup.tree ÖĞ IMAGEEXPANDED ÊôĞÔ¡£ÉèÖÃbranch£¨ÎÄ¼ş¼Ğ£©½ÚµãÕ¹¿ª×´Ì¬ÏÂµÄÍ¼±ê¡£
 			
 			Class:set_node_top(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ TOPITEM å±æ€§ã€‚æ˜¾ç¤ºèŠ‚ç‚¹ï¼ˆå¦‚æœè¯¥èŠ‚ç‚¹idå¤„äºé—­åˆæ–‡ä»¶å¤¹ä¸‹ï¼Œé—­åˆçš„æ–‡ä»¶å¤¹ä¹Ÿä¼šé€çº§çš„å±•å¼€ï¼‰
+			--Çë²Î¿¼iup.tree ÖĞ TOPITEM ÊôĞÔ¡£ÏÔÊ¾½Úµã£¨Èç¹û¸Ã½Úµãid´¦ÓÚ±ÕºÏÎÄ¼ş¼ĞÏÂ£¬±ÕºÏµÄÎÄ¼ş¼ĞÒ²»áÖğ¼¶µÄÕ¹¿ª£©
 			
 			Class:set_node_marked(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ MARKED å±æ€§ã€‚è®¾ç½®è¢«é€‰ä¸­çš„èŠ‚ç‚¹ï¼ˆé¼ æ ‡å·¦é”®ç‚¹é€‰æ•ˆæœï¼‰.
+			--Çë²Î¿¼iup.tree ÖĞ MARKED ÊôĞÔ¡£ÉèÖÃ±»Ñ¡ÖĞµÄ½Úµã£¨Êó±ê×ó¼üµãÑ¡Ğ§¹û£©.
 
 			Class:get_tree_ids()
-			--è¯·å‚è€ƒiup.tree ä¸­ COUNT å±æ€§ã€‚è·å¾—treeä¸­æ‰€æœ‰èŠ‚ç‚¹çš„ä¸ªæ•°
+			--Çë²Î¿¼iup.tree ÖĞ COUNT ÊôĞÔ¡£»ñµÃtreeÖĞËùÓĞ½ÚµãµÄ¸öÊı
 			
 			Class:get_node_ids(id,total)
-			--è¯·å‚è€ƒiup.tree ä¸­ TOTALCHILDCOUNT å’Œ CHILDCOUNT å±æ€§ã€‚
-			-- å¦‚æœtotal è¿™ä¸ªå‚æ•°å€¼ä¸ä¸ºnilï¼Œåˆ™è®¤ä¸ºæƒ³è¦è·å¾—çš„æ˜¯èŠ‚ç‚¹ä¸‹çš„æ‰€æœ‰å­èŠ‚ç‚¹ä¸ªæ•°ï¼ˆåŒ…å«å­èŠ‚ç‚¹çš„èŠ‚ç‚¹ï¼‰ã€‚ä¹Ÿå¯ä»¥ç›´æ¥ä½¿ç”¨Class:get_totalchildcount(id)
-			-- å¦‚æœtotal è¿™ä¸ªå‚æ•°å€¼ä¸ºnilï¼Œåˆ™è®¤ä¸ºæƒ³è¦è·å¾—çš„æ˜¯èŠ‚ç‚¹ä¸‹å½“å‰å±‚çº§çš„èŠ‚ç‚¹ä¸ªæ•°ã€‚ä¹Ÿå¯ä»¥ç›´æ¥ä½¿ç”¨Class:get_childcount(id)
+			--Çë²Î¿¼iup.tree ÖĞ TOTALCHILDCOUNT ºÍ CHILDCOUNT ÊôĞÔ¡£
+			-- Èç¹ûtotal Õâ¸ö²ÎÊıÖµ²»Îªnil£¬ÔòÈÏÎªÏëÒª»ñµÃµÄÊÇ½ÚµãÏÂµÄËùÓĞ×Ó½Úµã¸öÊı£¨°üº¬×Ó½ÚµãµÄ½Úµã£©¡£Ò²¿ÉÒÔÖ±½ÓÊ¹ÓÃClass:get_totalchildcount(id)
+			-- Èç¹ûtotal Õâ¸ö²ÎÊıÖµÎªnil£¬ÔòÈÏÎªÏëÒª»ñµÃµÄÊÇ½ÚµãÏÂµ±Ç°²ã¼¶µÄ½Úµã¸öÊı¡£Ò²¿ÉÒÔÖ±½ÓÊ¹ÓÃClass:get_childcount(id)
 			
 			Class:get_node_depth(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ DEPTH å±æ€§ã€‚è·å¾—èŠ‚ç‚¹å½“å‰çš„å±‚çº§æ·±åº¦
+			--Çë²Î¿¼iup.tree ÖĞ DEPTH ÊôĞÔ¡£»ñµÃ½Úµãµ±Ç°µÄ²ã¼¶Éî¶È
 			
 			Class:get_node_kind(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ KIND å±æ€§ã€‚è·å¾—æŒ‡å®šèŠ‚ç‚¹çš„ç±»å‹ï¼ˆ'BRANCH' or 'LEAF'ï¼‰
+			--Çë²Î¿¼iup.tree ÖĞ KIND ÊôĞÔ¡£»ñµÃÖ¸¶¨½ÚµãµÄÀàĞÍ£¨'BRANCH' or 'LEAF'£©
 			
 			Class:get_node_parent(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ PARENT å±æ€§ã€‚è·å¾—æŒ‡å®šèŠ‚ç‚¹çš„çˆ¶èŠ‚ç‚¹idï¼Œ
+			--Çë²Î¿¼iup.tree ÖĞ PARENT ÊôĞÔ¡£»ñµÃÖ¸¶¨½ÚµãµÄ¸¸½Úµãid£¬
 			
 			Class:get_node_state(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ STATE å±æ€§ã€‚è·å¾—æŒ‡å®šbranchèŠ‚ç‚¹çš„å½“å‰çŠ¶æ€ï¼ˆå±•å¼€oré—­åˆï¼‰
+			--Çë²Î¿¼iup.tree ÖĞ STATE ÊôĞÔ¡£»ñµÃÖ¸¶¨branch½ÚµãµÄµ±Ç°×´Ì¬£¨Õ¹¿ªor±ÕºÏ£©
 			
 			Class:get_node_title(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ TITLE å±æ€§ã€‚è·å¾—æŒ‡å®šèŠ‚ç‚¹çš„æ ‡é¢˜æ–‡æœ¬
+			--Çë²Î¿¼iup.tree ÖĞ TITLE ÊôĞÔ¡£»ñµÃÖ¸¶¨½ÚµãµÄ±êÌâÎÄ±¾
 			
 			Class:get_tree_value()
-			--è¯·å‚è€ƒiup.tree ä¸­ VALUE å±æ€§ã€‚è·å¾—å½“å‰é€‰ä¸­èŠ‚ç‚¹çš„id
+			--Çë²Î¿¼iup.tree ÖĞ VALUE ÊôĞÔ¡£»ñµÃµ±Ç°Ñ¡ÖĞ½ÚµãµÄid
 			
 			Class:get_node_data(id)
-			--è¯·å‚è€ƒiup.tree ä¸­ iup.TreeGetUserId  æè¿°ã€‚è·å–èŠ‚ç‚¹é™„ç€çš„æ•°æ®
+			--Çë²Î¿¼iup.tree ÖĞ iup.TreeGetUserId  ÃèÊö¡£»ñÈ¡½Úµã¸½×ÅµÄÊı¾İ
 		
 			Class:add_branch(name,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ ADDBRANCH å±æ€§ã€‚æ·»åŠ ä¸€ä¸ªbranchï¼ˆæ–‡ä»¶å¤¹ï¼‰èŠ‚ç‚¹
+			--Çë²Î¿¼iup.tree ÖĞ ADDBRANCH ÊôĞÔ¡£Ìí¼ÓÒ»¸öbranch£¨ÎÄ¼ş¼Ğ£©½Úµã
 			
 			Class:add_leaf(name,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ ADDLEAF å±æ€§ã€‚æ·»åŠ ä¸€ä¸ªleafï¼ˆæ–‡ä»¶ï¼‰èŠ‚ç‚¹
+			--Çë²Î¿¼iup.tree ÖĞ ADDLEAF ÊôĞÔ¡£Ìí¼ÓÒ»¸öleaf£¨ÎÄ¼ş£©½Úµã
 			
 			Class:insert_branch(name,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ INSERTBRANCH å±æ€§ã€‚æ’å…¥ä¸€ä¸ª branchï¼ˆæ–‡ä»¶å¤¹ï¼‰èŠ‚ç‚¹
+			--Çë²Î¿¼iup.tree ÖĞ INSERTBRANCH ÊôĞÔ¡£²åÈëÒ»¸ö branch£¨ÎÄ¼ş¼Ğ£©½Úµã
 			
 			Class:insert_leaf(name,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ INSERTLEAF å±æ€§ã€‚æ’å…¥ä¸€ä¸ª leafï¼ˆæ–‡ä»¶å¤¹ï¼‰èŠ‚ç‚¹
+			--Çë²Î¿¼iup.tree ÖĞ INSERTLEAF ÊôĞÔ¡£²åÈëÒ»¸ö leaf£¨ÎÄ¼ş¼Ğ£©½Úµã
 			
 			Class:delete_nodes(status,id)
-			--è¯·å‚è€ƒiup.tree ä¸­ DELNODE å±æ€§ã€‚åˆ é™¤èŠ‚ç‚¹æ“ä½œã€‚
+			--Çë²Î¿¼iup.tree ÖĞ DELNODE ÊôĞÔ¡£É¾³ı½Úµã²Ù×÷¡£
 		
-		è‡ªå®šä¹‰æ¥å£ï¼š
+		×Ô¶¨Òå½Ó¿Ú£º
 			Class:new(t) 
-			-- åˆ›å»ºç±»å¯¹è±¡ï¼ŒåŒæ—¶è¯¥å¯¹è±¡åŒ…å«äº†åˆ›å»ºå¥½çš„iup.treeå…ƒç´ 
-			--å‚æ•°tæ¥æ”¶çš„æ˜¯ä¸€ä¸ªè¡¨ç»“æ„æ•°æ®(æ²¡æœ‰ä»»ä½•å‚æ•°ä¹Ÿæ˜¯å¯ä»¥çš„)ï¼Œå½¢å¦‚ï¼št = {font = "Courier, 10";}
-			--è¿”å›å€¼æ˜¯ä¸€ä¸ªåˆ›å»ºå¥½çš„å¯¹è±¡è¡¨ã€‚
+			-- ´´½¨Àà¶ÔÏó£¬Í¬Ê±¸Ã¶ÔÏó°üº¬ÁË´´½¨ºÃµÄiup.treeÔªËØ
+			--²ÎÊıt½ÓÊÕµÄÊÇÒ»¸ö±í½á¹¹Êı¾İ(Ã»ÓĞÈÎºÎ²ÎÊıÒ²ÊÇ¿ÉÒÔµÄ)£¬ĞÎÈç£ºt = {font = "Courier, 10";}
+			--·µ»ØÖµÊÇÒ»¸ö´´½¨ºÃµÄ¶ÔÏó±í¡£
 			
 			Class:init()
-			--ä¸éœ€è¦ä¸»åŠ¨è°ƒç”¨ï¼Œç³»ç»Ÿä¼šåœ¨treeå…ƒç´ è¢«ç»˜åˆ¶çš„æ—¶å€™è‡ªåŠ¨è°ƒç”¨æ­¤æ–¹æ³•ã€‚
-			--éœ€è¦æ³¨æ„çš„æ˜¯
+			--²»ĞèÒªÖ÷¶¯µ÷ÓÃ£¬ÏµÍ³»áÔÚtreeÔªËØ±»»æÖÆµÄÊ±ºò×Ô¶¯µ÷ÓÃ´Ë·½·¨¡£
+			--ĞèÒª×¢ÒâµÄÊÇ
 			
 			Class:set_data(data)
-			--è®¾ç½®å¯¹è±¡éœ€è¦çš„æ•°æ®
+			--ÉèÖÃ¶ÔÏóĞèÒªµÄÊı¾İ
 			
 			Class:get_data()
-			--è·å¾—å¯¹è±¡ä¸­ä¿å­˜çš„æ•°æ®
+			--»ñµÃ¶ÔÏóÖĞ±£´æµÄÊı¾İ
 			
 			Class:set_tree(data)
-			--è®¾ç½®iup.treeæ§ä»¶ã€‚å¦‚æœè§‰å¾—é»˜è®¤çš„treeåŠŸèƒ½ä¸å¤Ÿå®Œæ•´ï¼Œç”¨æˆ·å¯ä»¥æ ¹æ®iup.treeè‡ªå·±åˆ›å»ºä¸€ä¸ªtreeæ§ä»¶ã€‚
+			--ÉèÖÃiup.tree¿Ø¼ş¡£Èç¹û¾õµÃÄ¬ÈÏµÄtree¹¦ÄÜ²»¹»ÍêÕû£¬ÓÃ»§¿ÉÒÔ¸ù¾İiup.tree×Ô¼º´´½¨Ò»¸ötree¿Ø¼ş¡£
 			
 			Class:get_tree()
-			--è·å¾—ä¿å­˜çš„treeå…ƒç´ å¯¹è±¡ã€‚
+			--»ñµÃ±£´æµÄtreeÔªËØ¶ÔÏó¡£
 			
 			Class:set_lbtn(lbtn)
-			--è®¾ç½®å•å‡»é¼ æ ‡å·¦é”®æ—¶è§¦å‘çš„å‡½æ•°ã€‚ lbtn  çš„æ¥æ”¶çš„ç±»å‹æ˜¯ function
+			--ÉèÖÃµ¥»÷Êó±ê×ó¼üÊ±´¥·¢µÄº¯Êı¡£ lbtn  µÄ½ÓÊÕµÄÀàĞÍÊÇ function
 			
 			Class:set_dlbtn(dlbtn)
-			--è®¾ç½®åŒå‡»é¼ æ ‡å·¦é”®æ—¶è§¦å‘çš„å‡½æ•°ã€‚ dlbtn  çš„æ¥æ”¶çš„ç±»å‹æ˜¯ function
+			--ÉèÖÃË«»÷Êó±ê×ó¼üÊ±´¥·¢µÄº¯Êı¡£ dlbtn  µÄ½ÓÊÕµÄÀàĞÍÊÇ function
 			
 			Class:set_rbtn(rbtn)
-			--è®¾ç½®å•å‡»é¼ æ ‡å³é”®æ—¶è§¦å‘çš„å‡½æ•°ã€‚ rbtn  çš„æ¥æ”¶çš„ç±»å‹æ˜¯ function
+			--ÉèÖÃµ¥»÷Êó±êÓÒ¼üÊ±´¥·¢µÄº¯Êı¡£ rbtn  µÄ½ÓÊÕµÄÀàĞÍÊÇ function
 			
 			Class:init_tree_data(data)
-			-- åˆå§‹åŒ– iup.tree æ˜¾ç¤ºçš„æ•°æ®ã€‚dataæ•°æ®é¡»ç¬¦åˆdbç»“æ„ï¼Œå¦‚æœdataä¸ºnilï¼Œåˆ™ä¼šæŸ¥æ‰¾å¯¹è±¡åŒ…å«çš„dataå±æ€§ã€‚
+			-- ³õÊ¼»¯ iup.tree ÏÔÊ¾µÄÊı¾İ¡£dataÊı¾İĞë·ûºÏdb½á¹¹£¬Èç¹ûdataÎªnil£¬Ôò»á²éÕÒ¶ÔÏó°üº¬µÄdataÊôĞÔ¡£
 			
 			Class:init_node_data(data,id)
-			-- åˆå§‹åŒ– iup.tree ä¸­æŸä¸ªæ–‡ä»¶å¤¹èŠ‚ç‚¹æ˜¾ç¤ºçš„å†…å®¹ã€‚dataé¡»ç¬¦åˆdbç»“æ„ï¼Œidä¸ºæŒ‡å®šèŠ‚ç‚¹çš„idã€‚
+			-- ³õÊ¼»¯ iup.tree ÖĞÄ³¸öÎÄ¼ş¼Ğ½ÚµãÏÔÊ¾µÄÄÚÈİ¡£dataĞë·ûºÏdb½á¹¹£¬idÎªÖ¸¶¨½ÚµãµÄid¡£
 			
 			Class:init_path_data(path,rule,id)
-			-- ç»™å®šç£ç›˜è·¯å¾„ï¼Œå°†è¯¥æ–‡ä»¶å¤¹ä»¥åŠæ–‡ä»¶å¤¹ä¸‹çš„å†…å®¹æ˜¾ç¤ºåœ¨treeä¸­ã€‚
+			-- ¸ø¶¨´ÅÅÌÂ·¾¶£¬½«¸ÃÎÄ¼ş¼ĞÒÔ¼°ÎÄ¼ş¼ĞÏÂµÄÄÚÈİÏÔÊ¾ÔÚtreeÖĞ¡£
 ]]
 
 local require = require
@@ -205,11 +205,11 @@ Class = {}
 ----------------------------------------------------------------------------------------------------------
 --warning function 
 --[[
-å‡½æ•°åï¼šmap_warning
-å‚æ•°ï¼šæ— 
-è¿”å›å€¼ï¼š
-	ç±»å‹ï¼štrue or nil
-è¯´æ˜ï¼šåˆ¤æ–­ç•Œé¢æ˜¯å¦è¢«ç»˜åˆ¶ï¼ˆæœ‰äº›æ“ä½œéœ€è¦ç•Œé¢ç»˜åˆ¶åæ–¹èƒ½æ‰§è¡Œï¼‰ã€‚å¦‚æœè¿˜æ²¡æœ‰è¢«ç»˜åˆ¶ä¼šå¼¹å‡ºæç¤ºå¹¶è¿”å›nilå€¼ï¼Œå¦åˆ™è¿”å›true
+º¯ÊıÃû£ºmap_warning
+²ÎÊı£ºÎŞ
+·µ»ØÖµ£º
+	ÀàĞÍ£ºtrue or nil
+ËµÃ÷£ºÅĞ¶Ï½çÃæÊÇ·ñ±»»æÖÆ£¨ÓĞĞ©²Ù×÷ĞèÒª½çÃæ»æÖÆºó·½ÄÜÖ´ĞĞ£©¡£Èç¹û»¹Ã»ÓĞ±»»æÖÆ»áµ¯³öÌáÊ¾²¢·µ»ØnilÖµ£¬·ñÔò·µ»Øtrue
 ]]
 local function map_warning(self)
 	if not self.Map then iup.Message('Notice','The tree has not been mapped !') return end 
@@ -219,12 +219,12 @@ end
 
 ----------------------------------------------------------------------------------------------------------
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
-	tree:set_leaf_image('IMGPAPER') --è¯¥å­—ç¬¦ä¸²ç”±iupæä¾›
-	æˆ–è€…
-	tree:set_leaf_image('c:\\image\\test.bmp') --æœ¬åœ°æ–‡ä»¶ï¼Œå¿…é¡»æ˜¯windowsçš„bmpæ ¼å¼çš„æ–‡ä»¶bmpæ ¼å¼çš„æ–‡ä»¶
-	è¯¦æƒ…è¯·çœ‹IMAGELEAFå±æ€§ã€‚
+	tree:set_leaf_image('IMGPAPER') --¸Ã×Ö·û´®ÓÉiupÌá¹©
+	»òÕß
+	tree:set_leaf_image('c:\\image\\test.bmp') --±¾µØÎÄ¼ş£¬±ØĞëÊÇwindowsµÄbmp¸ñÊ½µÄÎÄ¼şbmp¸ñÊ½µÄÎÄ¼ş
+	ÏêÇéÇë¿´IMAGELEAFÊôĞÔ¡£
 --]]
 function Class:set_leaf_image(str)
 	local tree = self.tree
@@ -243,10 +243,10 @@ end
 
 --arg = {expanded,collapsed}
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
-	tree:set_branch_image{expanded = ï¼Œcollapsed = } --å…·ä½“å€¼ä¸leaf imageçš„è®¾ç½®æ–¹æ³•ç±»ä¼¼
-	è¯¦æƒ…è¯·çœ‹ IMAGEBRANCHEXPANDED ï¼Œ IMAGEBRANCHCOLLAPSED å±æ€§ã€‚
+	tree:set_branch_image{expanded = £¬collapsed = } --¾ßÌåÖµÓëleaf imageµÄÉèÖÃ·½·¨ÀàËÆ
+	ÏêÇéÇë¿´ IMAGEBRANCHEXPANDED £¬ IMAGEBRANCHCOLLAPSED ÊôĞÔ¡£
 --]]
 function Class:set_branch_image(arg) 
 	arg = arg or {}
@@ -256,11 +256,11 @@ end
 
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
-	tree:set_fgcolor('255 0 0') -- å­—ç¬¦ä¸²çš„å«ä¹‰æ˜¯"R G B"ï¼ŒRã€Gã€Bçš„å–å€¼èŒƒå›´æ˜¯0~255
-	æˆ–è€…
-	tree:set_fgcolor('#ff0000') -- é¢œè‰²16è¿›åˆ¶è¡¨ç¤ºæ³•ã€‚æ•ˆæœä¸ä¸Šç­‰åŒéƒ½æ˜¯çº¢è‰²ã€‚
+	tree:set_fgcolor('255 0 0') -- ×Ö·û´®µÄº¬ÒåÊÇ"R G B"£¬R¡¢G¡¢BµÄÈ¡Öµ·¶Î§ÊÇ0~255
+	»òÕß
+	tree:set_fgcolor('#ff0000') -- ÑÕÉ«16½øÖÆ±íÊ¾·¨¡£Ğ§¹ûÓëÉÏµÈÍ¬¶¼ÊÇºìÉ«¡£
 --]]
 function Class:set_fgcolor(str)
 	local tree = self.tree
@@ -268,11 +268,11 @@ function Class:set_fgcolor(str)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
-	tree:set_bgcolor('255 0 0') -- å­—ç¬¦ä¸²çš„å«ä¹‰æ˜¯"R G B"ï¼ŒRã€Gã€Bçš„å–å€¼èŒƒå›´æ˜¯0~255
-	æˆ–è€…
-	tree:set_bgcolor('#ff0000') -- é¢œè‰²16è¿›åˆ¶è¡¨ç¤ºæ³•ã€‚æ•ˆæœä¸ä¸Šç­‰åŒéƒ½æ˜¯çº¢è‰²ã€‚
+	tree:set_bgcolor('255 0 0') -- ×Ö·û´®µÄº¬ÒåÊÇ"R G B"£¬R¡¢G¡¢BµÄÈ¡Öµ·¶Î§ÊÇ0~255
+	»òÕß
+	tree:set_bgcolor('#ff0000') -- ÑÕÉ«16½øÖÆ±íÊ¾·¨¡£Ğ§¹ûÓëÉÏµÈÍ¬¶¼ÊÇºìÉ«¡£
 --]]
 function Class:set_bgcolor(str) 
 	local tree = self.tree
@@ -280,11 +280,11 @@ function Class:set_bgcolor(str)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
-	tree:set_hlcolor('255 0 0') -- å­—ç¬¦ä¸²çš„å«ä¹‰æ˜¯"R G B"ï¼ŒRã€Gã€Bçš„å–å€¼èŒƒå›´æ˜¯0~255
-	æˆ–è€…
-	tree:set_hlcolor('#ff0000') -- é¢œè‰²16è¿›åˆ¶è¡¨ç¤ºæ³•ã€‚æ•ˆæœä¸ä¸Šç­‰åŒéƒ½æ˜¯çº¢è‰²ã€‚
+	tree:set_hlcolor('255 0 0') -- ×Ö·û´®µÄº¬ÒåÊÇ"R G B"£¬R¡¢G¡¢BµÄÈ¡Öµ·¶Î§ÊÇ0~255
+	»òÕß
+	tree:set_hlcolor('#ff0000') -- ÑÕÉ«16½øÖÆ±íÊ¾·¨¡£Ğ§¹ûÓëÉÏµÈÍ¬¶¼ÊÇºìÉ«¡£
 --]]
 function Class:set_hlcolor(str)  
 	local tree = self.tree
@@ -293,7 +293,7 @@ end
 
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_rastersize('100x100')
 --]]
@@ -303,7 +303,7 @@ function Class:set_rastersize(str)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_size('100x100')
 --]]
@@ -313,7 +313,7 @@ function Class:set_size(width,height)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_tabtitle('Project')
 --]]
@@ -324,12 +324,12 @@ end
 
 ----------------------------------------------------------------------------------------------------------
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_data({test = 'Test'},1)
-	æ³¨æ„ï¼š
-		data æ¥æ”¶çš„å€¼åªèƒ½æ˜¯ tableã€userdataã€nil è¿™ä¸‰ç§ç±»å‹ï¼ˆnil åˆ é™¤æ•°æ®ï¼‰ã€‚
-		å¦‚æœæ²¡æœ‰è®¾ç½®idè¿™ä¸ªå‚æ•°ï¼Œåˆ™é»˜è®¤è®¾ç½®çš„æ˜¯å½“å‰é€‰ä¸­èŠ‚ç‚¹ã€‚
+	×¢Òâ£º
+		data ½ÓÊÕµÄÖµÖ»ÄÜÊÇ table¡¢userdata¡¢nil ÕâÈıÖÖÀàĞÍ£¨nil É¾³ıÊı¾İ£©¡£
+		Èç¹ûÃ»ÓĞÉèÖÃidÕâ¸ö²ÎÊı£¬ÔòÄ¬ÈÏÉèÖÃµÄÊÇµ±Ç°Ñ¡ÖĞ½Úµã¡£
 --]]
 function Class:set_node_data(data,id)
 	if not map_warning(self) then return end 
@@ -339,11 +339,11 @@ function Class:set_node_data(data,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_title('TestText',1)
-	æ³¨æ„ï¼š
-		å¦‚æœæ²¡æœ‰è®¾ç½®idè¿™ä¸ªå‚æ•°ï¼Œåˆ™é»˜è®¤è®¾ç½®çš„æ˜¯å½“å‰é€‰ä¸­èŠ‚ç‚¹ã€‚
+	×¢Òâ£º
+		Èç¹ûÃ»ÓĞÉèÖÃidÕâ¸ö²ÎÊı£¬ÔòÄ¬ÈÏÉèÖÃµÄÊÇµ±Ç°Ñ¡ÖĞ½Úµã¡£
 --]]
 function Class:set_node_title(text,id)
 	if not map_warning(self) then return end 
@@ -353,11 +353,11 @@ function Class:set_node_title(text,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_color('255 0 0',1)
-	æ³¨æ„ï¼š
-		å¦‚æœæ²¡æœ‰è®¾ç½®idè¿™ä¸ªå‚æ•°ï¼Œåˆ™é»˜è®¤è®¾ç½®çš„æ˜¯å½“å‰é€‰ä¸­èŠ‚ç‚¹ã€‚
+	×¢Òâ£º
+		Èç¹ûÃ»ÓĞÉèÖÃidÕâ¸ö²ÎÊı£¬ÔòÄ¬ÈÏÉèÖÃµÄÊÇµ±Ç°Ñ¡ÖĞ½Úµã¡£
 --]]
 function Class:set_node_color(color,id) 
 	if not map_warning(self) then return end 
@@ -367,11 +367,11 @@ function Class:set_node_color(color,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_state('EXPANDED',1)
-	æ³¨æ„ï¼š
-		å¦‚æœæ²¡æœ‰è®¾ç½®idè¿™ä¸ªå‚æ•°ï¼Œåˆ™é»˜è®¤è®¾ç½®çš„æ˜¯å½“å‰é€‰ä¸­èŠ‚ç‚¹ã€‚
+	×¢Òâ£º
+		Èç¹ûÃ»ÓĞÉèÖÃidÕâ¸ö²ÎÊı£¬ÔòÄ¬ÈÏÉèÖÃµÄÊÇµ±Ç°Ñ¡ÖĞ½Úµã¡£
 --]]
 function Class:set_node_state(state,id)
 	if not map_warning(self) then return end 
@@ -381,12 +381,12 @@ function Class:set_node_state(state,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_image('IMGPAPER',1)
-	æ³¨æ„ï¼š
-		å¦‚æœæ²¡æœ‰è®¾ç½®idè¿™ä¸ªå‚æ•°ï¼Œåˆ™é»˜è®¤è®¾ç½®çš„æ˜¯å½“å‰é€‰ä¸­èŠ‚ç‚¹ã€‚
-		å¦‚æœè®¾ç½®çš„èŠ‚ç‚¹æ˜¯branch,é‚£ä¹ˆæ‰€è®¾ç½®çš„å›¾æ ‡ä»…æ˜¯å…¶é—­åˆçŠ¶æ€ä¸‹çš„å›¾æ ‡æ ·å¼ã€‚
+	×¢Òâ£º
+		Èç¹ûÃ»ÓĞÉèÖÃidÕâ¸ö²ÎÊı£¬ÔòÄ¬ÈÏÉèÖÃµÄÊÇµ±Ç°Ñ¡ÖĞ½Úµã¡£
+		Èç¹ûÉèÖÃµÄ½ÚµãÊÇbranch,ÄÇÃ´ËùÉèÖÃµÄÍ¼±ê½öÊÇÆä±ÕºÏ×´Ì¬ÏÂµÄÍ¼±êÑùÊ½¡£
 --]]
 function Class:set_node_image(image,id)
 	if not map_warning(self) then return end 
@@ -396,12 +396,12 @@ function Class:set_node_image(image,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_expanded_image('IMGPAPER',1)
-	æ³¨æ„ï¼š
-		å¦‚æœæ²¡æœ‰è®¾ç½®idè¿™ä¸ªå‚æ•°ï¼Œåˆ™é»˜è®¤è®¾ç½®çš„æ˜¯å½“å‰é€‰ä¸­èŠ‚ç‚¹ã€‚
-		è¿™é‡Œè®¾ç½®branchèŠ‚ç‚¹å±•å¼€çŠ¶æ€ä¸‹çš„å›¾æ ‡
+	×¢Òâ£º
+		Èç¹ûÃ»ÓĞÉèÖÃidÕâ¸ö²ÎÊı£¬ÔòÄ¬ÈÏÉèÖÃµÄÊÇµ±Ç°Ñ¡ÖĞ½Úµã¡£
+		ÕâÀïÉèÖÃbranch½ÚµãÕ¹¿ª×´Ì¬ÏÂµÄÍ¼±ê
 --]]
 function Class:set_expanded_image(image,id)
 	if not map_warning(self) then return end 
@@ -412,7 +412,7 @@ end
 
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_top(5)
 --]]
@@ -424,7 +424,7 @@ function Class:set_node_top(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:set_node_marked(5)
 --]]
@@ -439,7 +439,7 @@ end
 
 ----------------------------------------------------------------------------------------------------------
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local count = tree:get_tree_ids(5)
 	print(type(count)) --> number
@@ -466,11 +466,11 @@ function Class:get_childcount(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 		local count = tree:get_node_ids(1,true)
 		print(count)
-		æˆ–è€… 
+		»òÕß 
 		local count = tree:get_node_ids(1)
 		print(count)
 		
@@ -487,12 +487,12 @@ function Class:get_node_ids(id,total)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local depth = tree:get_node_depth(1)
 	print(type(depth)) --> number
-	æ³¨æ„ï¼š
-		æ ¹èŠ‚ç‚¹æ‰€åœ¨çš„å±‚çº§æ˜¯ 0 ã€‚
+	×¢Òâ£º
+		¸ù½ÚµãËùÔÚµÄ²ã¼¶ÊÇ 0 ¡£
 --]]
 function Class:get_node_depth(id)
 	if not map_warning(self) then return end 
@@ -502,12 +502,12 @@ function Class:get_node_depth(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local kind = tree:get_node_kind(1)
 	print(type(kind)) --> string
-	æ³¨æ„ï¼š
-		è¿”å›å€¼æ˜¯å¯èƒ½æ˜¯ï¼š"BRANCH"æˆ–è€…"LEAF"ã€‚
+	×¢Òâ£º
+		·µ»ØÖµÊÇ¿ÉÄÜÊÇ£º"BRANCH"»òÕß"LEAF"¡£
 --]]
 function Class:get_node_kind(id)	
 	if not map_warning(self) then return end 
@@ -517,12 +517,12 @@ function Class:get_node_kind(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local id = tree:get_node_parent(1)
 	print(type(id)) --> number
-	æ³¨æ„ï¼š
-		æ ¹èŠ‚ç‚¹çš„id æ˜¯ 0 ã€‚
+	×¢Òâ£º
+		¸ù½ÚµãµÄid ÊÇ 0 ¡£
 --]]
 function Class:get_node_parent(id)
 	if not map_warning(self) then return end 
@@ -532,12 +532,12 @@ function Class:get_node_parent(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local state = tree:get_node_state(1)
 	print(type(state)) --> string
-	æ³¨æ„ï¼š
-		è¿”å›å€¼æ˜¯å¯èƒ½æ˜¯ï¼š"EXPANDED"æˆ–è€…"COLLAPSED"ã€‚
+	×¢Òâ£º
+		·µ»ØÖµÊÇ¿ÉÄÜÊÇ£º"EXPANDED"»òÕß"COLLAPSED"¡£
 --]]
 function Class:get_node_state(id)
 	if not map_warning(self) then return end 
@@ -547,7 +547,7 @@ function Class:get_node_state(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local title = tree:get_node_title(1)
 	print(type(title)) --> string
@@ -559,7 +559,7 @@ function Class:get_node_title(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local id = tree:get_tree_value()
 	print(type(id)) --> number
@@ -571,7 +571,7 @@ function Class:get_tree_value()
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	local data = tree:get_node_data(3)
 	print(type(id)) --> userdata or table or nil
@@ -583,11 +583,11 @@ function Class:get_node_data(id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:add_branch('name',1)
-	æ³¨æ„ï¼š
-		æ·»åŠ çš„ä½ç½®å¦‚æœæ˜¯æ–‡ä»¶å¤¹èŠ‚ç‚¹ï¼Œåˆ™æˆä¸ºè¯¥æ–‡ä»¶å¤¹çš„é¦–èŠ‚ç‚¹ï¼Œå¦åˆ™ä¼šæ·»åŠ åœ¨æ–‡ä»¶èŠ‚ç‚¹ä¸‹æ–¹ï¼Œç±»ä¼¼äºæ’å…¥æ“ä½œã€‚
+	×¢Òâ£º
+		Ìí¼ÓµÄÎ»ÖÃÈç¹ûÊÇÎÄ¼ş¼Ğ½Úµã£¬Ôò³ÉÎª¸ÃÎÄ¼ş¼ĞµÄÊ×½Úµã£¬·ñÔò»áÌí¼ÓÔÚÎÄ¼ş½ÚµãÏÂ·½£¬ÀàËÆÓÚ²åÈë²Ù×÷¡£
 --]]
 function Class:add_branch(name,id)
 	if not map_warning(self) then return end 
@@ -596,11 +596,11 @@ function Class:add_branch(name,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:add_leaf('name',1)
-	æ³¨æ„ï¼š
-		æ·»åŠ çš„ä½ç½®å¦‚æœæ˜¯æ–‡ä»¶å¤¹èŠ‚ç‚¹ï¼Œåˆ™æˆä¸ºè¯¥æ–‡ä»¶å¤¹çš„é¦–èŠ‚ç‚¹ï¼Œå¦åˆ™ä¼šæ·»åŠ åœ¨æ–‡ä»¶èŠ‚ç‚¹ä¸‹æ–¹ï¼Œç±»ä¼¼äºæ’å…¥æ“ä½œã€‚
+	×¢Òâ£º
+		Ìí¼ÓµÄÎ»ÖÃÈç¹ûÊÇÎÄ¼ş¼Ğ½Úµã£¬Ôò³ÉÎª¸ÃÎÄ¼ş¼ĞµÄÊ×½Úµã£¬·ñÔò»áÌí¼ÓÔÚÎÄ¼ş½ÚµãÏÂ·½£¬ÀàËÆÓÚ²åÈë²Ù×÷¡£
 --]]
 function Class:add_leaf(name,id)
 	if not map_warning(self) then return end
@@ -609,7 +609,7 @@ function Class:add_leaf(name,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:insert_branch('name',1)
 --]]
@@ -620,7 +620,7 @@ function Class:insert_branch(name,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:insert_leaf('name',1)
 --]]
@@ -631,11 +631,11 @@ function Class:insert_leaf(name,id)
 end
 
 --[[
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:delete_nodes('SELECTED',1)
-	æ³¨æ„ï¼š	
-		status çš„å€¼å¯èƒ½ä¸ºï¼š
+	×¢Òâ£º	
+		status µÄÖµ¿ÉÄÜÎª£º
 			"ALL": deletes all nodes, id is ignored (Since 3.1)
 			"SELECTED": deletes the specified node and its children
 			"CHILDREN": deletes only the children of the specified node
@@ -668,17 +668,17 @@ end
 local function create_tree(t)
 	t = t or {}
 	return iup.tree{
-		font = t.font or "Courier, 10"; --è®¾ç½®å­—ä½“
-		addexpanded = "NO"; --é»˜è®¤ä¸å±•å¼€å…¨éƒ¨æœ‰å­èŠ‚ç‚¹çš„åˆ†æ”¯
-		expand=   "YES"; --è®¾ç½®å½“å®¹å™¨çš„å¤§å°å¤§äºè®¾ç½®treeæ§ä»¶çš„å¤§å°æ—¶ï¼Œä½¿treeçš„å¤§å°è‡ªåŠ¨æ‰©å±•åˆ°è¯¥å®¹å™¨å…è®¸çš„æœ€å¤§å€¼ã€‚
-		showrename = "NO"; --ä¸å…è®¸åœ¨äº¤äº’çŠ¶æ€ä¸‹ä¿®æ”¹treeä¸­èŠ‚ç‚¹æ˜¾ç¤ºçš„æ–‡æœ¬ï¼Œä»…å…è®¸é€šè¿‡å‘½ä»¤æ¥ä¿®æ”¹ã€‚
-		MARKMODE =  "SINGLE"; --è®¾ç½®è¯¥treeçš„é€‰æ‹©æ¨¡å¼ä¸ºå•é€‰.
-		IMAGELEAF = "IMGPAPER";--è®¾ç½®è¯¥treeé»˜è®¤çš„leafï¼ˆå¶å­ï¼‰èŠ‚ç‚¹çš„å›¾æ ‡æ˜¯"IMGPAPER"ï¼ˆçœ‹èµ·æ¥åƒæ–‡ä»¶å›¾æ ‡ï¼‰
-		ADDROOT = 'YES'; --è®¾ç½®è¯¥treeæœ‰ä¸€ä¸ªé»˜è®¤çš„èŠ‚ç‚¹ã€‚
-		title0 = t.root or 'Project'; --è®¾ç½®è¯¥é»˜è®¤çš„èŠ‚ç‚¹çš„é»˜è®¤æ˜¾ç¤ºæ–‡æœ¬ã€‚
+		font = t.font or "Courier, 10"; --ÉèÖÃ×ÖÌå
+		addexpanded = "NO"; --Ä¬ÈÏ²»Õ¹¿ªÈ«²¿ÓĞ×Ó½ÚµãµÄ·ÖÖ§
+		expand=   "YES"; --ÉèÖÃµ±ÈİÆ÷µÄ´óĞ¡´óÓÚÉèÖÃtree¿Ø¼şµÄ´óĞ¡Ê±£¬Ê¹treeµÄ´óĞ¡×Ô¶¯À©Õ¹µ½¸ÃÈİÆ÷ÔÊĞíµÄ×î´óÖµ¡£
+		showrename = "NO"; --²»ÔÊĞíÔÚ½»»¥×´Ì¬ÏÂĞŞ¸ÄtreeÖĞ½ÚµãÏÔÊ¾µÄÎÄ±¾£¬½öÔÊĞíÍ¨¹ıÃüÁîÀ´ĞŞ¸Ä¡£
+		MARKMODE =  "SINGLE"; --ÉèÖÃ¸ÃtreeµÄÑ¡ÔñÄ£Ê½Îªµ¥Ñ¡.
+		IMAGELEAF = "IMGPAPER";--ÉèÖÃ¸ÃtreeÄ¬ÈÏµÄleaf£¨Ò¶×Ó£©½ÚµãµÄÍ¼±êÊÇ"IMGPAPER"£¨¿´ÆğÀ´ÏñÎÄ¼şÍ¼±ê£©
+		ADDROOT = 'YES'; --ÉèÖÃ¸ÃtreeÓĞÒ»¸öÄ¬ÈÏµÄ½Úµã¡£
+		title0 = t.root or 'Project'; --ÉèÖÃ¸ÃÄ¬ÈÏµÄ½ÚµãµÄÄ¬ÈÏÏÔÊ¾ÎÄ±¾¡£
 		rastersize = t.rastersize;
-		map_cb =  function() --è®¾ç½®treeåœ¨æ˜¾ç¤ºçš„æ—¶å€™çš„å›è°ƒå‡½æ•°
-			t.Map = true --åˆå§‹åŒ–Mapå˜é‡ä¸ºtrue
+		map_cb =  function() --ÉèÖÃtreeÔÚÏÔÊ¾µÄÊ±ºòµÄ»Øµ÷º¯Êı
+			t.Map = true --³õÊ¼»¯Map±äÁ¿Îªtrue
 			t:init()
 		end;
 	};
@@ -694,10 +694,10 @@ end
 
 function Class:init()
 	if not map_warning(self) then return end  
-	self:init_lbtn() --åˆå§‹åŒ–é¼ æ ‡å·¦é”®æ“ä½œ
-	self:init_dlbtn() --åˆå§‹åŒ–åŒå‡»é¼ æ ‡å·¦é”®æ“ä½œ
-	self:init_rbtn() --åˆå§‹åŒ–é¼ æ ‡å³é”®æ“ä½œ
-	self:init_tree_data() --å¦‚æœæœ‰æ•°æ®åˆ™åˆå§‹åŒ–ç•Œé¢ä¸­çš„æ˜¾ç¤ºå†…å®¹ã€‚
+	self:init_lbtn() --³õÊ¼»¯Êó±ê×ó¼ü²Ù×÷
+	self:init_dlbtn() --³õÊ¼»¯Ë«»÷Êó±ê×ó¼ü²Ù×÷
+	self:init_rbtn() --³õÊ¼»¯Êó±êÓÒ¼ü²Ù×÷
+	self:init_tree_data() --Èç¹ûÓĞÊı¾İÔò³õÊ¼»¯½çÃæÖĞµÄÏÔÊ¾ÄÚÈİ¡£
 end
 
 function Class:set_data(data)
@@ -889,17 +889,17 @@ end
 
 --[[
  Class:init_path_data(path,rule,id)
-ä½¿ç”¨ç¤ºä¾‹ï¼š
+Ê¹ÓÃÊ¾Àı£º
 	local tree = require '...'.Class:new(t)
 	tree:init_path_data('e:/a/b/c',function() ... end ,-1)
-	å‚æ•°è¯´æ˜ï¼š
-		pathï¼š æŒ‡å®šçš„è·¯å¾„
-		ruleï¼šå‡½æ•°è§„åˆ™ï¼Œè¿‡æ»¤å‡½æ•°ã€‚ç¼ºçœå…¨éƒ¨æ·»åŠ ï¼ˆééšè—æ–‡ä»¶å’Œæ–‡ä»¶å¤¹ï¼‰
-		id ï¼š æŒ‡å®šæŸä¸ªèŠ‚ç‚¹ä¸‹æ·»åŠ è¯¥æ–‡ä»¶å¤¹ã€‚ç¼ºçœæ·»åŠ åœ¨æ ¹éƒ¨ã€‚
-è¯´æ˜ï¼š
-	å¦‚æœå¯¹è¯æ¡†æ²¡æœ‰å¼¹å‡ºï¼ˆç•Œé¢å°šæœªç»˜åˆ¶ï¼‰ï¼Œåˆ™é»˜è®¤ä½œä¸ºtreeçš„åˆå§‹åŒ–æ•°æ®å­˜åœ¨ã€‚
-	å¦‚æœå¯¹è¯æ¡†å·²ç»å¼¹å‡ºï¼Œåˆ™æ ¹æ®ç¬¬ä¸‰ä¸ªå‚æ•°æ¥å†³å®šæ·»åŠ æ–°çš„èŠ‚ç‚¹çš„ä½ç½®ã€‚ï¼ˆå¦‚æœä¸ºnilæˆ–è€…ä¸º-1ï¼Œåˆ™è®¤ä¸ºæ¸…ç©ºåŸæœ‰æ•°æ®æ˜¾ç¤ºæ–°çš„æ•°æ®ï¼‰
-	æ˜¾ç¤ºçš„ç»“æœé»˜è®¤æŒ‰ç…§æ–‡ä»¶åæ’åºã€‚
+	²ÎÊıËµÃ÷£º
+		path£º Ö¸¶¨µÄÂ·¾¶
+		rule£ºº¯Êı¹æÔò£¬¹ıÂËº¯Êı¡£È±Ê¡È«²¿Ìí¼Ó£¨·ÇÒş²ØÎÄ¼şºÍÎÄ¼ş¼Ğ£©
+		id £º Ö¸¶¨Ä³¸ö½ÚµãÏÂÌí¼Ó¸ÃÎÄ¼ş¼Ğ¡£È±Ê¡Ìí¼ÓÔÚ¸ù²¿¡£
+ËµÃ÷£º
+	Èç¹û¶Ô»°¿òÃ»ÓĞµ¯³ö£¨½çÃæÉĞÎ´»æÖÆ£©£¬ÔòÄ¬ÈÏ×÷ÎªtreeµÄ³õÊ¼»¯Êı¾İ´æÔÚ¡£
+	Èç¹û¶Ô»°¿òÒÑ¾­µ¯³ö£¬Ôò¸ù¾İµÚÈı¸ö²ÎÊıÀ´¾ö¶¨Ìí¼ÓĞÂµÄ½ÚµãµÄÎ»ÖÃ¡££¨Èç¹ûÎªnil»òÕßÎª-1£¬ÔòÈÏÎªÇå¿ÕÔ­ÓĞÊı¾İÏÔÊ¾ĞÂµÄÊı¾İ£©
+	ÏÔÊ¾µÄ½á¹ûÄ¬ÈÏ°´ÕÕÎÄ¼şÃûÅÅĞò¡£
 --]]
 function Class:init_path_data(path,rule,id)
 	if type(path) ~= 'string' then return error('Please pass path !') end 
