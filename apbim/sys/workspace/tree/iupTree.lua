@@ -167,6 +167,9 @@
 			
 			Class:init_node_data(data,id)
 			-- 初始化 iup.tree 中某个文件夹节点显示的内容。data须符合db结构，id为指定节点的id。
+			
+			Class:init_path_data(path,rule,id)
+			-- 给定磁盘路径，将该文件夹以及文件夹下的内容显示在tree中。
 ]]
 
 local require = require
@@ -193,7 +196,8 @@ _ENV = M
 local iup = require "iuplua"
 require "iupluacontrols"
 require "iupluaimglib"
-local RMenu_ = require 'sys.workspace.tree.rmenu'
+local lfs = require 'lfs'
+local RMenu_ = {}--require 'sys.workspace.tree.rmenu'
 Class = {}
 
 ----------------------------------------------------------------------------------------------------------
@@ -852,7 +856,69 @@ function Class:init_node_data(data,id)
 end
 --]]
 
+local function get_path_data(path,rule)
+	local data =  {}
+	function add_data(path)
+		local tempt = {}
+		tempt.attributes = {title = string_match_(path,'.+/([^/]+)'),kind = 'branch',data = {file = path}}
+		tempt[1] = {}
+		local pos = 1
+		for line in lfs.dir(path) do 
+			if line ~= '.' and line ~= '..' then 
+				local name = path .. '/' .. line
+				local mode = lfs.attributes(name,'mode')
+				local status = true
+				local t = {}
+				if mode == 'directory' then 
+					t = add_data(name)
+					if status then table_insert_(tempt[1],pos,t) pos = pos +1 end
+				else 
+					t.attributes = {title = line,kind = 'leaf' ,data = {file = name}}
+					 if type(rule) =='function' then 
+						status = rule(line,path .. '/',1)
+					end 
+					if status then table_insert_(tempt[1],t) end
+				end 
+			end
+		end 
+		return tempt
+	end
+	table_insert_(data,add_data(path))
+	return data
+end
 
+--[[
+ Class:init_path_data(path,rule,id)
+使用示例：
+	local tree = require '...'.Class:new(t)
+	tree:init_path_data('e:/a/b/c',function() ... end ,-1)
+	参数说明：
+		path： 指定的路径
+		rule：函数规则，过滤函数。缺省全部添加（非隐藏文件和文件夹）
+		id ： 指定某个节点下添加该文件夹。缺省添加在根部。
+说明：
+	如果对话框没有弹出（界面尚未绘制），则默认作为tree的初始化数据存在。
+	如果对话框已经弹出，则根据第三个参数来决定添加新的节点的位置。（如果为nil或者为-1，则认为清空原有数据显示新的数据）
+	显示的结果默认按照文件名排序。
+--]]
+function Class:init_path_data(path,rule,id)
+	if type(path) ~= 'string' then return error('Please pass path !') end 
+	path = string_gsub_(path,'\\','/')
+	if string_sub_(path,-1,-1) == '/' then
+		path = string_sub_(path,1,-2)
+	end
+	if not lfs.attributes(path) then return error('Local folder not exist !') end
+	local data = get_path_data(path,rule)
+	if self.Map then 
+		if not id or id < 0 then 
+			self:init_tree_data(data)
+		else 
+			self:init_node_data(data,id)
+		end 
+	else
+		self.data  = data
+	end
+end
 ------------------------------------------------------------------------------
 
 
