@@ -674,6 +674,7 @@ local function create_tree(t)
 		showrename = "NO"; --不允许在交互状态下修改tree中节点显示的文本，仅允许通过命令来修改。
 		MARKMODE =  "SINGLE"; --设置该tree的选择模式为单选.
 		IMAGELEAF = "IMGPAPER";--设置该tree默认的leaf（叶子）节点的图标是"IMGPAPER"（看起来像文件图标）
+		
 		ADDROOT = 'YES'; --设置该tree有一个默认的节点。
 		title0 = t.root or 'Project'; --设置该默认的节点的默认显示文本。
 		rastersize = t.rastersize;
@@ -791,7 +792,14 @@ end
 
 		
 local cmds_ = {}
-cmds_.image = function (self,id,image)  self:set_node_image(image,id) end
+cmds_.image = function (self,id,image)  
+	if type(image) == 'table' then 
+		if image.open then  self:set_expanded_image(image.open,id) end
+		if image.close then  self:set_node_image(image.close,id) end
+	else 
+		self:set_node_image(image,id) 
+	end 
+end
 cmds_.imageExpanded = function (self,id,image)  self:set_expanded_image(image,id) end
 cmds_.color = function (self,id,color)  self:set_node_color(color,id) end
 cmds_.title = function (self,id,title)   self:set_node_title(title,id) end
@@ -891,10 +899,15 @@ end
  Class:init_path_data(path,rule,id)
 使用示例：
 	local tree = require '...'.Class:new(t)
-	tree:init_path_data('e:/a/b/c',function() ... end ,-1)
+	tree:init_path_data('e:/a/b/c',function(name,path,status) ... end ,	-1	)
 	参数说明：
 		path： 指定的路径
-		rule：函数规则，过滤函数。缺省全部添加（非隐藏文件和文件夹）
+		rule：函数规则，过滤函数。缺省全部添加（非隐藏文件和文件夹）。
+			rule 接受的参数：
+				name : 文件或者文件夹的名称。例如：文件：test.lua、文件夹：test
+				path ： 文件或者文件夹所在的路径。例如：e:/a/b/c/d/
+					path .. name : 该文件的全路径。
+				status ： status 值是 1（文件），或者  0（文件夹）。
 		id ： 指定某个节点下添加该文件夹。缺省添加在根部。
 说明：
 	如果对话框没有弹出（界面尚未绘制），则默认作为tree的初始化数据存在。
