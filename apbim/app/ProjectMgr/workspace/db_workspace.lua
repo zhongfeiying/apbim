@@ -7,6 +7,9 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
+local file = 'app.ProjectMgr.info.user_gid_file'
+local user_ = 'Sjy' -- require 'user'.get()
+
 function init()
 	package_loaded_[file] = nil
 	data_ = require (file) or {}
@@ -16,19 +19,15 @@ function get()
 	return data_
 end
 
-local function get_root_attr(arg)
-	return {
-		kind = 'branch';
-		title = arg.title or 'User';
-		image = arg.image;
-	}
+function add()
 end
 
-function get_tree_data()
-	return {
-		{
-			attributes = get_root_attr{};
-			get_root_content();
-		};
-	}
+function edit()
 end
+
+function delete()
+end
+
+
+
+
