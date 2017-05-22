@@ -1,15 +1,12 @@
-local tree_ =  require 'sys.tree'
-local file = 'c.lua'
-
-local id = tree_.loaded(file)
-local iuptree = tree_.get_element(id)
-
-local data = {}
-local id = tree_.loaded(data)
-local iuptree = tree_.get_element(id)
-
-dlg = iup.dialog{
-	iuptree;
+require 'iup_dev'
+local iuptree = require 'iupTree'
+require 'iuplua'
+tree = iuptree.Class:new()
+tree:init_path_data('E:\\Sync\\workingGit\\apbim\\apbim\\sys\\api')
+tree:set_rastersize('400x400')
+local dlg = iup.dialog{
+	tree:get_tree();
 }
 
 dlg:popup()
+
