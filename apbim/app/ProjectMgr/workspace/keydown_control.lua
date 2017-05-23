@@ -31,3 +31,7 @@ function dlbtn(tree,id)
 		return cmd_.dlbtn(tree,id)
 	end
 end
+
+function init(tree,id)
+	-- if tree
+end

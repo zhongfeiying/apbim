@@ -37,11 +37,6 @@ function get_current_id()
 	end
 end
 
-function get_current_id()
-	if type(cmd_.get_current_id) == 'function' then 
-		return cmd_.get_current_id()
-	end
-end
 
 function add_branch(name,id)
 	if type(cmd_.add_branch) == 'function' then 

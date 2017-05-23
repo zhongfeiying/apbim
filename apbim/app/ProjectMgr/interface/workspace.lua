@@ -11,7 +11,13 @@ local iup_ = require 'iuplua'
 require 'iupluacontrols'
 
 local sys_workspace_ = require 'sys.workspace'
-local workspace_ =  require 'app.projectmgr.workspace.workspace'
+local workspace_ =  require 'app.projectmgr.workspace.workspace.main'
+
+-- local projectlist_ =  require 'app.projectmgr.workspace.projects.main'
+-- local contacts_ =  require 'app.projectmgr.workspace.contacts.main'
+-- local recycle_ =  require 'app.projectmgr.workspace.recycles.main'
+-- local private_ =  require 'app.projectmgr.workspace.privates.main'
+
 local var_workspace_;
 
 
@@ -23,15 +29,25 @@ local function init_control_data()
 				margin = '0x0';
 				alignment = 'ALEFT';
 			};
-			tabtitle = 'Project';
+			tabtitle = 'Workspace';
 		}
 	}
 end
 
+local function init(cmd)
+	cmd.set()
+	cmd.init()
+	cmd.init_tree_data()
+end
+
 local function load_project_list()
-	workspace_.set()
-	workspace_.init()
-	workspace_.init_tree_data()
+
+	-- qinit(workspace_)
+	workspace_.main()
+	-- init(private_)
+	-- init(recycle_)
+	-- init(contacts_)
+	-- init(projectlist_)
 	var_workspace_ = init_control_data()
 	sys_workspace_.add(var_workspace_)
 end 

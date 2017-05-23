@@ -20,6 +20,10 @@ function new(tree,id)
 	-- tree:add_branch(data.name)
 end
 
+function show_property(cmd)
+	cmd.show_property()
+end
+
 function open()
 	
 end

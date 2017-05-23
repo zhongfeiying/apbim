@@ -39,37 +39,38 @@ return {
 		};
 	};
 	{
-		name = 'Edit';
-		subs = {
-			{
-				name = 'Properties';
-			};
-			{};
-			{
-				name = 'Copy';
-			};
-			{
-				name = 'Move';
-			};
-			{
-				name = 'Delete';
-			};
-		};
-	};	
-	{
-		name = 'View';
-		subs = {
-			{
-				name = 'New';
-			};
-			{
-				name = 'Centered Show';
-			};
-		};
-	};
-	{
 		name = 'Model';
-		subs = {};
+		subs = {
+			{
+				name = 'Edit';
+				subs = {
+					{
+						name = 'Properties';
+					};
+					{};
+					{
+						name = 'Copy';
+					};
+					{
+						name = 'Move';
+					};
+					{
+						name = 'Delete';
+					};
+				};
+			};
+			{
+				name = 'View';
+				subs = {
+					{
+						name = 'New';
+					};
+					{
+						name = 'Centered Show';
+					};
+				};
+			};			
+		};
 	};
 	{
 		name = 'File';
