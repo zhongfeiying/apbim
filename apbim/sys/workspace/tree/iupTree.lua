@@ -674,7 +674,6 @@ local function create_tree(t)
 		showrename = "NO"; --不允许在交互状态下修改tree中节点显示的文本，仅允许通过命令来修改。
 		MARKMODE =  "SINGLE"; --设置该tree的选择模式为单选.
 		IMAGELEAF = "IMGPAPER";--设置该tree默认的leaf（叶子）节点的图标是"IMGPAPER"（看起来像文件图标）
-		
 		ADDROOT = 'YES'; --设置该tree有一个默认的节点。
 		title0 = t.root or 'Project'; --设置该默认的节点的默认显示文本。
 		rastersize = t.rastersize;
@@ -790,6 +789,12 @@ function Class:init_rbtn()
 	end
 end
 
+function Class:set_node_tip(str,id)
+	if not self.tree then return error('Please create tree firstly !') end 
+	local tree = self.tree
+	tree.tip = str
+end
+
 		
 local cmds_ = {}
 cmds_.image = function (self,id,image)  
@@ -805,6 +810,7 @@ cmds_.color = function (self,id,color)  self:set_node_color(color,id) end
 cmds_.title = function (self,id,title)   self:set_node_title(title,id) end
 cmds_.state = function (self,id,state)  self:set_node_state(state,id) end
 cmds_.data = function (self,id,data)  self:set_node_data(data,id) end
+cmds_.tip = function (self,id,str)  self:set_node_tip(str,id) end
 
 
 		
@@ -864,6 +870,7 @@ function Class:init_node_data(data,id)
 end
 --]]
 
+---------------------2017年5月22日 update ---------------------------------------------------------
 local function get_path_data(path,rule)
 	local data =  {}
 	function add_data(path)
@@ -884,6 +891,15 @@ local function get_path_data(path,rule)
 					t.attributes = {title = line,kind = 'leaf' ,data = {file = name}}
 					 if type(rule) =='function' then 
 						status = rule(line,path .. '/',1)
+						print(status)
+						if type(status) == 'table' then 
+							
+							t.attributes.image = status.icon
+							t.attributes.tip = status.tip
+							for k,v in pairs (status) do
+								t.attributes.data[k] = v
+							end
+						end
 					end 
 					if status then table_insert_(tempt[1],t) end
 				end 
@@ -908,7 +924,10 @@ end
 				path ： 文件或者文件夹所在的路径。例如：e:/a/b/c/d/
 					path .. name : 该文件的全路径。
 				status ： status 值是 1（文件），或者  0（文件夹）。
-		id ： 指定某个节点下添加该文件夹。缺省添加在根部。
+				rule函数的返回值:
+					当函数的返回值非nil和false则认为需要添加该文件到tree中，否则不添加。
+					如果返回值是table,table中如果有icon属性，则会定义该节点显示的图标，table中如果有tip属性，则会定义该节点的tip信息。
+			id ： 指定某个节点下添加该文件夹。缺省添加在根部。
 说明：
 	如果对话框没有弹出（界面尚未绘制），则默认作为tree的初始化数据存在。
 	如果对话框已经弹出，则根据第三个参数来决定添加新的节点的位置。（如果为nil或者为-1，则认为清空原有数据显示新的数据）
@@ -932,6 +951,30 @@ function Class:init_path_data(path,rule,id)
 		self.data  = data
 	end
 end
-------------------------------------------------------------------------------
-
+---------------------------2017年5月23日---------------------------------------------------
+--[[
+Class:get_selected_path(id)
+功能：
+	获得选中节点到根节点之间的title 路径信息。
+使用示例：
+	local tree = require '...'.Class:new(t)
+	print(tree:get_selected_path(id))
+	参数说明：
+		id ： 指定选中节点，缺省会自动获得选中的节点。
+	返回值：
+		返回一个字符串。示例 : a/b/c.lua
+--]]
+function Class:get_selected_path(id)
+	if not map_warning(self) then return end
+	local id = id or self:get_tree_selected()	
+	local function get_path(id,str)
+		if self:get_node_depth(id) == 0 then 
+			return str
+		end
+		local str = str and ('/' .. str) or ''
+		str =  self:get_node_title(id) ..str
+		return get_path(self:get_node_parent(id),str)
+	end
+	return get_path(id)
+end
 
