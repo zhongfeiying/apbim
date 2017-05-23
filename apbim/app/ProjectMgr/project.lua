@@ -21,7 +21,7 @@ function new(tree,id)
 end
 
 function show_property(cmd)
-	cmd.show_property()
+	-- cmd.show_property()
 end
 
 function open()

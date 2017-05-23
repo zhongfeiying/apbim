@@ -22,7 +22,7 @@ end
 local Property = {title = 'Property',action = show_property,active = active_show_property}
 
 local menus_root = {
-	Property;
+	-- Property;
 }
 function get(tree,id)
 	return menus_root
