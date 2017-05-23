@@ -33,4 +33,9 @@ function get_control()
 	return tree_control_.get_control()
 end
 
+function main()
+	set()
+	init()
+	init_tree_data()
+end
 

@@ -9,12 +9,13 @@ package_loaded_[modname] = M
 _ENV = M
 local tree_control_ = require 'app.projectmgr.workspace.tree_control'
 local db_control_ = require 'app.projectmgr.workspace.db_control'
-local db_workspace_ = require 'app.projectmgr.workspace.db_workspace'
-local workspace_tree_ =  require 'app.projectmgr.workspace.tree_workspace'
+
+local db_ = require 'app.projectmgr.workspace.recycles.db'
+local tree_ =  require 'app.projectmgr.workspace.recycles.tree'
 
 function set()
-	db_control_.set(db_workspace_)
-	tree_control_.set(workspace_tree_)
+	db_control_.set(db_)
+	tree_control_.set(tree_)
 end
 
 function init()
@@ -27,9 +28,17 @@ function init_tree_data()
 	tree_control_.turn_tree_data(data)
 	tree_control_.set_tree_data()
 end
-
+--[[
 function get_control()
 	return tree_control_.get_control()
 end
+--]]
+
+function main()
+	set()
+	init()
+	-- init_tree_data()
+end
+
 
 

@@ -13,7 +13,7 @@ local project_ = require 'app.projectmgr.project'
 	-- project_.show_property()
 -- end
 
-local Property = {title = 'menu',action = show_property,active = active_show_property}
+local Property = {title = '321321',action = show_property,active = active_show_property}
 
 local menus_root = {
 	Property;

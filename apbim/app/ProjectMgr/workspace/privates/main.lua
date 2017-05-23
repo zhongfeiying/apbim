@@ -26,21 +26,19 @@ end
 function init_tree_data()
 	local data = db_control_.get()
 	tree_control_.turn_tree_data(data)
-	-- tree_control_.set_tree_data()
+	tree_control_.set_tree_data()
 end
-
+--[[
 function get_control()
 	return tree_control_.get_control()
 end
+--]]
 
 function main()
 	set()
 	init()
-	init_tree_data()
+	-- init_tree_data()
 end
 
-function keydown()
-	
-end
 
 

@@ -16,8 +16,8 @@ _ENV = M
 -- local iupTree_ = require 'sys.Workspace.tree.iuptree'
 local keydown_ =require 'app.projectmgr.workspace.keydown_control'
 
-local keydown_private_ =require 'app.projectmgr.workspace.keydown_private'  
-local tree_workspace_ = require 'app.projectmgr.workspace.tree_workspace'
+local keydown_private_ =require 'app.projectmgr.workspace.privates.keydown'  
+local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
 
 local tree_;
 local data_;
@@ -47,26 +47,27 @@ function get()
 	return tree_
 end
 
-function get_control()
-	if not tree_ then return end 
-	return tree_:get_tree()
-end
+-- function get_control()
+	-- if not tree_ then return end 
+	-- return tree_:get_tree()
+-- end
 
-function get_current_id()
-	if not tree_ then return end 
-	return tree_:get_tree_selected()
-end
+-- function get_current_id()
+	-- if not tree_ then return end 
+	-- return tree_:get_tree_selected()
+-- end
 
-function add_branch(name,id)
-	if not tree_ then return end 
-	tree_:add_branch(name,id)
-end
+-- function add_branch(name,id)
+	-- if not tree_ then return end 
+	-- tree_:add_branch(name,id)
+-- end
 
 function set_tree_data(data)
 	if not tree_ then return end 
 	local data = data or data_
 	-- tree_:set_data(data)
 	-- tree_:init_node_data(data,1)
+	tree_:init_node_data(data)
 end
 
 function turn_tree_data(data)

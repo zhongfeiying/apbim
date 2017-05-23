@@ -9,7 +9,7 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 local rmenu_ = require 'app.projectmgr.workspace.rmenu_control'
-local rmenu_private_ = require 'app.projectmgr.workspace.privates.rmenu'
+local rmenu_private_ = require 'app.projectmgr.workspace.contacts.rmenu'
 
 function rbtn(tree,id)
 	rmenu_.set(rmenu_private_)

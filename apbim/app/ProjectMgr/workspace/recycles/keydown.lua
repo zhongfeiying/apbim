@@ -9,10 +9,10 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 local rmenu_ = require 'app.projectmgr.workspace.rmenu_control'
-local rmenu_private_ = require 'app.projectmgr.workspace.privates.rmenu'
+local rmenu_recycle_ = require 'app.projectmgr.workspace.recycles.rmenu'
 
 function rbtn(tree,id)
-	rmenu_.set(rmenu_private_)
+	rmenu_.set(rmenu_recycle_)
 	rmenu_.init(tree,id)
 	rmenu_.pop(tree,id)
 	-- rmenu_.pop(tree,id,project_list_rmenu_.get())
