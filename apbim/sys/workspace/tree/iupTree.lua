@@ -170,6 +170,9 @@
 			
 			Class:init_path_data(path,rule,id)
 			-- 给定磁盘路径，将该文件夹以及文件夹下的内容显示在tree中。
+			
+			Class:get_selected_path(id)
+			--获取节点的title路径信息。
 ]]
 
 local require = require
@@ -891,11 +894,12 @@ local function get_path_data(path,rule)
 					t.attributes = {title = line,kind = 'leaf' ,data = {file = name}}
 					 if type(rule) =='function' then 
 						status = rule(line,path .. '/',1)
-						print(status)
+						--print(status)
 						if type(status) == 'table' then 
 							
 							t.attributes.image = status.icon
 							t.attributes.tip = status.tip
+							t.attributes.title = status.title or t.attributes.title
 							for k,v in pairs (status) do
 								t.attributes.data[k] = v
 							end
