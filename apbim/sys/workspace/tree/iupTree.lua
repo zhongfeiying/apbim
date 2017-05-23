@@ -189,6 +189,7 @@ local string_upper_ = string.upper
 local string_find_ = string.find
 local table_insert_ = table.insert
 local string_sub_ = string.sub
+local string_lower_ = string.lower
 
 local M = {}
 local modname = ...
@@ -683,6 +684,7 @@ local function create_tree(t)
 		map_cb =  function() --设置tree在显示的时候的回调函数
 			t.Map = true --初始化Map变量为true
 			t:init()
+			t:init_map_cbs()
 		end;
 	};
 end
@@ -701,6 +703,18 @@ function Class:init()
 	self:init_dlbtn() --初始化双击鼠标左键操作
 	self:init_rbtn() --初始化鼠标右键操作
 	self:init_tree_data() --如果有数据则初始化界面中的显示内容。
+end
+
+function Class:init_map_cbs()
+	self.map_cbs = self.map_cbs or {}
+	for k,v in ipairs (self.map_cbs) do 
+		v()
+	end 
+end
+
+function Class:reg_map_cb(f)
+	self.map_cbs = self.map_cbs or {}
+	table.insert(self.map_cbs,f)
 end
 
 function Class:set_data(data)
@@ -779,13 +793,24 @@ function Class:init_rbtn()
 	local tree = self.tree
 	local function deal_callback(id)
 		self:set_node_marked(id)
-		if self.Rmenu then 
+		local t = self:get_node_data(id)
+		print(t,t and t.rbtn)
+		if t and t.rmenu then 
+			local rmenu = RMenu_.new()
+			rmenu:set_data(t.rmenu)
+			return rmenu:show(self,id)
+		elseif t and   type(t.rbtn) == 'function' then 
+			return t.rbtn(self,id)
+		elseif self.Rmenu then 
 			local rmenu = RMenu_.new()
 			rmenu:set_data(self.Rmenu)
 			return rmenu:show(self,id)
 		elseif type(self.rbtn) == 'function' then 
-			self.rbtn(self,id)
+			return self.rbtn(self,id)
+		-- elseif type(self.rbtn) == 'table'  then 
+			-- return 
 		end
+		
 	end
 	function tree:rightclick_cb(id)
 		deal_callback(id,args)
@@ -814,6 +839,7 @@ cmds_.title = function (self,id,title)   self:set_node_title(title,id) end
 cmds_.state = function (self,id,state)  self:set_node_state(state,id) end
 cmds_.data = function (self,id,data)  self:set_node_data(data,id) end
 cmds_.tip = function (self,id,str)  self:set_node_tip(str,id) end
+
 
 
 		
@@ -896,7 +922,6 @@ local function get_path_data(path,rule)
 						status = rule(line,path .. '/',1)
 						--print(status)
 						if type(status) == 'table' then 
-							
 							t.attributes.image = status.icon
 							t.attributes.tip = status.tip
 							t.attributes.title = status.title or t.attributes.title
@@ -980,5 +1005,29 @@ function Class:get_selected_path(id)
 		return get_path(self:get_node_parent(id),str)
 	end
 	return get_path(id)
+end
+
+
+--[[
+Class:set_expand_all(states)
+功能：
+	设置展开文件夹节点的状态。
+使用示例：
+	local tree = require '...'.Class:new(t)
+	tree:set_expand_all('yes')
+	参数说明：
+		states ： 状态。可接受的值是'yes'(全部展开) 和 'no'(不展开)
+--]]
+function Class:set_expand_all(states)
+	if not self.tree then return error('Please create tree firstly !') end 
+	if not states then return end 
+	if not self.Map then 
+		if string_lower_ (states) == 'yes' then 
+			self.tree.ADDEXPANDED = 'YES'
+		end 
+		return
+	end
+	local tree = self.tree
+	tree.EXPANDALL = states or 'NO'
 end
 
