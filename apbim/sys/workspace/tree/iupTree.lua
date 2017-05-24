@@ -201,7 +201,7 @@ local iup = require "iuplua"
 require "iupluacontrols"
 require "iupluaimglib"
 local lfs = require 'lfs'
-local RMenu_ = {}--require 'sys.workspace.tree.rmenu'
+local RMenu_ = require 'sys.workspace.tree.rmenu'
 Class = {}
 
 ----------------------------------------------------------------------------------------------------------
@@ -794,7 +794,6 @@ function Class:init_rbtn()
 	local function deal_callback(id)
 		self:set_node_marked(id)
 		local t = self:get_node_data(id)
-		print(t,t and t.rbtn)
 		if t and t.rmenu then 
 			local rmenu = RMenu_.new()
 			rmenu:set_data(t.rmenu)

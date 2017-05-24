@@ -13,13 +13,13 @@ _ENV = M
 
 local file = 'app.ProjectMgr.info.user_gid_file'
 local user_ = 'Sjy' -- require 'user'.get()
-local keydown_ = require 'app.ProjectMgr.workspace.keydown_control'
+
 local function init_data()
 	return {
 		user = {
 			title = user_,
 			data= {
-				rbtn =  function (tree,id) keydown_.set(require 'app.projectmgr.workspace.workspace.keydown') keydown_.rbtn(tree,id) end;
+				rmenu = require 'app.projectmgr.workspace.workspace.rmenu'.get();
 			};
 			image = {open ='app/ProjectMgr/res/user_open.bmp',close =  'app/ProjectMgr/res/user_close.bmp'} ;
 			state = 'expanded',
@@ -29,8 +29,7 @@ local function init_data()
 			
 			image = {open ='app/ProjectMgr/res/projects_open.bmp',close =  'app/ProjectMgr/res/projects_close.bmp'} ;
 			data= {
-				entrance =  'app.projectmgr.workspace.projects.main';
-				rbtn =  function (tree,id) keydown_.set(require 'app.projectmgr.workspace.projects.keydown') keydown_.rbtn(tree,id) end ;				
+				rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get();
 			};
 		};
 		contact = {
@@ -38,24 +37,28 @@ local function init_data()
 			
 			image = {open ='app/ProjectMgr/res/user_open.bmp',close =  'app/ProjectMgr/res/user_close.bmp'} ;
 			data= {
-				entrance =  'app.projectmgr.workspace.contacts.main';
-				rbtn =  function (tree,id) keydown_.set(require 'app.projectmgr.workspace.contacts.keydown') keydown_.rbtn(tree,id) end ;
+				rmenu = require 'app.projectmgr.workspace.contacts.rmenu'.get();
 			};
 		};
 		recycle  = {
 			title = '回收站',
 			image = {open ='app/ProjectMgr/res/recycles_open.bmp',close =  'app/ProjectMgr/res/recycles_close.bmp'} ;
 			data= {
-				entrance =  'app.projectmgr.workspace.recycles.main';
-				rbtn =  function (tree,id) keydown_.set(require 'app.projectmgr.workspace.recycles.keydown') keydown_.rbtn(tree,id) end ;
+				rmenu = require 'app.projectmgr.workspace.recycles.rmenu'.get();
 			};
 		};
 		private  = {
 			title = '私人文件夹',
 			image = {open ='app/ProjectMgr/res/privates_open.bmp',close =  'app/ProjectMgr/res/privates_close.bmp'} ;
 			data = {
-				entrance =  'app.projectmgr.workspace.privates.main';
-				rbtn =  function (tree,id) keydown_.set(require 'app.projectmgr.workspace.privates.keydown') keydown_.rbtn(tree,id) end ;
+				rmenu = require 'app.projectmgr.workspace.privates.rmenu'.get();
+			};
+		};
+		family = {
+			title = '族';
+			image = {open ='app/ProjectMgr/res/family.bmp',close =  'app/ProjectMgr/res/family.bmp'} ;
+			data = {
+				rmenu = require 'app.projectmgr.workspace.family.rmenu'.get();
 			};
 		};
 		{
@@ -71,6 +74,10 @@ local function init_data()
 				};
 				{
 					index='contact';
+					{};
+				};
+				{
+					index='family';
 					{};
 				};
 				{
@@ -97,15 +104,6 @@ end
 
 function get()
 	return data_
-end
-
-function add(arg)
-end
-
-function edit(arg)
-end
-
-function delete(arg)
 end
 
 

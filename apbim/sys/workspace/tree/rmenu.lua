@@ -87,7 +87,7 @@ function Class:get_data()
 	return self.data
 end
 
-function Class:add_item(menu,item,tree,id)
+function Class:add_item(menu,item)
 	if not menu or  not item then return end 
 	local cur_item;
 	if type(item) == 'table' then 
@@ -95,7 +95,7 @@ function Class:add_item(menu,item,tree,id)
 		if type(item.active) == 'string' then 
 			active = item.active
 		elseif  type(item.active) == 'function' then 
-			active = item.active(tree,id)
+			active = item.active()
 		end 
 		if active and active == 'hide' then return end 
 		cur_item = create_item{title = item.title,action = item.action,active = active,}
@@ -109,7 +109,7 @@ function Class:add_item(menu,item,tree,id)
 	end
 end
 
-function Class:add_submenu(menu,title,submenu,tree,id)
+function Class:add_submenu(menu,title,submenu)
 	local item = create_submenu{
 		title = title;
 		create(submenu);
@@ -117,34 +117,34 @@ function Class:add_submenu(menu,title,submenu,tree,id)
 	table.insert(menu,item)
 end
 
-local function init_data(data,menu,tree,id)
+local function init_data(data,menu)
 	for k,v in ipairs(data) do 
 		if v.submenu then 
 			local submenu = {}
 			if type(v.submenu) == 'table' then 
-				init_data(v.submenu,submenu,tree,id)
+				init_data(v.submenu,submenu)
 			elseif type(v.submenu) == 'function' then 
 				local t = v.submenu() or {}
-				init_data(t,submenu,tree,id)
+				init_data(t,submenu)
 			end 
 			Class:add_submenu(menu,v.title,submenu)
 		else 
-			Class:add_item(menu,v,tree,id)
+			Class:add_item(menu,v)
 		end 
 	end 
 end
 
-function Class:init(tree,id)
+function Class:init()
 	if type(self.data) ~= 'table' or table_is_empty(self.data) then return end 
 	local menu = {}
-	init_data(self.data,menu,tree,id)
+	init_data(self.data,menu)
 	self.rmenu = create(menu)
 	self.rmenu.menuclose_cb = function() iup.Destroy(t.rmenu) t.rmenu = nil end
 	return true
 end
 
-function Class:show(tree,id)
-	if not self:init(tree,id) then return end 
+function Class:show()
+	if not self:init() then return end 
 	if not self.rmenu then return end 
 	iup.Refresh(self.rmenu)
 	self.rmenu:popup(iup.MOUSEPOS,iup.MOUSEPOS)

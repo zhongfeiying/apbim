@@ -8,20 +8,15 @@ local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
-local rmenu_ = require 'app.projectmgr.workspace.rmenu_control'
-local rmenu_private_ = require 'app.projectmgr.workspace.contacts.rmenu'
 
-function rbtn(tree,id)
-	rmenu_.set(rmenu_private_)
-	rmenu_.init(tree,id)
-	rmenu_.pop(tree,id)
-	-- rmenu_.pop(tree,id,project_list_rmenu_.get())
+
+function rbtn()
 end
 
-function lbtn(tree,id)
+function lbtn()
 
 end
 
-function dlbtn(tree,id)
+function dlbtn()
 
 end

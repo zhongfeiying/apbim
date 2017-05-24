@@ -8,10 +8,10 @@ package_loaded_[modname] = M
 _ENV = M
 
 local project_ = require 'app.projectmgr.project'
+local tree_ = require 'app.ProjectMgr.workspace.workspace.tree'
+-- local tree = tree_.get()
+	-- local id = tree_.get_current_id()
 
--- local function show_property()
-	-- project_.show_property()
--- end
 
 local Property = {title = 'menu',action = show_property,active = active_show_property}
 

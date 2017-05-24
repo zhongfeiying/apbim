@@ -8,20 +8,19 @@ local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
-local rmenu_ = require 'app.projectmgr.workspace.rmenu_control'
-local rmenu_workspace_ = require 'app.projectmgr.workspace.workspace.rmenu'
+local tree_ = require 'app.ProjectMgr.workspace.workspace.tree'
 
-function rbtn(tree,id)
-	rmenu_.set(rmenu_workspace_)
-	rmenu_.init(tree,id)
-	rmenu_.pop(tree,id)
-	-- rmenu_.pop(tree,id,project_list_rmenu_.get())
+function rbtn()
+	local tree = tree_.get()
+	local id = tree_.get_current_id()
 end
 
-function lbtn(tree,id)
+function lbtn()
 
 end
 
-function dlbtn(tree,id)
+function dlbtn()
 
 end
+
+

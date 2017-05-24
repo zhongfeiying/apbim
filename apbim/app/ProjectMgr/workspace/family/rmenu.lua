@@ -11,9 +11,10 @@ _ENV = M
 
 local project_ = require 'app.projectmgr.project'
 local tree_ = require 'app.ProjectMgr.workspace.workspace.tree'
-
--- local tree = tree_.get()
-	-- local id = tree_.get_current_id()
+--[[
+	local tree = tree_.get()
+	local id = tree_.get_current_id()
+--]]
 --item = {title,action,active,...}
 local add_folder_ = {title = 'Folder'}
 local add_file_ = {title = 'File'}
