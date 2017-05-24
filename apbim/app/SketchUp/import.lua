@@ -17,6 +17,8 @@ _G[modname] = M
 package.loaded[modname] = M
 _ENV = M
 
+local save_obj_ = require 'app.SketchUp.save_obj'
+
 local units = {
 	mm = 1;
 	m = 1000;
@@ -126,10 +128,8 @@ end
 
 function open_model(file)	
 	init()
-	local times = {}
-	local time1 = os_time_()
+	save_obj_.init()
 	local info = {}
-	-- print(file)
 	local func = loadfile(file,"bt",info)
 	info.Edge = Edge
 	info.Face = Face
@@ -137,17 +137,11 @@ function open_model(file)
 	if func then 
 		func()
 	end
-	local time2 = os_time_()
-	times.loadfiletime = time2 - time1
-	-- print("loadfiletime = ",times.loadfiletime)
 	for k,v in ipairs (faces_) do 
 		 print('cur : ' .. k,'Total : ' .. #faces_)
 		deal_add_face(v)
 	end 
-	-- require"sys.mgr".update();	
-	local time3 = os_time_()
-	times.totaltime = time3 - time1
-	-- print("totaltime = ",times.totaltime)
+	save_obj_.endof()
 	 require 'sys.table'.totrace(typenames_)
 end
 

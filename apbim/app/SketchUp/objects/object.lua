@@ -10,6 +10,7 @@ _G[modname] = M
 package.loaded[modname] = M
 _ENV = M
 
+local save_obj_ = require 'app.SketchUp.save_obj'
 
 Class = {}
 
@@ -66,6 +67,8 @@ function Class:init_lines_surfaces(surfaces)
 		end 
 	end 
 	table.insert(surfaces,surface)
+	
+	save_obj_.add_line_surface(surface)
 	return surfaces
 end 
 
@@ -83,6 +86,7 @@ function Class:init_surfaces()
 	end
 	surface.outer = self.face_outer
 	surface.inners = self.face_inners
+	save_obj_.add_face_surface(surface)
 	table.insert(surfaces,surface)
 	self:init_lines_surfaces(surfaces)
 	return surfaces

@@ -115,7 +115,60 @@ end
 local function init(arg)
 	return  deal_items(arg)
 end
-
-function get(tree,id)
-	return init(arg)
+--------------------------------------------------------------------------------------------
+local item_sort_by_name_ =  {title = 'Name',action = nil,active = nil}
+local item_sort_by_date_ =  {title = 'Date',action = nil,active = nil}
+local item_sort_by_company_ =  {title = 'Company',action = nil,active = nil}
+local function get_sort_by_submenu()
+	return {
+		item_sort_by_name_;
+		item_sort_by_date_;
+		item_sort_by_company_;
+	}
 end
+
+local item_add_project_ = {title = 'Create'}
+local sub_sort_by_ = {title = 'Show By',submenu = get_sort_by_submenu()}
+local item_statistics_ = {title = 'Statistics'}
+
+function get_projectlist_menu()
+	return {
+		item_add_project_;
+		sub_sort_by_;
+		item_statistics_;
+	}
+end
+
+local item_hide_ = {title = 'Hide'}
+local item_cooperate_group_ = {title = 'Group'};
+	
+local function get_cooperate_items()
+	return {
+		item_cooperate_group_;
+	}
+end
+local item_cooperate_ = {title = 'Cooperate',submenu = get_cooperate_items()}
+
+function get_project_menu()
+	return {
+		item_add_;
+		item_import_;
+		'';
+		item_edit_;
+		item_delete_;
+		'';
+		item_send_;
+		item_server_;
+		'';
+		item_zip_;
+		item_save_;
+		'';
+		item_property_;
+		item_hide_;
+	}
+end
+
+function get()
+	return get_projectlist_menu()
+end
+
