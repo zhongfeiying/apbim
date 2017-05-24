@@ -86,6 +86,9 @@
 			
 			Class:set_node_marked(id)
 			--请参考iup.tree 中 MARKED 属性。设置被选中的节点（鼠标左键点选效果）.
+			
+			Class:set_selection_cb(f)
+			--设置当节点选中状态发生改变时 回掉处理的函数。
 
 			Class:get_tree_ids()
 			--请参考iup.tree 中 COUNT 属性。获得tree中所有节点的个数
@@ -702,6 +705,7 @@ function Class:init()
 	self:init_lbtn() --初始化鼠标左键操作
 	self:init_dlbtn() --初始化双击鼠标左键操作
 	self:init_rbtn() --初始化鼠标右键操作
+	self:init_selected()
 	self:init_tree_data() --如果有数据则初始化界面中的显示内容。
 end
 
@@ -750,12 +754,21 @@ function Class:set_rmenu(menu)
 	self.Rmenu = type(menu) == 'table' and menu 
 end
 
+function Class:set_selection_cb(change)
+	self.selection_cb = type(change) == 'function' and change 
+end
+
+
+
 
 -----------------------------------------------------------------------------------------
 --op callback
 function Class:init_lbtn()
 	local tree = self.tree
 	local function deal_callback(id,number)
+		if type(self.selection_cb) == 'function' then 
+			self.selection_cb(id, status)
+		end
 		if  type(self.lbtn) == 'function' then 
 			self.lbtn(self,id)
 		end
@@ -794,9 +807,13 @@ function Class:init_rbtn()
 	local function deal_callback(id)
 		self:set_node_marked(id)
 		local t = self:get_node_data(id)
-		if t and t.rmenu then 
+		if t and type(t.rmenu) == 'table' then 
 			local rmenu = RMenu_.new()
 			rmenu:set_data(t.rmenu)
+			return rmenu:show(self,id)
+		elseif t and type(t.rmenu) == 'function' then 
+			local rmenu = RMenu_.new()
+			rmenu:set_data(t.rmenu())
 			return rmenu:show(self,id)
 		elseif t and   type(t.rbtn) == 'function' then 
 			return t.rbtn(self,id)
@@ -806,8 +823,6 @@ function Class:init_rbtn()
 			return rmenu:show(self,id)
 		elseif type(self.rbtn) == 'function' then 
 			return self.rbtn(self,id)
-		-- elseif type(self.rbtn) == 'table'  then 
-			-- return 
 		end
 		
 	end
@@ -815,6 +830,7 @@ function Class:init_rbtn()
 		deal_callback(id,args)
 	end
 end
+
 
 function Class:set_node_tip(str,id)
 	if not self.tree then return error('Please create tree firstly !') end 
