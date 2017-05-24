@@ -87,8 +87,7 @@
 			Class:set_node_marked(id)
 			--请参考iup.tree 中 MARKED 属性。设置被选中的节点（鼠标左键点选效果）.
 			
-			Class:set_selection_cb(f)
-			--设置当节点选中状态发生改变时 回掉处理的函数。
+			
 
 			Class:get_tree_ids()
 			--请参考iup.tree 中 COUNT 属性。获得tree中所有节点的个数
@@ -176,6 +175,12 @@
 			
 			Class:get_selected_path(id)
 			--获取节点的title路径信息。
+			---------------------------2017年5月24日16:38:12-------------------------------------
+			Class:set_selection_cb(f)
+			--设置当节点选中状态发生改变时 回掉处理的函数。
+			--f 接受的参数：f(id,status)	
+				id:取消/选中 的节点。
+				status:0（取消选中），1（选中）
 ]]
 
 local require = require
@@ -204,7 +209,7 @@ local iup = require "iuplua"
 require "iupluacontrols"
 require "iupluaimglib"
 local lfs = require 'lfs'
-local RMenu_ = {} -- require 'sys.workspace.tree.rmenu'
+local RMenu_ =  require 'sys.workspace.tree.rmenu'
 Class = {}
 
 ----------------------------------------------------------------------------------------------------------
@@ -753,8 +758,9 @@ function Class:set_rmenu(menu)
 	self.Rmenu = type(menu) == 'table' and menu 
 end
 
-function Class:set_selection_cb(change)
-	self.selection_cb = type(change) == 'function' and change 
+-- f(id,status)
+function Class:set_selection_cb(f)
+	self.selection_cb = type(f) == 'function' and f 
 end
 
 
