@@ -41,15 +41,15 @@ function get()
 	return tree_
 end
 
--- function get_control()
-	-- if not tree_ then return end 
-	-- return tree_:get_tree()
--- end
+function get_control()
+	if not tree_ then return end 
+	return tree_:get_tree()
+end
 
--- function get_current_id()
-	-- if not tree_ then return end 
-	-- return tree_:get_tree_selected()
--- end
+function get_current_id()
+	if not tree_ then return end 
+	return tree_:get_tree_selected()
+end
 
 -- function add_branch(name,id)
 	-- if not tree_ then return end 
