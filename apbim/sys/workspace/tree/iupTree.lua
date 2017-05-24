@@ -204,7 +204,7 @@ local iup = require "iuplua"
 require "iupluacontrols"
 require "iupluaimglib"
 local lfs = require 'lfs'
-local RMenu_ = require 'sys.workspace.tree.rmenu'
+local RMenu_ = {} -- require 'sys.workspace.tree.rmenu'
 Class = {}
 
 ----------------------------------------------------------------------------------------------------------
@@ -705,7 +705,6 @@ function Class:init()
 	self:init_lbtn() --初始化鼠标左键操作
 	self:init_dlbtn() --初始化双击鼠标左键操作
 	self:init_rbtn() --初始化鼠标右键操作
-	self:init_selected()
 	self:init_tree_data() --如果有数据则初始化界面中的显示内容。
 end
 
@@ -766,11 +765,14 @@ end
 function Class:init_lbtn()
 	local tree = self.tree
 	local function deal_callback(id,number)
-		if type(self.selection_cb) == 'function' then 
-			self.selection_cb(id, status)
-		end
 		if  type(self.lbtn) == 'function' then 
 			self.lbtn(self,id)
+		end
+	end
+	
+	local function deal_other(id,number)
+		if type(self.selection_cb) == 'function' then 
+			self.selection_cb(id, number)
 		end
 	end
 	
@@ -778,6 +780,7 @@ function Class:init_lbtn()
 		if number == 1 then 
 			deal_callback(id,number);
 		end
+		deal_other(id,number)
 	end
 end
 
@@ -807,6 +810,9 @@ function Class:init_rbtn()
 	local function deal_callback(id)
 		self:set_node_marked(id)
 		local t = self:get_node_data(id)
+		if type(self.selection_cb) == 'function' then 
+			self.selection_cb(id, 1)
+		end
 		if t and type(t.rmenu) == 'table' then 
 			local rmenu = RMenu_.new()
 			rmenu:set_data(t.rmenu)

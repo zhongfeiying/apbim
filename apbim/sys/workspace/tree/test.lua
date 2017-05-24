@@ -11,6 +11,13 @@ end
 tree:init_path_data('E:\\Sync\\workingGit\\apbim\\apbim\\sys\\api',rule)
 tree:set_rastersize('400x400')
 tree:set_expand_all('YES')
+
+local f1 = function(id,status)
+	print(id,status)
+end
+
+tree:set_selection_cb(f1)
+
 local function f(id)
 	tree:set_expand_all('YES')
 	
