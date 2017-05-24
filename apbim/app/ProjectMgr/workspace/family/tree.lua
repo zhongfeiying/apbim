@@ -37,8 +37,14 @@ function init()
 	init_data()
 end
 
+
 function get()
 	return tree_
+end
+
+function get_current_id()
+	if not tree_ then return end 
+	return tree_:get_tree_selected()
 end
 
 -- function get_control()

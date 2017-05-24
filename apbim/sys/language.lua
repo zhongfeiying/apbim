@@ -6,16 +6,14 @@ package.loaded[modname] = M
 _ENV = M
 
 local language_list_ = {
-	['English'] = true;
-	['Chinese'] = true;
+	['English'] = 'English';
+	['Chinese'] = 'Chinese';
 }
 local language_ = 'Chinese'
 --local language_ ='English'
 
 function set(language)
-	if language_list_[language] then 
-		language_ = language
-	end
+	language_ =language and  language_list_[language] or 'English'
 end
 
 function get()
