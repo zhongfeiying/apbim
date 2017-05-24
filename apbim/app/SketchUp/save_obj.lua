@@ -1,4 +1,8 @@
 
+local require  = require 
+local table =table
+
+
 local M = {}
 local modname = ...
 _G[modname] = M
