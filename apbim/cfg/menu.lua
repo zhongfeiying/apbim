@@ -1,4 +1,75 @@
+--[===[
 return {
+   	{
+  	 	name = "File";
+  	 	subs = {
+  	 	 	{
+  	 	 	 	name = "BIM";
+				subs = {
+					{
+						name = "New";
+						keyword ='AP.BIM.New';
+					};
+				};
+  	 	 	};
+  	 	 	{
+  	 	 	 	name = "Project";
+				subs = {
+					{
+						name = "New";
+						keyword ='AP.Project.New';
+					};
+					{
+						name = "Open";
+						keyword ='AP.Project.Open';
+					};
+					{
+						name = "Save";
+						keyword ='AP.Project.Save';
+					};
+				};
+  	 	 	};
+  	 	 	{
+  	 	 	 	name = "Import";
+				subs = {
+					{
+						name = "Lua";
+						keyword ='AP.Work.Import.Lua';
+					};
+					{
+					};
+					{
+						name = "Tekla";
+						keyword ='AP.Project.Import.Tekla';
+					};
+					{
+						name = "Tekla From File";
+						keyword ='AP.Project.Import.Tekla From File';
+					};
+					{
+					};
+					{
+						name = "Revit";
+						keyword ='AP.Project.Import.Revit';
+					};
+					{
+						name = "SketchUp";
+						keyword ='AP.Project.Import.SketchUp';
+					};
+					
+				};
+  	 	 	};
+  	 	 	{
+  	 	 	 	name = "Export";
+				subs = {
+					{
+						name = "Lua";
+						keyword ='AP.Work.Export.Lua';
+					};
+				};
+  	 	 	};
+  	 	};
+  	};
 	{
 		name = 'User';
 		subs = {
@@ -72,10 +143,10 @@ return {
 			};			
 		};
 	};
-	{
-		name = 'File';
-		subs = {};
-	};
+--	{
+--		name = 'File';
+--		subs = {};
+--	};
 	{
 		name = 'Cooperate';
 		subs = {};
@@ -100,7 +171,8 @@ return {
 		subs = {};
 	};
 }
---[==[
+--]===]
+----[==[
 return  {
    	{
   	 	name = "File";

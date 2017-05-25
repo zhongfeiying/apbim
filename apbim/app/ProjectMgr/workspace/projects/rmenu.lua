@@ -73,6 +73,10 @@ local title_import_id_ = {English = 'Id',Chinese= '文件Id'}
 local title_hide_project_ = {English = 'Hide',Chinese = '隐藏'}
 local title_delete_project_ = {English = 'Delete',Chinese = '删除'}
 local title_edit_information_ = {English = 'Edit',Chinese = '编辑'}
+local title_save_project_ = {English = 'Save',Chinese = '保存'}
+local title_server_ = {English = 'Server',Chinese = '服务器'}
+local title_server_backup_ = {Englist = 'Backup',Chinese = '备份'}
+local title_server_
 
 local action_information_;
 local action_add_file_;
@@ -84,6 +88,7 @@ local action_import_id_;
 local action_hide_project_;
 local action_delete_project_;
 local action_edit_information_;
+local action_save_project_;
 
 local item_information_;
 local item_add_;
@@ -97,6 +102,7 @@ local item_import_id_;
 local item_hide_project_;
 local item_delete_project_;
 local item_edit_information_;
+local item_save_project_;
 
 item_information_ = {action = action_information_}
 local function sub_add_items()
@@ -124,6 +130,7 @@ item_import_id_ = {action = action_import_id_}
 item_hide_project_ = {action = action_hide_project_}
 item_delete_project_ = {action = action_delete_project_}
 item_edit_information_= {action = action_edit_information_}
+item_save_project_= {action = action_save_project_}
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
@@ -144,6 +151,7 @@ local function init()
 	item_hide_project_.title = title_hide_project_[cur_language_]
 	item_delete_project_.title = title_delete_project_[cur_language_]
 	item_edit_information_.title = title_edit_information_[cur_language_]
+	item_save_project_.title = title_save_project_[cur_language_]
 end
 
 function get()
@@ -162,6 +170,8 @@ end
 function get_project_menu()
 	init()
 	return {
+		item_save_project_;
+		'';
 		item_add_;
 		item_import_;
 		'';
@@ -199,3 +209,4 @@ action_import_id_ = function() end
 action_hide_project_ = function() end
 action_delete_project_ = function() end
 action_edit_information_ = function() end
+action_save_project_ = function() end
