@@ -16,34 +16,19 @@ local user_ = 'Sjy' -- require 'user'.get()
 
 local function init_data()
 	return {
-		-- private = {name = user_,id = 1,type = 'user'};
-		-- project = {name = '工程列表',id = 2,type = 'projects'};
-		-- contact = {name = '联系人列表',id =3,type = 'contacts'};
-		-- recycle  = {name = '回收站',id =4,type = 'recycle'};
-		-- private  = {name = '私人文件夹',id =1,type = 'private'};
-		-- {
-			-- index = 'private';
-			-- {};
-			-- {
-				-- {
-					-- index = 'private';
-					-- {};
-				-- };
-				-- {
-					-- index='project';
-					-- {};
-				-- };
-				-- {
-					-- index='contact';
-					-- {};
-				-- };
-				-- {
-					-- index='recycle';
-					-- {};
-				-- };
-			-- };
-		-- };
-
+		{
+			name = 'Lib',id = 1,
+			{
+				{
+					name = 'Tree';id=4;
+					{
+						{
+							name ='tree_shape',id =5;
+						};
+					};
+				};
+			};
+		};
 	};
 	--save_file()
 end

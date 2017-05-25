@@ -16,34 +16,14 @@ local file = 'app.ProjectMgr.info.user_gid_file'
 
 local function init_data()
 	return {
-		-- private = {name = user_,id = 1,type = 'user'};
-		-- project = {name = '工程列表',id = 2,type = 'projects'};
-		-- contact = {name = '联系人列表',id =3,type = 'contacts'};
-		-- recycle  = {name = '回收站',id =4,type = 'recycle'};
-		-- private  = {name = '私人文件夹',id =1,type = 'private'};
-		-- {
-			-- index = 'private';
-			-- {};
-			-- {
-				-- {
-					-- index = 'private';
-					-- {};
-				-- };
-				-- {
-					-- index='project';
-					-- {};
-				-- };
-				-- {
-					-- index='contact';
-					-- {};
-				-- };
-				-- {
-					-- index='recycle';
-					-- {};
-				-- };
-			-- };
-		-- };
-
+		{
+			name = 'test',id = 1,
+			{
+				{
+					name = 'Sjy'
+				};
+			};
+		};
 	};
 	--save_file()
 end

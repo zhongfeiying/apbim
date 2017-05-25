@@ -11,41 +11,31 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
-local file = 'app.ProjectMgr.info.user_gid_file'
-local user_ = 'Sjy' -- require 'user'.get()
+local file = 'app.ProjectMgr.info.user_gid_projects_file'
 
 local function init_data()
 	return {
-		-- private = {name = user_,id = 1,type = 'user'};
-		-- project = {name = '工程列表',id = 2,type = 'projects'};
-		-- contact = {name = '联系人列表',id =3,type = 'contacts'};
-		-- recycle  = {name = '回收站',id =4,type = 'recycle'};
-		-- private  = {name = '私人文件夹',id =1,type = 'private'};
-		-- {
-			-- index = 'private';
-			-- {};
-			-- {
-				-- {
-					-- index = 'private';
-					-- {};
-				-- };
-				-- {
-					-- index='project';
-					-- {};
-				-- };
-				-- {
-					-- index='contact';
-					-- {};
-				-- };
-				-- {
-					-- index='recycle';
-					-- {};
-				-- };
-			-- };
-		-- };
+		{
+			name = '大河',id = 1,
 
-	};
-	--save_file()
+			{
+				{
+					name = 'folder';id=4;
+					{
+						{
+							name ='file',id =5;
+						};
+					};
+				};
+			};
+		};
+		{
+			name = '肯德基',id = 2,
+		};
+		{
+			name = '麦当劳',id = 3,
+		};--]]
+	}
 end
 
 local function init_file()

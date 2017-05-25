@@ -12,11 +12,12 @@ require 'iupluacontrols'
 
 local sys_workspace_ = require 'sys.workspace'
 local workspace_ =  require 'app.projectmgr.workspace.workspace.main'
+local projectlist_ =  require 'app.projectmgr.workspace.projects.main'
+local contacts_ =  require 'app.projectmgr.workspace.contacts.main'
+local recycle_ =  require 'app.projectmgr.workspace.recycles.main'
+local private_ =  require 'app.projectmgr.workspace.privates.main'
+local family_ =  require 'app.projectmgr.workspace.family.main'
 
--- local projectlist_ =  require 'app.projectmgr.workspace.projects.main'
--- local contacts_ =  require 'app.projectmgr.workspace.contacts.main'
--- local recycle_ =  require 'app.projectmgr.workspace.recycles.main'
--- local private_ =  require 'app.projectmgr.workspace.privates.main'
 
 local var_workspace_;
 
@@ -41,13 +42,13 @@ local function init(cmd)
 end
 
 local function load_project_list()
-
-	-- qinit(workspace_)
 	workspace_.main()
-	-- init(private_)
-	-- init(recycle_)
-	-- init(contacts_)
-	-- init(projectlist_)
+	-- qinit(workspace_)
+	private_.main()
+	projectlist_.main()
+	contacts_.main()
+	family_.main()
+	recycle_.main()
 	var_workspace_ = init_control_data()
 	sys_workspace_.add(var_workspace_)
 end 

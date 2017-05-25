@@ -20,31 +20,36 @@ local function init_data()
 			title = user_,
 			data= {
 				rmenu = require 'app.projectmgr.workspace.workspace.rmenu'.get;
+				__title = 'User';
 			};
 			image = {open ='app/ProjectMgr/res/user_open.bmp',close =  'app/ProjectMgr/res/user_close.bmp'} ;
 			state = 'expanded',
+			
 		};
 		project = {
 			title = '工程列表',
 			
-			image = {open ='app/ProjectMgr/res/projects_open.bmp',close =  'app/ProjectMgr/res/projects_close.bmp'} ;
+			image = {open ='app/ProjectMgr/res/projects_close.bmp',close =  'app/ProjectMgr/res/projects_close.bmp'} ;
 			data= {
 				rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get;
+				__title = 'ProjectList';
 			};
 		};
 		contact = {
 			title = '联系人列表',
 			
-			image = {open ='app/ProjectMgr/res/user_open.bmp',close =  'app/ProjectMgr/res/user_close.bmp'} ;
+			image = {open ='app/ProjectMgr/res/user_close.bmp',close =  'app/ProjectMgr/res/user_close.bmp'} ;
 			data= {
 				rmenu = require 'app.projectmgr.workspace.contacts.rmenu'.get;
+				__title = 'Contacts';
 			};
 		};
 		recycle  = {
 			title = '回收站',
-			image = {open ='app/ProjectMgr/res/recycles_open.bmp',close =  'app/ProjectMgr/res/recycles_close.bmp'} ;
+			image = {open ='app/ProjectMgr/res/recycles_close.bmp',close =  'app/ProjectMgr/res/recycles_close.bmp'} ;
 			data= {
 				rmenu = require 'app.projectmgr.workspace.recycles.rmenu'.get;
+				__title = 'recycles';
 			};
 		};
 		private  = {
@@ -52,6 +57,7 @@ local function init_data()
 			image = {open ='app/ProjectMgr/res/privates_open.bmp',close =  'app/ProjectMgr/res/privates_close.bmp'} ;
 			data = {
 				rmenu = require 'app.projectmgr.workspace.privates.rmenu'.get;
+				__title = 'privates';
 			};
 		};
 		family = {
@@ -59,6 +65,7 @@ local function init_data()
 			image = {open ='app/ProjectMgr/res/family.bmp',close =  'app/ProjectMgr/res/family.bmp'} ;
 			data = {
 				rmenu = require 'app.projectmgr.workspace.family.rmenu'.get;
+				__title = 'family';
 			};
 		};
 		{

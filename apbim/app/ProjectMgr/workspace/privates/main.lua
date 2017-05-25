@@ -7,15 +7,11 @@ local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
-local tree_control_ = require 'app.projectmgr.workspace.tree_control'
-local db_control_ = require 'app.projectmgr.workspace.db_control'
 
-local db_private_ = require 'app.projectmgr.workspace.privates.db'
-local tree_private_ =  require 'app.projectmgr.workspace.privates.tree'
+local db_control_ = require 'app.projectmgr.workspace.privates.db'
+local tree_control_ =  require 'app.projectmgr.workspace.privates.tree'
 
 function set()
-	db_control_.set(db_private_)
-	tree_control_.set(tree_private_)
 end
 
 function init()
@@ -37,7 +33,12 @@ end
 function main()
 	set()
 	init()
-	-- init_tree_data()
+	local tree = tree_control_.get()
+	if not tree.Map then 
+		tree:reg_map_cb(init_tree_data)
+	else 
+		init_tree_data()
+	end
 end
 
 

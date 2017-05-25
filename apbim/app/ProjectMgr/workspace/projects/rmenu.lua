@@ -186,7 +186,7 @@ item_save_project_= {action = action_save_project_}
 local function sub_server_items()
 	return {
 		item_server_backup_;
-		item_server_download_;
+		item_server_update_;
 		'';
 		item_server_history_;
 	}
@@ -271,6 +271,11 @@ local function init()
 	item_link_to_exe_.title = title_link_to_exe_[cur_language_]
 	item_link_to_member_.title = title_link_to_member_[cur_language_]
 	item_link_to_view_.title = title_link_to_view_[cur_language_]
+	item_manage_.title = title_manage_[cur_language_]
+	item_import_.title = title_import_[cur_language_]
+	item_import_file_.title = title_import_file_[cur_language_]
+	item_import_folder_.title = title_import_folder_[cur_language_]
+	item_import_id_.title = title_import_id_[cur_language_]
 end
 
 function get()
@@ -306,6 +311,7 @@ function get_project_menu()
 end
 
 function get_branch_menu()
+	init()
 	return {
 		item_add_;
 		item_ins_;
@@ -328,6 +334,7 @@ function get_branch_menu()
 end
 
 function get_leaf_menu()
+	init()
 	return {
 		item_ins_;
 		'';

@@ -7,16 +7,9 @@ local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
-local tree_control_ = require 'app.projectmgr.workspace.tree_control'
-local db_control_ = require 'app.projectmgr.workspace.db_control'
 
-local db_workspace_ = require 'app.projectmgr.workspace.workspace.db'
-local workspace_tree_ =  require 'app.projectmgr.workspace.workspace.tree'
-
-function set()
-	db_control_.set(db_workspace_)
-	tree_control_.set(workspace_tree_)
-end
+local db_control_ = require 'app.projectmgr.workspace.workspace.db'
+local tree_control_ =  require 'app.projectmgr.workspace.workspace.tree'
 
 function init()
 	db_control_.init()
@@ -34,7 +27,6 @@ function get_control()
 end
 
 function main()
-	set()
 	init()
 	init_tree_data()
 end

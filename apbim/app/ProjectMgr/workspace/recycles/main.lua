@@ -7,16 +7,10 @@ local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
-local tree_control_ = require 'app.projectmgr.workspace.tree_control'
-local db_control_ = require 'app.projectmgr.workspace.db_control'
 
-local db_ = require 'app.projectmgr.workspace.recycles.db'
-local tree_ =  require 'app.projectmgr.workspace.recycles.tree'
+local db_control_ = require 'app.projectmgr.workspace.recycles.db'
+local tree_control_ =  require 'app.projectmgr.workspace.recycles.tree'
 
-function set()
-	db_control_.set(db_)
-	tree_control_.set(tree_)
-end
 
 function init()
 	db_control_.init()
@@ -28,16 +22,15 @@ function init_tree_data()
 	tree_control_.turn_tree_data(data)
 	tree_control_.set_tree_data()
 end
---[[
-function get_control()
-	return tree_control_.get_control()
-end
---]]
 
 function main()
-	set()
 	init()
-	-- init_tree_data()
+	local tree = tree_control_.get()
+	if not tree.Map then 
+		tree:reg_map_cb(init_tree_data)
+	else 
+		init_tree_data()
+	end
 end
 
 

@@ -722,7 +722,7 @@ end
 
 function Class:reg_map_cb(f)
 	self.map_cbs = self.map_cbs or {}
-	table.insert(self.map_cbs,f)
+	table_insert_(self.map_cbs,f)
 end
 
 function Class:set_data(data)
@@ -882,6 +882,7 @@ end
 
 function Class:set_tree_data(data,id)
 	if type(data) ~= 'table' or #data == 0 then return end
+	if not id then return end 
 	local cur_id = id
 	for k,v in ipairs (data) do 
 		if not v.attributes then error('Please check data !') return end 
@@ -898,11 +899,11 @@ function Class:set_tree_data(data,id)
 		else 
 			if t.kind and t.kind == 'branch' then
 				self:insert_branch('',cur_id)	
-				cur_id = cur_id + self:get_node_ids(cur_id) + 1
+				cur_id = cur_id + self:get_totalchildcount(cur_id) + 1
 				self:set_tree_data(v[1],cur_id)
 			else 
 				self:insert_leaf('',cur_id)
-				cur_id = cur_id + self:get_node_ids(cur_id) + 1
+				cur_id = cur_id + self:get_totalchildcount(cur_id) + 1
 			end
 		end
 		set_node_status(self,cur_id,t)
@@ -1058,3 +1059,27 @@ function Class:set_expand_all(states)
 	tree.EXPANDALL = states or 'NO'
 end
 
+--[[
+Class:get_index_id(pid,Key,val)
+功能：
+	查找父节点下各个子节点附着的数据中包含'key'属性并且key对应的值与'val'一致。并返回该节点id。
+使用示例：
+	local tree = require '...'.Class:new(t)
+	print(tree:get_index_id(0,'__title','project'))
+	参数说明：
+		pid ： 父节点id。
+		key：查找的key
+		val ：对应的值SS
+--]]
+function Class:get_index_id(pid,key,val)
+	if not pid or pid < 0 or not key or not val then return end 
+	local count = self:get_node_ids(pid)
+	local curid = pid +1
+	for i = 1,count do 
+		local t = self:get_node_data(curid)
+		if t and t[key] and t[key] == val then 
+			return curid
+		end
+		curid = curid + 1+ self:get_totalchildcount(curid)
+	end 
+end

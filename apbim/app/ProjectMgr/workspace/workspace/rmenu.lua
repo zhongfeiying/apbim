@@ -14,7 +14,7 @@ _ENV = M
 local language_ = require 'sys.language'
 local cur_language_ = 'English'
 local project_ = require 'app.projectmgr.project'
-local tree_ = require 'app.ProjectMgr.workspace.recycles.tree'
+local tree_ = require 'app.ProjectMgr.workspace.workspace.tree'
 --[[
 	local tree = tree_.get()
 	local id = tree_.get_current_id()
