@@ -70,6 +70,9 @@ local title_import_ = {English = 'Import',Chinese= '导入'}
 local title_import_folder_ = {English = 'Folder',Chinese= '文件夹'}
 local title_import_file_ = {English = 'File',Chinese= '文件'}
 local title_import_id_ = {English = 'Id',Chinese= '文件Id'}
+local title_hide_project_ = {English = 'Hide',Chinese = '隐藏'}
+local title_delete_project_ = {English = 'Delete',Chinese = '删除'}
+local title_edit_information_ = {English = 'Edit',Chinese = '编辑'}
 
 local action_information_;
 local action_add_file_;
@@ -78,6 +81,9 @@ local action_chmod_;
 local action_import_folder_;
 local action_import_file_;
 local action_import_id_;
+local action_hide_project_;
+local action_delete_project_;
+local action_edit_information_;
 
 local item_information_;
 local item_add_;
@@ -88,6 +94,9 @@ local item_import_;
 local item_import_file_;
 local item_import_folder_;
 local item_import_id_;
+local item_hide_project_;
+local item_delete_project_;
+local item_edit_information_;
 
 item_information_ = {action = action_information_}
 local function sub_add_items()
@@ -112,6 +121,9 @@ item_import_ = {submenu = sub_import_items}
 item_import_folder_ = {action = action_import_folder_}
 item_import_file_ = {action = action_import_file_}
 item_import_id_ = {action = action_import_id_}
+item_hide_project_ = {action = action_hide_project_}
+item_delete_project_ = {action = action_delete_project_}
+item_edit_information_= {action = action_edit_information_}
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
@@ -129,6 +141,9 @@ local function init()
 	item_add_folder_.title = title_add_folder_[cur_language_]
 	item_add_file_.title = title_add_file_[cur_language_]
 	item_chmod_.title = title_chmod_[cur_language_]
+	item_hide_project_.title = title_hide_project_[cur_language_]
+	item_delete_project_.title = title_delete_project_[cur_language_]
+	item_edit_information_.title = title_edit_information_[cur_language_]
 end
 
 function get()
@@ -149,6 +164,10 @@ function get_project_menu()
 	return {
 		item_add_;
 		item_import_;
+		'';
+		item_edit_information_;
+		item_delete_project_;
+		item_hide_project_;
 		'';
 		item_chmod_;
 		item_information_;
@@ -177,3 +196,6 @@ action_chmod_ = function() end
 action_import_folder_ = function() end
 action_import_file_ = function() end
 action_import_id_ = function() end
+action_hide_project_ = function() end
+action_delete_project_ = function() end
+action_edit_information_ = function() end
