@@ -97,6 +97,7 @@ function Class:on_draw_rendering()
 	local obj = {}
 	obj.surfaces = self:init_surfaces() or {}
 	self:set_shape_rendering(obj)
+	
 end
 
 function Class:on_draw_diagram()

@@ -48,7 +48,7 @@ local function deal_add_face(data)
 	obj:set_color(data.color)
 	obj:set_mode_rendering()
 	require 'sys.mgr'.add(obj)
-	-- require"sys.mgr".draw(obj,sc)
+	require"sys.mgr".draw(obj,sc)
 end 
 
 
@@ -128,6 +128,7 @@ end
 
 function open_model(file)	
 	init()
+	sc = sc or require"sys.mgr".new_scene();
 	save_obj_.init()
 	local info = {}
 	local func = loadfile(file,"bt",info)
@@ -141,6 +142,8 @@ function open_model(file)
 		 print('cur : ' .. k,'Total : ' .. #faces_)
 		deal_add_face(v)
 	end 
+
+	require 'sys.mgr'.update()
 	save_obj_.endof()
 	 require 'sys.table'.totrace(typenames_)
 end

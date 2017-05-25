@@ -1,7 +1,7 @@
 
 local require  = require 
 local table =table
-
+local print = print
 
 local M = {}
 local modname = ...
@@ -26,10 +26,12 @@ function init()
 end
 
 function add_line_surface(line)
+	print('line',line)
 	table.insert(obj_.Wireframe.surfaces,line)
 end
 
 function add_face_surface(face)
+	print('face',face)
 	table.insert(obj_.Rendering.surfaces,face)
 end
 
