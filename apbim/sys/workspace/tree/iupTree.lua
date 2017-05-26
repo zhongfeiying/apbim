@@ -689,6 +689,7 @@ local function create_tree(t)
 		ADDROOT = 'YES'; --设置该tree有一个默认的节点。
 		title0 = t.root or 'Project'; --设置该默认的节点的默认显示文本。
 		rastersize = t.rastersize;
+	--	infotip = 'NO';
 		map_cb =  function() --设置tree在显示的时候的回调函数
 			t.Map = true --初始化Map变量为true
 			t:init()
@@ -1103,10 +1104,11 @@ function Class:init_tree_tips()
 		tree.tip = nil
 		local cur_id = self:get_tree_selected()
 		local id = tonumber(iup.ConvertXYToPos(tree, x, y))
-		if id ~= cur_id then tree.tip = nil return end 
+		if id ~= cur_id then  return end 
 		local t = self:get_node_data()
 		if t and t.tip  then 
 			tree.tip = t.tip
+			print(t.tip)
 		else 
 			tree.tip = self.Ttip or ''
 		end 
