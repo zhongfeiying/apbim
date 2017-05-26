@@ -71,7 +71,7 @@ local function project_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_project_menu;
+			rmenu = require 'app.projectmgr.workspace.Contacts.rmenu'.get;
 			id = arg.id;
 		};
 		kind = 'branch';
@@ -82,22 +82,26 @@ local function branch_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_branch_menu;
+			rmenu = require 'app.projectmgr.workspace.Contacts.rmenu'.get_branch_menu;
 			id = arg.id;
 		};
 		kind = 'branch';
-		
+		image = {
+			open = 'app/projectmgr/res/contacts1.bmp';
+			close = 'app/projectmgr/res/contacts1.bmp';
+
+		};
 	}
 end
 local function leaf_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_leaf_menu;
+			rmenu = require 'app.projectmgr.workspace.Contacts.rmenu'.get_leaf_menu;
 			id = arg.id;
 		};
 		kind = 'leaf';
-		
+		image = 'app/projectmgr/res/contacts_person.bmp';
 	}
 end
 function turn_tree_data(data)
@@ -106,7 +110,9 @@ function turn_tree_data(data)
 		local tempt = {}
 		for k,v in ipairs(db) do 
 			local t = {}
-			
+			-- if lev == 1 then 
+				-- t.attributes = project_attr(v)
+				-- t[1] = deal_data(v[1],lev+1) or {}
 			if #v ~= 0 then 
 				t.attributes = branch_attr(v)
 				t[1] = deal_data(v[1],lev+1) or {}

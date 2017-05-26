@@ -24,18 +24,25 @@ local language_support_ = {English = 'English',Chinese = 'Chinese'}
 local title_add_contact_ = {English = 'Add',Chinese = '添加'}
 local title_contact_manage_ = {English = 'Manage Contact',Chinese = '联系人管理'}
 local title_sort_ = {English = 'Sort',Chinese = '排序'}
-local title_sort_date_ = {English = 'Date',Chinese = '添加日期'}
-local title_sort_name_ = {English = 'Name',Chinese = '标题名称'}
+local title_sort_date_ = {English = 'Date',Chinese = '日期'}
+local title_sort_name_ = {English = 'Name',Chinese = '名称'}
+local title_delete_project_ = {English = 'Delete',Chinese = '删除'}
+local title_edit_information_ = {English = 'Edit',Chinese = '编辑'}
 
 local action_add_contact_;
 local action_contact_manage_;
 local action_sort_name_;
 local action_sort_date_;
+local action_delete_project_;
+local action_edit_information_;
+
 local item_add_contact_;
 local item_contact_manage_;
 local item_sort_;
 local item_sort_date_;
 local item_sort_name_;
+local item_delete_project_;
+local item_edit_information_;
 
 --------------------------------------------------------------------------------------------------------
 --item
@@ -50,6 +57,8 @@ item_contact_manage_ = {action = action_contact_manage_}
 item_sort_ = {submenu = submenu_sort}
 item_sort_date_ = {action = action_sort_date_}
 item_sort_name_ = {action = action_sort_name_}
+item_delete_project_ = {action = action_delete_project_}
+item_edit_information_= {action = action_edit_information_}
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
@@ -60,6 +69,8 @@ local function init()
 	item_sort_.title = title_sort_[cur_language_]
 	item_sort_date_.title = title_sort_date_[cur_language_]
 	item_sort_name_.title = title_sort_name_[cur_language_]
+	item_delete_project_.title = title_delete_project_[cur_language_]
+	item_edit_information_.title = title_edit_information_[cur_language_]
 end
 
 function get()
@@ -69,6 +80,23 @@ function get()
 		'';
 		item_add_contact_;
 		item_sort_;
+	}
+end
+
+function get_branch_menu()
+	init()
+	return {
+		item_add_contact_;
+		item_edit_information_;
+		item_delete_project_;
+	}
+end
+
+function get_leaf_menu()
+	init()
+	return {
+		item_edit_information_;
+		item_delete_project_;
 	}
 end
 --------------------------------------------------------------------------------------------

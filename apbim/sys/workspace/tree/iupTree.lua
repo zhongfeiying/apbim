@@ -942,13 +942,13 @@ local function get_path_data(path,rule)
 				local status = true
 				local t = {}
 				if mode == 'directory' then 
+					status = rule(line,path .. '/',0)
 					t = add_data(name)
 					if status then table_insert_(tempt[1],pos,t) pos = pos +1 end
 				else 
 					t.attributes = {title = line,kind = 'leaf' ,data = {file = name}}
 					 if type(rule) =='function' then 
 						status = rule(line,path .. '/',1)
-						--print(status)
 						if type(status) == 'table' then 
 							t.attributes.image = status.icon
 							t.attributes.tip = status.tip

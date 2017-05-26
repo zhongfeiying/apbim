@@ -17,17 +17,13 @@ local user_ = 'Sjy' -- require 'user'.get()
 local function init_data()
 	return {
 		{
-			name = '´óºÓ',id = 1,
-			{
-				{
-					name = 'folder';id=4;
-					{
-						{
-							name ='file',id =5;
-						};
-					};
-				};
-			};
+			name = 'file',id = 1,
+		};
+		{
+			name = 'file2',id = 1,
+		};
+		{
+			name = 'file3',id = 1,
 		};
 	};
 	--save_file()

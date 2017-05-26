@@ -21,17 +21,24 @@ local tree_ = require 'app.ProjectMgr.workspace.family.tree'
 -- define var
 local language_support_ = {English = 'English',Chinese = 'Chinese'}
 local title_search_ = {English = 'Search',Chinese = '查询'}
-local title_save_ = {English = 'Save',Chinese = '保存'}
+local title_create_ = {English = 'Create',Chinese = '创建'}
+local title_edit_ = {English = 'Edit',Chinese = '编辑'}
+local title_delete_ = {English = 'Delete',Chinese = '删除'}
 local action_search_;
-local action_save_;
+local action_create_;
+local action_edit_;
+local action_delete_;
 local item_search_;
-local item_save_;
+local item_create_;
+local item_edit_;
+local item_delete_;
 
 --------------------------------------------------------------------------------------------------------
 --item
 item_search_ = {action = action_search_}
-item_save_ = {action = action_save_}
-
+item_create_ = {action = action_create_}
+item_delete_ = {action = action_delete_}
+item_edit_ = {action = action_edit_}
 
 --------------------------------------------------------------------------------------------------------
 --api
@@ -39,7 +46,9 @@ local function init()
 	local lan = language_.get()
 	cur_language_=  lan and language_support_[lan] or 'English'
 	item_search_.title = title_search_[cur_language_]
-	item_save_.title = title_save_[cur_language_]
+	item_create_.title = title_create_[cur_language_]
+	item_delete_.title = title_delete_[cur_language_]
+	item_edit_.title = title_edit_[cur_language_]
 end
 
 function get()
@@ -47,7 +56,25 @@ function get()
 	return {
 		item_search_;
 		'';
-		item_save_;
+		item_create_;
+	}
+end
+
+function get_branch_menu()
+	init()
+	return {
+		item_create_;
+		'';
+		item_edit_;
+		item_delete_;
+	}
+end
+
+function get_leaf_menu()
+	init()
+	return {
+		item_edit_;
+		item_delete_
 	}
 end
 --------------------------------------------------------------------------------------------
@@ -59,5 +86,5 @@ action_search_ = function ()
 	--do something
 end
  
-action_save_ = function()
+action_create_ = function()
 end
