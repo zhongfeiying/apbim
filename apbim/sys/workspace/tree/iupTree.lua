@@ -689,7 +689,6 @@ local function create_tree(t)
 		ADDROOT = 'YES'; --设置该tree有一个默认的节点。
 		title0 = t.root or 'Project'; --设置该默认的节点的默认显示文本。
 		rastersize = t.rastersize;
-	--	infotip = 'NO';
 		map_cb =  function() --设置tree在显示的时候的回调函数
 			t.Map = true --初始化Map变量为true
 			t:init()
@@ -939,37 +938,59 @@ local function get_rule_data(attributes,status,line)
 end
 
 local function get_path_data(path,rule)
-	local data =  {}
-	function add_data(path)
-		local tempt = {}
-		tempt.attributes = {title = string_match_(path,'.+/([^/]+)'),kind = 'branch',data = {file = path}}
-		tempt[1] = {}
+	
+	print(path)
+	function add_data(path,lev)
+		local data = {}
+		if lev == 1 then 
+			local t = {}
+			local cur_name = string_match_(path,'.+/([^/]+)')
+			local cur_path = string_match_(path,'(.+)/[^/]+')
+			local status = true
+			if type(rule) == 'function' then
+				status = rule(cur_name,cur_path .. '/',0)
+			end
+			if not status then return  end 
+			t.attributes = {title = cur_name,kind = 'branch',data = {TrueName = cur_name}}
+			get_rule_data(t.attributes,status,cur_name)
+			table_insert_(t,add_data(path,lev+1)) 
+			table_insert_(data,t)
+			return data
+		end 
 		local pos = 1
-		for line in lfs.dir(path) do 
+		for line in lfs.dir(path) do
 			if line ~= '.' and line ~= '..' then 
 				local name = path .. '/' .. line
 				local mode = lfs.attributes(name,'mode')
 				local status = true
 				local t = {}
 				if mode == 'directory' then 
-					t = add_data(name) or {}
-					status = rule(line,path .. '/',0)
-					get_rule_data(t.attributes,status,line)
-					if status then table_insert_(tempt[1],pos,t) pos = pos +1 end
-				else 
-					t.attributes = {title = line,kind = 'leaf' ,data = {file = name}}
-					 if type(rule) =='function' then 
-						status = rule(line,path .. '/',1)
+					if type(rule) == 'function' then
+						status = rule(line,path .. '/',0)
+					end
+					if status then   
+						t.attributes = {title = line,kind = 'branch',data = {TrueName = line}}
 						get_rule_data(t.attributes,status,line)
-					end 
-					if status then table_insert_(tempt[1],t) end
+						table_insert_(t,add_data(name,lev+1)) 
+						table_insert_(data,pos,t)
+						pos = pos +1
+					end
+				else 
+					if type(rule) == 'function' then
+						status = rule(line,path .. '/',1)
+					end
+					if status then 
+						t.attributes = {title = line,kind = 'leaf' ,data = {TrueName = line}}
+						get_rule_data(t.attributes,status,line)
+						table_insert_(data,t)
+					end
 				end 
 			end
-		end 
-		return tempt
+		end
+		return data
 	end
-	table_insert_(data,add_data(path))
-	return data
+	return add_data(path,1)
+
 end
 
 --[[
@@ -1104,11 +1125,10 @@ function Class:init_tree_tips()
 		tree.tip = nil
 		local cur_id = self:get_tree_selected()
 		local id = tonumber(iup.ConvertXYToPos(tree, x, y))
-		if id ~= cur_id then  return end 
+		if id ~= cur_id then tree.tip = nil return end 
 		local t = self:get_node_data()
 		if t and t.tip  then 
 			tree.tip = t.tip
-			print(t.tip)
 		else 
 			tree.tip = self.Ttip or ''
 		end 
