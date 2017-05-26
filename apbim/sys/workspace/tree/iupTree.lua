@@ -710,6 +710,7 @@ function Class:init()
 	self:init_lbtn() --初始化鼠标左键操作
 	self:init_dlbtn() --初始化双击鼠标左键操作
 	self:init_rbtn() --初始化鼠标右键操作
+	self:init_tree_tips()
 	self:init_tree_data() --如果有数据则初始化界面中的显示内容。
 end
 
@@ -844,10 +845,10 @@ function Class:init_rbtn()
 end
 
 
-function Class:set_node_tip(str,id)
+function Class:set_tree_tip(str)
 	if not self.tree then return error('Please create tree firstly !') end 
 	local tree = self.tree
-	tree.tip = str
+	tree.Ttip = str
 end
 
 		
@@ -865,7 +866,6 @@ cmds_.color = function (self,id,color)  self:set_node_color(color,id) end
 cmds_.title = function (self,id,title)   self:set_node_title(title,id) end
 cmds_.state = function (self,id,state)  self:set_node_state(state,id) end
 cmds_.data = function (self,id,data)  self:set_node_data(data,id) end
-cmds_.tip = function (self,id,str)  self:set_node_tip(str,id) end
 
 
 
@@ -931,10 +931,10 @@ end
 local function get_rule_data(attributes,status,line)
 	if type(status) ~= 'table' then return end 
 	attributes.image = status.icon
-	attributes.tip = status.tip
 	attributes.title = status.title or attributes.title
 	attributes.data = attributes.data or {}
 	attributes.data.TrueName = line
+	attributes.data.tip = status.tip
 end
 
 local function get_path_data(path,rule)
@@ -1091,4 +1091,29 @@ function Class:get_index_id(pid,key,val)
 		end
 		curid = curid + 1+ self:get_totalchildcount(curid)
 	end 
+end
+
+
+function Class:init_tree_tips()
+	
+	if not self.tree then return error('Please create tree firstly !') end 
+	local tree = self.tree
+
+	local function deal_callback(x,y)
+		tree.tip = nil
+		local cur_id = self:get_tree_selected()
+		local id = tonumber(iup.ConvertXYToPos(tree, x, y))
+		if id ~= cur_id then tree.tip = nil return end 
+		local t = self:get_node_data()
+		if t and t.tip  then 
+			tree.tip = t.tip
+		else 
+			tree.tip = self.Ttip or ''
+		end 
+	end
+
+	function tree:tips_cb(x,y)
+		deal_callback(x,y)
+	end
+
 end

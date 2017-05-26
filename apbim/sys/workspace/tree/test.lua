@@ -9,7 +9,7 @@ local function rule(str,path,status)
 	end
 	return {
 		icon = 'd:/user_open.bmp';
-		tip = 'hello';
+		tip = str;
 		
 		title =title;
 	}
@@ -17,7 +17,7 @@ end
 tree:init_path_data('E:\\Sync\\workingGit\\apbim\\apbim\\sys\\api',rule)
 tree:set_rastersize('400x400')
 tree:set_expand_all('YES')
-
+-- tree:set_tree_tip('')
 local f1 = function(id,status)
 	-- print(id,status)
 end
