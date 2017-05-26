@@ -928,6 +928,15 @@ end
 --]]
 
 ---------------------2017Äê5ÔÂ22ÈÕ update ---------------------------------------------------------
+local function get_rule_data(attributes,status,line)
+	if type(status) ~= 'table' then return end 
+	attributes.image = status.icon
+	attributes.tip = status.tip
+	attributes.title = status.title or attributes.title
+	attributes.data = attributes.data or {}
+	attributes.data.TrueName = line
+end
+
 local function get_path_data(path,rule)
 	local data =  {}
 	function add_data(path)
@@ -942,21 +951,15 @@ local function get_path_data(path,rule)
 				local status = true
 				local t = {}
 				if mode == 'directory' then 
+					t = add_data(name) or {}
 					status = rule(line,path .. '/',0)
-					t = add_data(name)
+					get_rule_data(t.attributes,status,line)
 					if status then table_insert_(tempt[1],pos,t) pos = pos +1 end
 				else 
 					t.attributes = {title = line,kind = 'leaf' ,data = {file = name}}
 					 if type(rule) =='function' then 
 						status = rule(line,path .. '/',1)
-						if type(status) == 'table' then 
-							t.attributes.image = status.icon
-							t.attributes.tip = status.tip
-							t.attributes.title = status.title or t.attributes.title
-							for k,v in pairs (status) do
-								t.attributes.data[k] = v
-							end
-						end
+						get_rule_data(t.attributes,status,line)
 					end 
 					if status then table_insert_(tempt[1],t) end
 				end 
@@ -1024,12 +1027,18 @@ Class:get_selected_path(id)
 function Class:get_selected_path(id)
 	if not map_warning(self) then return end
 	local id = id or self:get_tree_selected()	
+	local keyIndex = 'TrueName'
 	local function get_path(id,str)
 		if self:get_node_depth(id) == 0 then 
 			return str
 		end
 		local str = str and ('/' .. str) or ''
-		str =  self:get_node_title(id) ..str
+		local curstr = self:get_node_title(id)
+		if keyIndex then 
+			local t = self:get_node_data(id) 
+			curstr = t and t[keyIndex] or curstr 
+		end 
+		str = curstr  .. str
 		return get_path(self:get_node_parent(id),str)
 	end
 	return get_path(id)
