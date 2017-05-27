@@ -68,7 +68,7 @@ function Class:init_lines_surfaces(surfaces)
 	end 
 	table.insert(surfaces,surface)
 	
-	save_obj_.add_line_surface(surface)
+	--save_obj_.add_line_surface(surface)
 	return surfaces
 end 
 
@@ -86,7 +86,7 @@ function Class:init_surfaces()
 	end
 	surface.outer = self.face_outer
 	surface.inners = self.face_inners
-	save_obj_.add_face_surface(surface)
+	--save_obj_.add_face_surface(surface)
 	table.insert(surfaces,surface)
 	self:init_lines_surfaces(surfaces)
 	return surfaces

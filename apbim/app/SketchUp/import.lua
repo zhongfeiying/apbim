@@ -129,7 +129,7 @@ end
 function open_model(file)	
 	init()
 	sc = sc or require"sys.mgr".new_scene();
-	save_obj_.init()
+--	save_obj_.init()
 	local info = {}
 	local func = loadfile(file,"bt",info)
 	info.Edge = Edge
@@ -144,7 +144,7 @@ function open_model(file)
 	end 
 
 	require 'sys.mgr'.update()
-	save_obj_.endof()
+	--save_obj_.endof()
 	 require 'sys.table'.totrace(typenames_)
 end
 

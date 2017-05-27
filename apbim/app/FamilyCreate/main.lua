@@ -1,7 +1,13 @@
 local require = require
+local print = print
 local g_next_ = _G.next
 local os_execute_ = os.execute
-
+local trace_out = trace_out
+local string = string
+local table = table
+local ipairs = ipairs
+local pairs = pairs
+local type = type
 local M = {}
 local modname = ...
 _G[modname] = M
@@ -15,6 +21,7 @@ local language_ = require 'sys.language'
 local table_ = require 'sys.api.code'
 local lfs = require 'lfs'
 local default_path_ = 'cfg/family/lib/'
+
 
 local function table_is_empty(t)
 	return g_next_(t) == nil
@@ -45,7 +52,9 @@ end
 
 
 local function insert_surface(surfaces,old_surfaces)
-	for k,v in ipairs(old_surfaces) do
+	local t = type(old_surfaces) == 'table' and old_surfaces.surfaces or nil
+	if not t then return end 
+	for k,v in ipairs(t) do
 		table.insert(surfaces,v)
 	end
 end
@@ -59,29 +68,24 @@ local function init_shape(entities)
 	shape.Rendering = {}
 	shape.Rendering.surfaces ={}
 	for k,v in pairs(entities) do
-		v = mgr_.get_table(k,v)
-		local t = v:on_draw()
-		require 'sys.table'.totrace(t)
-		if t.Diagrame and t.Diagrame.surfaces then 
-			insert_surface(shape.Diagrame.surfaces,t.Diagrame.surfaces)
-		end
-		if t.Wireframe and t.Wireframe.surfaces then 
-			insert_surface(shape.Diagrame.surfaces,t.Diagrame.surfaces)
-		end
-		if t.Rendering and t.Rendering.surfaces then 
-			insert_surface(shape.Diagrame.surfaces,t.Diagrame.surfaces)
+		local ent = mgr_.get_table(k,v)
+		if type(ent.on_draw) == 'function' then 
+			insert_surface(shape.Diagrame.surfaces,ent:on_draw{mode = 'Diagrame'})
+			insert_surface(shape.Wireframe.surfaces,ent:on_draw{mode = 'Wireframe'})
+			insert_surface(shape.Rendering.surfaces,ent:on_draw{mode = 'Rendering'})
 		end
 	end 
 	return shape
 end
 
 local function create_family_file(data,entities)
+	mkdir(data.path)
 	local t = {}
 	t.Readme = init_readme(data)
 	t.Shape = init_shape(entities)
-	mkdir(t.path)
-	local filename =default_path_ ..  t.path .. t.title .. '.lua'
+	local filename =default_path_ ..  data.path .. data.title .. '.lua'
 	table_.save{file = filename,returnKey = true ,data = t}
+	require 'sys.table'.tofile{file = filename .. '.lua',returnKey = true ,src = t}
 end
 
 local function create_family()

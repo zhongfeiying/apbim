@@ -62,7 +62,7 @@ local dlg_ = iup.dialog{
 	iup.vbox{
 		iup.hbox{lab_title_,txt_title_};
 		iup.hbox{lab_tip_,txt_tip_};
-		iup.hbox{lab_path_,txt_path_,btn_path_};
+		iup.hbox{lab_path_,txt_path_};
 		iup.hbox{lab_image_,txt_image_,btn_image_};
 		iup.hbox{frame_};
 
@@ -197,7 +197,7 @@ function pop(arg)
 	end
 	local function init()
 		init_title()
-		init_callback()
+		init_callback(arg)
 	end
 
 	local function show()
