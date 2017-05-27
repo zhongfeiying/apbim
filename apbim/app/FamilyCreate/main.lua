@@ -1,14 +1,118 @@
-
 local require = require
- 
+local g_next_ = _G.next
+local os_execute_ = os.execute
+
 local M = {}
 local modname = ...
 _G[modname] = M
 package.loaded[modname] = M
 _ENV = M
+local menu_ = require 'sys.menu'
+local mgr_ = require 'sys.mgr'
+local iup =require 'iuplua'
+local dlg_ = require 'app.FamilyCreate.dlg'
+local language_ = require 'sys.language'
+local table_ = require 'sys.api.code'
+local lfs = require 'lfs'
+local default_path_ = 'cfg/family/lib/'
 
- 
+local function table_is_empty(t)
+	return g_next_(t) == nil
+end
+
+local function mkdir(path)
+	local str = default_path_
+	for dir in string.gmatch(path,'[^/]+') do 
+		str = str .. dir
+		lfs.mkdir(str)
+		str = str .. '/'
+	end
+end
+
+local function init_readme(t)
+	local data = {}
+	data.title = t.title
+	if t.icon then 
+		local filename = string.match(t.icon,'.+/([^/]+)')
+		local newpath = default_path_ .. t.path .. filename
+		os_execute_('copy \"' .. t.icon .. '\" \"' .. newpath .. '\"')
+		data.icon = newpath
+	end
+	data.tip = t.tip
+	data.remark = t.remark
+	return data
+end
+
+
+local function insert_surface(surfaces,old_surfaces)
+	for k,v in ipairs(old_surfaces) do
+		table.insert(surfaces,v)
+	end
+end
+
+local function init_shape(entities)
+	local shape = {}
+	shape.Diagrame = {}
+	shape.Diagrame.surfaces = {}
+	shape.Wireframe = {}
+	shape.Wireframe.surfaces = {}
+	shape.Rendering = {}
+	shape.Rendering.surfaces ={}
+	for k,v in pairs(entities) do
+		v = mgr_.get_table(k,v)
+		local t = v:on_draw()
+		require 'sys.table'.totrace(t)
+		if t.Diagrame and t.Diagrame.surfaces then 
+			insert_surface(shape.Diagrame.surfaces,t.Diagrame.surfaces)
+		end
+		if t.Wireframe and t.Wireframe.surfaces then 
+			insert_surface(shape.Diagrame.surfaces,t.Diagrame.surfaces)
+		end
+		if t.Rendering and t.Rendering.surfaces then 
+			insert_surface(shape.Diagrame.surfaces,t.Diagrame.surfaces)
+		end
+	end 
+	return shape
+end
+
+local function create_family_file(data,entities)
+	local t = {}
+	t.Readme = init_readme(data)
+	t.Shape = init_shape(entities)
+	mkdir(t.path)
+	local filename =default_path_ ..  t.path .. t.title .. '.lua'
+	table_.save{file = filename,returnKey = true ,data = t}
+end
+
+local function create_family()
+	local cur = language_.get()
+	
+	local function on_ok(t)
+		local sc = mgr_.get_cur_scene()
+		if not sc then t.warning('sc') return end 
+		local entities = mgr_.get_all() or {}
+		if table_is_empty(entities) then t.warning('no') return	end
+		if t.selected then 
+			entities = mgr_.curs() or {}
+			if table_is_empty(entities) then t.warning('no_selected') return end
+		end
+		create_family_file(t,entities)
+		return true
+	end
+	dlg_.pop{
+		language = cur;
+		on_ok = on_ok;
+	}
+end
+
 function on_load()
+	menu_.add{
+		keyword = 'REI.Ap.FamilyCreate';
+		name = 'Family.Create System';
+		view = true;
+		frame = true;
+		action = create_family;
+	}
 end
 
 function on_init()
