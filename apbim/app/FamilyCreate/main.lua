@@ -70,9 +70,9 @@ local function init_shape(entities)
 	for k,v in pairs(entities) do
 		local ent = mgr_.get_table(k,v)
 		if type(ent.on_draw) == 'function' then 
-			insert_surface(shape.Diagrame.surfaces,ent:on_draw{mode = 'Diagrame'})
-			insert_surface(shape.Wireframe.surfaces,ent:on_draw{mode = 'Wireframe'})
-			insert_surface(shape.Rendering.surfaces,ent:on_draw{mode = 'Rendering'})
+			insert_surface(shape.Diagrame.surfaces,ent:on_shape{mode = 'Diagrame'})
+			insert_surface(shape.Wireframe.surfaces,ent:on_shape{mode = 'Wireframe'})
+			insert_surface(shape.Rendering.surfaces,ent:on_shape{mode = 'Rendering'})
 		end
 	end 
 	return shape
