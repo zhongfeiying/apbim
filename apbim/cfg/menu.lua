@@ -97,7 +97,7 @@ return {
 				English = 'Help';
 				Chinese = '°ïÖú';
 			};
-		}
+		};
    		{
 		name = 'User';
 		subs = {

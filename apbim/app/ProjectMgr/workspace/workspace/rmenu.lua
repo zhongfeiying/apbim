@@ -4,17 +4,22 @@ local require  = require
 local package_loaded_ = package.loaded
 local print = print
 local table = table
+local os_exit_ = os.exit
+local pairs = pairs
 
 local M = {}
 local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
+
 _ENV = M
+
 
 local language_ = require 'sys.language'
 local cur_language_ = 'English'
 local project_ = require 'app.projectmgr.project'
-local tree_ = require 'app.ProjectMgr.workspace.workspace.tree'
+local tree_ = require 'app.projectmgr.workspace.workspace.tree'
+
 --[[
 	local tree = tree_.get()
 	local id = tree_.get_current_id()
@@ -39,19 +44,23 @@ local item_change_user_;
 
 --------------------------------------------------------------------------------------------------------
 --item
-item_property_ = {action = action_property_}
-item_change_pwd_ = {action = action_change_pwd_}
-item_change_user_ = {action = action_change_user_}
-item_logout_ = {action = action_logout_}
+
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
+	item_property_ = {action = action_property_}
+	item_change_pwd_ = {action = action_change_pwd_}
+	item_change_user_ = {action = action_change_user_}
+	item_logout_ = {action = action_logout_}
+
 	local lan = language_.get()
 	cur_language_=  lan and language_support_[lan] or 'English'
 	item_property_.title = title_property_[cur_language_]
 	item_change_pwd_.title = title_change_pwd_[cur_language_]
 	item_change_user_.title = title_change_user_[cur_language_]
 	item_logout_.title = title_logout_[cur_language_]
+	
+	
 end
 
 function get()
@@ -70,19 +79,20 @@ end
 local dlg_reg_ = require 'app.loginpro.dlg_register'
 local dlg_login_ = require 'app.loginpro.dlg_login'
 local dlg_cg_pwd_ = require 'app.loginpro.dlg_change_password'
-action_property__ = function ()
+action_property_ = function ()
 	local function get_user_info()
-		return {name = 'Sjy',Phone = '123'}
+		return {name = 'Sjy',phone = '123'}
 		--[[
 		local file = 'a.lua'
 		package_loaded_[file] = nil
 		return require (file)
 		--]]
 	end
+	
 	local tree = tree_.get()
-	local id = tree_.get_current_id()
-	local userdata = tree:get_node_data()
-	dlg_reg_.pop{data = get_user_info()}
+	-- local id = tree.get_current_id()
+	-- local userdata = tree:get_node_data()
+	dlg_reg_.pop{data = get_user_info(),show = true}
 end
 
 action_change_pwd_ = function() 
@@ -90,14 +100,17 @@ action_change_pwd_ = function()
 end 
 
 action_change_user_ = function() 
-	-- local lan = language_.get() 
-	local lan ='Chinese'
 	local function on_ok()
-		require 'sys.main'.login_ok()
+		require 'sys.main'.init()
 	end
-	dlg_login_.pop{on_ok = on_ok,on_cancel = on_cancel,language = lan}
+	dlg_login_.pop{on_ok = on_ok,on_cancel = on_cancel}
 end 
 action_logout_ = function() 
+	local function save()
+	end
+	local function close()
+		os_exit_ ()
+	end
 	-- save()
-	-- close()
+	close()
 end 

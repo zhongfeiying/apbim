@@ -55,8 +55,8 @@ local cancel = iup.button{rastersize = btn_wid}
 
 local dlg = iup.dialog{
 	rastersize = "500x";
-	margin = "5x5";
 	aligment = 'ARight';
+	margin = "5x5";
 	iup.vbox{
 		iup.hbox{username_lab,username_txt};
 		iup.hbox{password_lab,password_txt};

@@ -1,9 +1,9 @@
 return {
  	["Sjy"] = true;
- 	["test"] = true;
- 	["zgb"] = true;
- 	["BETTER"] = true;
- 	["tbj"] = true;
  	["skm"] = true;
+ 	["zgb"] = true;
  	["TestUser"] = true;
+ 	["tbj"] = true;
+ 	["BETTER"] = true;
+ 	["test"] = true;
 };

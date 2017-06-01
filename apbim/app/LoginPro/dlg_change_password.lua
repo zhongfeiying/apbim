@@ -27,11 +27,11 @@ local language_package_ = {
 	};
 	['confirm'] = {
 		English = 'Confirm : ';
-		Chinese = '新密码 ： ';
+		Chinese = '确认 ： ';
 	};
 	['ok'] = {
 		English = 'Ok';
-		Chinese = '确认';
+		Chinese = '确定';
 	};
 	
 }
@@ -47,11 +47,11 @@ local password_new_txt = iup.text{expand="Yes",password="Yes"}
 local password_again_lab = iup.label{rastersize=lab_wid}
 local password_confirm = iup.text{expand="Yes",password="Yes"}
 local ok = iup.button{rastersize=btn_wid}
-local cancel = iup.button{rastersize="btn_wid}
+local cancel = iup.button{rastersize=btn_wid}
 
 local dlg = iup.dialog{
 	rastersize = "500x";
-	margin = "5x5";
+	
 	aligment = 'ARight';
 	iup.vbox{
 		iup.hbox{username_lab,username_txt};
@@ -59,6 +59,7 @@ local dlg = iup.dialog{
 		iup.hbox{password_new_lab,password_new_txt};
 		iup.hbox{password_again_lab,password_confirm};
 		iup.hbox{iup.fill{},ok,cancel};
+		margin = "8x8";
 	}
 }
 
@@ -66,9 +67,9 @@ local function init_language(lan)
 	lan = lan or  language_.get()
 	lan = lan and language_package_.__support[lan] or default_language_;
 	username_lab.title = language_package_.Username[lan]
-	password_txt.title = language_package_.old[lan]
-	password_new_txt.title = language_package_.new[lan]
-	password_confirm.title = language_package_.confirm[lan]
+	password_lab.title = language_package_.old[lan]
+	password_new_lab.title = language_package_.new[lan]
+	password_again_lab.title = language_package_.confirm[lan]
 	ok.title = language_package_.ok[lan]
 	cancel.title = language_package_.cancel[lan]
 	dlg.title =  language_package_.Password[lan]
@@ -76,7 +77,7 @@ end
 
 --t = {language,}
 function pop(t)
-	
+	t = t or {}
 	local function init()
 		init_language(t.language)
 		username_txt.value = require'sys.mgr'.get_user();

@@ -21,7 +21,8 @@ local cur_styles_;
 
 local function turn_lan(name)
 	if not cur_styles_ or  not cur_styles_.language_package then return  name end 
-	return cur_styles_[name][lan] or name
+	local pkg = cur_styles_.language_package
+	return pkg[name] and pkg[name][cur_language_] or name
 end
 
 local function create_items(data,items,level)
@@ -55,7 +56,7 @@ local function create_items(data,items,level)
 			submenu.name =turn_lan( v.name  ) 
 			submenu.items = {}
 			create_items(v.subs,submenu.items,1)
-			table.insert(items,{name = v.name,id = sub_menu(submenu) ,flags = MF_POPUP})
+			table.insert(items,{name =turn_lan( v.name  ) ,id = sub_menu(submenu) ,flags = MF_POPUP})
 		elseif  not v.subs then
 			if v.name and v.name ~= '' then 
 				local sys_id = ID_MGR.new_id();
@@ -68,7 +69,7 @@ local function create_items(data,items,level)
 	end 
 end
 
-local function init_language(styles)
+local function init(styles)
 	cur_language_ = language_.get()
 	cur_styles_ = styles
 end

@@ -18,7 +18,7 @@ local require_data_file_ = function(file) package_loaded_[file] = nil return req
 
 local function login_user(status)
 	local function on_ok()
-		require 'sys.main'.login_ok()
+		-- require 'sys.main'.login_ok()
 	end
 	local function on_cancel()
 		if status and status == 'quit' then os_exit_() end 

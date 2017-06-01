@@ -49,11 +49,20 @@ local mail_lab = iup.label{rastersize=lab_wid}
 local mail_txt = iup.text{expand="Yes"}
 local ok = iup.button{rastersize=btn_wid}
 local cancel = iup.button{rastersize=btn_wid}
-local dlg;
-local function get_status(status,f)
-	if not status then return end 
-	f()
-end 
+local dlg  = iup.dialog{
+		rastersize = "500x";
+		aligment = 'ARight';
+		iup.vbox{
+			iup.hbox{username_lab,username_txt};
+			iup.hbox{password_lab,password_txt};
+			iup.hbox{password_again_lab,password_again_txt};
+			iup.hbox{phone_lab,phone_txt};
+			iup.hbox{mail_lab,mail_txt};
+			iup.hbox{iup.fill{},ok,cancel};
+		};
+		margin = "8x8";
+	};
+
 
 local function init_dlg(show)
 	local t = {}
@@ -80,11 +89,7 @@ local function init_dlg(show)
 			iup.hbox{iup.fill{},ok,cancel};
 		}
 	end 
-	dlg = iup.dialog{
-		rastersize = "500x";
-		aligment = 'ARight';
-		iup.vbox(t);
-	}
+	
 end
 
 
@@ -117,7 +122,7 @@ function pop(t)
 	local user = {name="",password=""};
 
 	local function init()	
-		init_dlg(t.show)
+		-- init_dlg(t.show)
 		init_language(t.language)
 		init_data(t.data)
 		

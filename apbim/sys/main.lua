@@ -16,7 +16,9 @@ function load()
 	workspace_.init()
 	app_.load();
 	function_.load();
-	
+	menu_.update();
+	toolbar_.update();
+	workspace_.update();
 end
 
 function init()
@@ -25,14 +27,13 @@ function init()
 	statusbar_.init();
 end
 
+-- function login_ok()
+	
+-- end
 load();
+init()
 
-function login_ok()
-	menu_.update();
-	toolbar_.update();
-	workspace_.update();
-	init()
-end
+
 	
 
 --require"sys.dock".create();
