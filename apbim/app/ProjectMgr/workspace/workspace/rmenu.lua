@@ -67,13 +67,37 @@ function get()
 end
 --------------------------------------------------------------------------------------------
 --action function
-
+local dlg_reg_ = require 'app.loginpro.dlg_register'
+local dlg_login_ = require 'app.loginpro.dlg_login'
+local dlg_cg_pwd_ = require 'app.loginpro.dlg_change_password'
 action_property__ = function ()
+	local function get_user_info()
+		return {name = 'Sjy',Phone = '123'}
+		--[[
+		local file = 'a.lua'
+		package_loaded_[file] = nil
+		return require (file)
+		--]]
+	end
 	local tree = tree_.get()
 	local id = tree_.get_current_id()
-	--do something
+	local userdata = tree:get_node_data()
+	dlg_reg_.pop{data = get_user_info()}
 end
 
-action_change_pwd_ = function() end 
-action_change_user_ = function() end 
-action_logout_ = function() end 
+action_change_pwd_ = function() 
+	dlg_cg_pwd_.pop()
+end 
+
+action_change_user_ = function() 
+	-- local lan = language_.get() 
+	local lan ='Chinese'
+	local function on_ok()
+		require 'sys.main'.login_ok()
+	end
+	dlg_login_.pop{on_ok = on_ok,on_cancel = on_cancel,language = lan}
+end 
+action_logout_ = function() 
+	-- save()
+	-- close()
+end 

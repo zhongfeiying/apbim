@@ -1,4 +1,5 @@
 return {
+	__support = {English = 'English',Chinese = 'Chinese'};
 	['Login'] = {
 		English = 'Login';
 		Chinese = 'µÇÂ½';

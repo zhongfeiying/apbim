@@ -1,46 +1,95 @@
 _ENV = module(...,ap.adv)
 
 local iup = require"iuplua";
+local language_ = require 'sys.language'
+local default_language_ = 'English'
+local language_package_ = {
+	__support = {English = 'English',Chinese = 'Chinese'};
+	['cancel'] = {
+		English = 'Cancel';
+		Chinese = '取消';
+	};
+	['Username'] = {
+		English = 'Username : ';
+		Chinese = '用户名 ： ';
+	};
+	['Password'] = {
+		English = 'Change Password';
+		Chinese = '修改密码';
+	};
+	['old'] = {
+		English = 'Old : ';
+		Chinese = '旧密码 ： ';
+	};
+	['new'] = {
+		English = 'New : ';
+		Chinese = '新密码 ： ';
+	};
+	['confirm'] = {
+		English = 'Confirm : ';
+		Chinese = '新密码 ： ';
+	};
+	['ok'] = {
+		English = 'Ok';
+		Chinese = '确认';
+	};
+	
+}
+local lab_wid = '80x'
+local btn_wid = '100x'
 
-local username_lab = iup.label{title="Username:",size="80x"}
+local username_lab = iup.label{rastersize=lab_wid}
 local username_txt = iup.text{expand="Yes",readonly="Yes"}
-local password_lab = iup.label{title="Old Password:",size="80x"}
+local password_lab = iup.label{rastersize=lab_wid}
 local password_txt = iup.text{expand="Yes",password="Yes"}
-local password_new_lab = iup.label{title="New Password:",size="80x"}
+local password_new_lab = iup.label{rastersize=lab_wid}
 local password_new_txt = iup.text{expand="Yes",password="Yes"}
-local password_again_lab = iup.label{title="New Password:",size="80x"}
-local password_again_txt = iup.text{expand="Yes",password="Yes"}
-local ok = iup.button{title="OK",size="60x"}
-local cancel = iup.button{title="Cancel",size="60x"}
+local password_again_lab = iup.label{rastersize=lab_wid}
+local password_confirm = iup.text{expand="Yes",password="Yes"}
+local ok = iup.button{rastersize=btn_wid}
+local cancel = iup.button{rastersize="btn_wid}
 
 local dlg = iup.dialog{
-	size = "300x";
-	title = "Password";
+	rastersize = "500x";
 	margin = "5x5";
 	aligment = 'ARight';
 	iup.vbox{
 		iup.hbox{username_lab,username_txt};
 		iup.hbox{password_lab,password_txt};
 		iup.hbox{password_new_lab,password_new_txt};
-		iup.hbox{password_again_lab,password_again_txt};
+		iup.hbox{password_again_lab,password_confirm};
 		iup.hbox{iup.fill{},ok,cancel};
 	}
 }
 
-function pop()
+local function init_language(lan)
+	lan = lan or  language_.get()
+	lan = lan and language_package_.__support[lan] or default_language_;
+	username_lab.title = language_package_.Username[lan]
+	password_txt.title = language_package_.old[lan]
+	password_new_txt.title = language_package_.new[lan]
+	password_confirm.title = language_package_.confirm[lan]
+	ok.title = language_package_.ok[lan]
+	cancel.title = language_package_.cancel[lan]
+	dlg.title =  language_package_.Password[lan]
+end
 
+--t = {language,}
+function pop(t)
+	
 	local function init()
+		init_language(t.language)
 		username_txt.value = require'sys.mgr'.get_user();
 		password_txt.value = "";
 		password_new_txt.value = "";
-		password_again_txt.value = "";
+		password_confirm.value = "";
 	end
 	
 	local function on_ok()
 		local username = username_txt.value;
 		local password = password_txt.value;
 		local password_new = password_new_txt.value;
-		local password_again = password_again_txt.value;
+		local password_again = password_confirm.value;
 		if not username or username=='' then iup.Alarm("Warning","Input username","OK") return end
 		if not password or password=='' then iup.Alarm("Warning","Input Old password","OK") return end
 		if not password_new or password_new=='' then iup.Alarm("Warning","Input New password","OK") return end
@@ -73,8 +122,9 @@ function pop()
 	end
 	
 
-	require'sys.api.iup.key'.register_k_any{dlg=dlg,[iup.K_CR]=on_ok,[iup.K_ESC]=on_cancel};
+
 	init();
+		require'sys.api.iup.key'.register_k_any{dlg=dlg,[iup.K_CR]=on_ok,[iup.K_ESC]=on_cancel};
 	dlg:popup();
 end
 

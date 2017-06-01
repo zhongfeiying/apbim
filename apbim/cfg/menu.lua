@@ -1,5 +1,103 @@
 ----[===[
 return {
+		language_package = {
+			User = {
+				English = 'User';
+				Chinese = '用户';
+			};
+			Login = {
+				English = 'Login';
+				Chinese = '登陆';
+			};
+			Logout = {
+				English = 'Logout';
+				Chinese = '登出';
+			};
+			['Change Password'] = {
+				English = 'Change Password';
+				Chinese = '修改密码';
+			};
+			['Project'] = {
+				English = 'Project';
+				Chinese = '项目';
+			};
+			['New'] = {
+				English = 'New';
+				Chinese = '新建';
+			};
+			['Open'] = {
+				English = 'Open';
+				Chinese = '打开';
+			};
+			['Save'] = {
+				English = 'Save';
+				Chinese = '保存';
+			};
+			['Statistics'] = {
+				English = 'Statistics';
+				Chinese = '统计';
+			};
+			['Model'] = {
+				English = 'Model';
+				Chinese = '模型';
+			};
+			['Properties'] = {
+				English = 'Properties';
+				Chinese = '属性';
+			};
+			['Edit'] = {
+				English = 'Edit';
+				Chinese = '编辑';
+			};
+			['Copy'] = {
+				English = 'Copy';
+				Chinese = '拷贝';
+			};
+			['Move'] = {
+				English = 'Move';
+				Chinese = '移动';
+			};
+			['Delete'] = {
+				English = 'Delete';
+				Chinese = '删除';
+			};
+			['View'] = {
+				English = 'View';
+				Chinese = '视图';
+			};
+			['Centered Show'] = {
+				English = 'Centered Show';
+				Chinese = '中心显示';
+			};
+			['File'] = {
+				English = 'File';
+				Chinese = '文件';
+			};
+			['Cooperate'] = {
+				English = 'Cooperate';
+				Chinese = '协同';
+			};
+			['Family'] = {
+				English = 'Family';
+				Chinese = '族';
+			};
+			['System'] = {
+				English = 'System';
+				Chinese = '系统';
+			};
+			['Company/Personal'] = {
+				English = 'Company/Personal';
+				Chinese = '公司/个人';
+			};
+			['Window'] = {
+				English = 'Window';
+				Chinese = '窗口';
+			};
+			['Help'] = {
+				English = 'Help';
+				Chinese = '帮助';
+			};
+		}
    		{
 		name = 'User';
 		subs = {

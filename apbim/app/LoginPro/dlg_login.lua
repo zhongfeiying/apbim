@@ -2,25 +2,59 @@
 _ENV = module(...,ap.adv)
 
 local iup = require"iuplua";
+local language_ = require 'sys.language'
+local default_language_ = 'English'
+local language_package_ = {
+	__support = {English = 'English',Chinese = 'Chinese'};
+	['Login'] = {
+		English = 'Login';
+		Chinese = '登陆';
+	};
+	['Logout'] = {
+		English = 'Logout';
+		Chinese = '登出';
+	};
+	['cancel'] = {
+		English = 'Cancel';
+		Chinese = '取消';
+	};
+	['Username'] = {
+		English = 'Username : ';
+		Chinese = '用户名 ： ';
+	};
+	['Password'] = {
+		English = 'Password : ';
+		Chinese = '密码 ： ';
+	};
+	['Register'] = {
+		English = 'Register';
+		Chinese = '注册 ';
+	};
+	['keep'] = {
+		English = 'Keep Password';
+		Chinese = '保存密码 ';
+	};
+	
+}
 
 local user_name_ = nil;
+
 function get_user()
 	return user_name_;
 end
-
-local username_lab = iup.label{title="Username:",size="50x"}
+local lab_wid = '80x'
+local btn_wid = '100x'
+local username_lab = iup.label{rastersize=lab_wid}
 local username_txt = iup.list{expand="Yes",editbox="Yes",DROPDOWN="Yes"}
--- local username_txt = iup.list{expand="Yes",editbox="Yes",DROPDOWN="Yes","BETTER","BETTER_1","zgb","sjy","BETTER_2"}
-local password_lab = iup.label{title="Password:",size="50x"}
+local password_lab = iup.label{rastersize=lab_wid}
 local password_txt = iup.text{expand="Yes",password="Yes"}
-local register_btn = iup.button{title="Register",size="60x"}
-local keep_tog = iup.toggle{title="Keep Password",size="80x"}
-local ok = iup.button{title="OK",size="60x"}
-local cancel = iup.button{title="Cancel",size="60x"}
+local register_btn = iup.button{rastersize = btn_wid}
+local keep_tog = iup.toggle{}
+local ok = iup.button{rastersize = btn_wid}
+local cancel = iup.button{rastersize = btn_wid}
 
 local dlg = iup.dialog{
-	size = "300x";
-	title = "Login";
+	rastersize = "500x";
 	margin = "5x5";
 	aligment = 'ARight';
 	iup.vbox{
@@ -74,7 +108,19 @@ local function show_user(t)
 	keep_tog.value = "ON";
 end
 
--- t={on_ok=function}
+local function init_language(lan)
+	lan = lan or  language_.get()
+	lan = lan and language_package_.__support[lan] or default_language_;
+	username_lab.title = language_package_.Username[lan]
+	password_lab.title = language_package_.Password[lan]
+	register_btn.title = language_package_.Register[lan]
+	keep_tog.title = language_package_.keep[lan]
+	ok.title = language_package_.Login[lan]
+	cancel.title = language_package_.cancel[lan]
+	dlg.title =  language_package_.Login[lan]
+end
+
+-- t={on_ok=function,on_cancel,language}
 function pop(t)
 	local function init_list()
 		local us = get_user_list();
@@ -91,6 +137,7 @@ function pop(t)
 	end
 
 	local function init()
+		init_language(t.language)
 		init_list()
 		password_txt.value = ''
 	end
@@ -125,9 +172,10 @@ function pop(t)
 	-- function dlg:k_any(n)
 		-- if cbfs[n] then cbfs[n](t) end
 	-- end
-	require'sys.api.iup.key'.register_k_any{dlg=dlg,[iup.K_CR]=on_ok,[iup.K_ESC]=on_cancel};
 
 	init();
+		require'sys.api.iup.key'.register_k_any{dlg=dlg,[iup.K_CR]=on_ok,[iup.K_ESC]=on_cancel};
+
 	dlg:popup();
 end
 

@@ -13,7 +13,16 @@ local MF_POPUP = MF_POPUP;
 local MF_SEPARATOR = MF_SEPARATOR;
 
 local ID_MGR = require "sys.res.id_mgr";
+local language_ =require 'sys.language'
 _ENV = module(...)
+
+local cur_language_;
+local cur_styles_;
+
+local function turn_lan(name)
+	if not cur_styles_ or  not cur_styles_.language_package then return  name end 
+	return cur_styles_[name][lan] or name
+end
 
 local function create_items(data,items,level)
 	if type(data) ~= 'table' then return end 
@@ -34,7 +43,7 @@ local function create_items(data,items,level)
 			else 
 				pos = pos+ 1;
 				local menu = {}
-				menu.name = v.name
+				menu.name = turn_lan( v.name  ) 
 				menu.nposition = pos
 				menu.items = {}
 				create_items(v.subs,menu.items,1) 
@@ -43,7 +52,7 @@ local function create_items(data,items,level)
 			end 
 		elseif  v.subs and level then
 			local submenu = {};
-			submenu.name = v.name
+			submenu.name =turn_lan( v.name  ) 
 			submenu.items = {}
 			create_items(v.subs,submenu.items,1)
 			table.insert(items,{name = v.name,id = sub_menu(submenu) ,flags = MF_POPUP})
@@ -51,7 +60,7 @@ local function create_items(data,items,level)
 			if v.name and v.name ~= '' then 
 				local sys_id = ID_MGR.new_id();
 				ID_MGR.map(sys_id,v.keyword);
-				table.insert(items,{name =  v.name,id = sys_id})
+				table.insert(items,{name = turn_lan( v.name  )  ,id = sys_id})
 			else 
 				table.insert(items,{name = '' ,flags =  MF_SEPARATOR })
 			end 
@@ -59,38 +68,22 @@ local function create_items(data,items,level)
 	end 
 end
 
---[[
-local function add_menu(data)
-	if type(data) ~= 'table' then return end 
-	local names,pos = {file =  get_submenu(frm,0);window = get_submenu(frm,1);},-1 
-	for k,v in ipairs (data) do 
-		local name =  string.lower(v.name)
-		local menuhwnd = names[name]
-		if name == 'window' or name == 'file' then pos = pos + 1 end
-		if menuhwnd then 
-			local items = {}
-			create_items(v.subs,items,1) 
-			for i = #items,1,-1 do 
-				insert_menu(menuhwnd,items[i]) 
-			end 
-		else 
-			pos = pos + 1;
-			local menu = {}
-			menu.name = v.name
-			menu.nposition = pos
-			menu.items = {}
-			create_items(v.subs,menu.items,1) 
-			add_menu(frm,menu)
-			names[name] = get_submenu(frm,pos)
-		end
-	end
+local function init_language(styles)
+	cur_language_ = language_.get()
+	cur_styles_ = styles
 end
---]]
+
+local function close()
+	cur_styles_ = nil
+end 
+
 function create_menus(styles,menus)
 	if type(styles)~='table' then return end
 	if type(menus)~='table' then return end	
 	ID_MGR.set_menus(menus);
+	init(styles)
 	create_items(styles);
+	close()
 end
 
 

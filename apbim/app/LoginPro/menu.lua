@@ -18,7 +18,7 @@ local require_data_file_ = function(file) package_loaded_[file] = nil return req
 
 local function login_user(status)
 	local function on_ok()
-	--	require 'sys.main'.login_ok()
+		require 'sys.main'.login_ok()
 	end
 	local function on_cancel()
 		if status and status == 'quit' then os_exit_() end 
@@ -48,7 +48,6 @@ function on_load()
 		name='User.Login',
 		frame = true,
 		view = true,
-	--	languages = get_languages('Login');
 	}
 	menu_.add{
 		keyword = 'ApBIM.User.Logout';
@@ -56,7 +55,6 @@ function on_load()
 		name='User.Logout',
 		frame = true,
 		view = true,
-	--	languages = get_languages('Logout');
 	}
 	menu_.add{
 		keyword = 'ApBIM.User.Change Password';
@@ -64,9 +62,8 @@ function on_load()
 		name='User.Change Password',
 		frame = true,
 		view = true,
-	--	languages = get_languages('Change Password');
 	}
-	-- login_user('quit')
+	login_user('quit')
 end
 
 function on_update()

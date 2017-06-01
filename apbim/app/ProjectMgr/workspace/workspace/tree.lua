@@ -99,6 +99,9 @@ function add_branch(arg)
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
 	end 
+	if type(arg.cbf) == 'function' then 
+		arg.cbf()
+	end 
 end
 
 function add_leaf(arg)
@@ -108,6 +111,9 @@ function add_leaf(arg)
 	local id = arg.id and (arg.id+1) or (self:get_tree_selected() +1)
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
+	end 
+	if type(arg.cbf) == 'function' then 
+		arg.cbf()
 	end 
 end
 
@@ -121,6 +127,9 @@ function insert_branch(arg)
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
 	end 
+	if type(arg.cbf) == 'function' then 
+		arg.cbf()
+	end 
 end
 
 function insert_leaf(arg)
@@ -132,4 +141,31 @@ function insert_leaf(arg)
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
 	end 
+	if type(arg.cbf) == 'function' then 
+		arg.cbf()
+	end 
+end
+
+
+function delete(arg)
+	if not tree_  then return end 
+	if type(arg) ~= 'table'  then return end 
+	tree_:delete_nodes('SELECTED',arg.id)
+	if type(arg.cbf) == 'function' then 
+		arg.cbf()
+	end 
+end
+
+
+function edit(arg)
+	
+	if not tree_  then return end 
+	if type(arg) ~= 'table'  then return end 
+	if type(arg.attr) == 'table' then 
+		tree_:set_node_status(arg.attr,id)
+	end 
+	if type(arg.cbf) == 'function' then 
+		arg.cbf()
+	end 
+
 end
