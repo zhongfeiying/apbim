@@ -128,7 +128,7 @@ end
 
 function open_model(file)	
 	init()
-	sc = sc or require"sys.mgr".new_scene();
+	-- sc = sc or require"sys.mgr".new_scene();
 --	save_obj_.init()
 	local info = {}
 	local func = loadfile(file,"bt",info)
@@ -143,7 +143,7 @@ function open_model(file)
 		deal_add_face(v)
 	end 
 
-	require 'sys.mgr'.update()
+	-- require 'sys.mgr'.update()
 	--save_obj_.endof()
 	 require 'sys.table'.totrace(typenames_)
 end
