@@ -870,7 +870,7 @@ cmds_.data = function (self,id,data)  self:set_node_data(data,id) end
 
 
 		
-local function set_node_status(self,id,attributes)
+function Class:set_node_status(attributes,id)
 	attributes = attributes or {}
 	for k,v in pairs(attributes) do 
 		if type(cmds_[k]) == 'function' then
@@ -906,7 +906,7 @@ function Class:set_tree_data(data,id)
 				cur_id = cur_id + self:get_totalchildcount(cur_id) + 1
 			end
 		end
-		set_node_status(self,cur_id,t)
+		self:set_node_status(t,cur_id)
 	end
 end
 
