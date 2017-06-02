@@ -16,4 +16,5 @@ return  {
 	'app.tekla.main';
 	'app.LoginPro.main';
 	'app.ProjectMgr.main';
+	'app.language.main';
 };

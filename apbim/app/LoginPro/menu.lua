@@ -63,7 +63,7 @@ function on_load()
 		frame = true,
 		view = true,
 	}
-	login_user('quit')
+	--login_user('quit')
 end
 
 function on_update()
