@@ -62,7 +62,7 @@ end
 local function init_callback(arg)
 	arg = arg or {}
 	function btn_ok_:action()
-		local name = list_title_.value
+		local name = list_title_[list_title_.value]
 		save_lan(name)
 		dlg_:hide()
 	end
