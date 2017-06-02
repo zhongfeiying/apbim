@@ -1,10 +1,10 @@
 return {
- 	["TestUser"] = true;
- 	["zgb"] = true;
- 	["test"] = true;
- 	["Sjy"] = true;
- 	["__LAST"] = "Sjy";
- 	["BETTER"] = true;
  	["tbj"] = true;
+ 	["TestUser"] = true;
+ 	["Sjy"] = true;
  	["skm"] = true;
+ 	["__LAST"] = "zgb";
+ 	["BETTER"] = true;
+ 	["test"] = true;
+ 	["zgb"] = true;
 };
