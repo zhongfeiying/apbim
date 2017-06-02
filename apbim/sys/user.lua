@@ -5,8 +5,7 @@ _G[modname] = M
 package.loaded[modname] = M
 _ENV = M
 
-
-local user_;
+local user_ = 'Default'
 
 function set(user)
 	user_ = user
