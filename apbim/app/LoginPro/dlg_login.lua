@@ -20,20 +20,21 @@ local language_package_ = {
 	};
 	['Username'] = {
 		English = 'Username : ';
-		Chinese = '用户名 ： ';
+		Chinese = '用户名： ';
 	};
 	['Password'] = {
 		English = 'Password : ';
-		Chinese = '密码 ： ';
+		Chinese = '密码： ';
 	};
 	['Register'] = {
 		English = 'Register';
-		Chinese = '注册 ';
+		Chinese = '注册';
 	};
 	['keep'] = {
 		English = 'Keep Password';
-		Chinese = '保存密码 ';
+		Chinese = '保存密码';
 	};
+	
 	
 }
 
@@ -52,6 +53,8 @@ local register_btn = iup.button{rastersize = btn_wid}
 local keep_tog = iup.toggle{}
 local ok = iup.button{rastersize = btn_wid}
 local cancel = iup.button{rastersize = btn_wid}
+
+
 
 local dlg = iup.dialog{
 	rastersize = "500x";
@@ -80,6 +83,7 @@ end
 local function add_user_to_list(name,pswd,keep)
 	local s = get_user_list()
 	s[name]= keep and pswd or true;
+	s.__LAST = name
 	require'sys.table'.tofile{file=login_list_file_,src=s};
 end
 
@@ -126,9 +130,17 @@ function pop(t)
 		local us = get_user_list();
 		local ks = require'sys.table'.sortk(us);
 		username_txt[0] = nil;
+		local num = 0
 		for i,v in ipairs(ks) do
-			username_txt[i]=v;
-			local str = us[v];
+			if v ~= '__LAST' then 
+				num = num +1
+				username_txt[num]=v;
+				if us.__LAST and v ==  us.__LAST then 
+					username_txt.value = v
+					dlg.STARTFOCUS = password_txt
+				end
+			end
+			-- local str = us[v];
 			-- if type(str)=='string' and v==get_user_d() then
 				-- login{user=v,password=str,on_ok=t.on_ok,keep=true}
 				-- show_user{user=v,password=str,on_ok=t.on_ok,keep=true}

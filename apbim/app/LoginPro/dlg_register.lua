@@ -33,52 +33,71 @@ local language_package_ = {
 		English = 'Phone : ';
 		Chinese = 'µç»° £º ';
 	};
+	['Change'] = {
+		English = 'Change';
+		Chinese = 'ÐÞ¸Ä';
+	};
 }
 
 local lab_wid = '80x'
 local btn_wid = '100x'
-local username_lab = iup.label{rastersize=lab_wid}
-local username_txt = iup.text{expand="Yes"}
-local password_lab = iup.label{rastersize=lab_wid}
-local password_txt = iup.text{expand="Yes",password="Yes"}
-local password_again_lab = iup.label{rastersize=lab_wid}
-local password_again_txt = iup.text{expand="Yes",password="Yes"}
-local phone_lab = iup.label{rastersize=lab_wid}
-local phone_txt = iup.text{expand="Yes"}
-local mail_lab = iup.label{rastersize=lab_wid}
-local mail_txt = iup.text{expand="Yes"}
-local ok = iup.button{rastersize=btn_wid}
-local cancel = iup.button{rastersize=btn_wid}
-local dlg  = iup.dialog{
-		rastersize = "500x";
-		aligment = 'ARight';
-		iup.vbox{
-			iup.hbox{username_lab,username_txt};
-			iup.hbox{password_lab,password_txt};
-			iup.hbox{password_again_lab,password_again_txt};
-			iup.hbox{phone_lab,phone_txt};
-			iup.hbox{mail_lab,mail_txt};
-			iup.hbox{iup.fill{},ok,cancel};
-		};
-		margin = "8x8";
-	};
+local username_lab;
+local username_txt;
+local password_lab ;
+local password_txt ;
+local password_again_lab ;
+local password_again_txt ;
+local phone_lab;
+local phone_txt ;
+local mail_lab ;
+local mail_txt;
+local ok ;
+local cance;
+local dlg;
+local change_title_;
 
+local function init_controls()
+	username_lab = iup.label{rastersize=lab_wid}
+	username_txt = iup.text{expand="Yes"}
+	password_lab = iup.label{rastersize=lab_wid}
+	password_txt = iup.text{expand="Yes",password="Yes"}
+	password_again_lab = iup.label{rastersize=lab_wid}
+	password_again_txt = iup.text{expand="Yes",password="Yes"}
+	phone_lab = iup.label{rastersize=lab_wid}
+	phone_txt = iup.text{expand="Yes"}
+	mail_lab = iup.label{rastersize=lab_wid}
+	mail_txt = iup.text{expand="Yes"}
+	ok = iup.button{rastersize=btn_wid}
+	cancel = iup.button{rastersize=btn_wid}
+end
 
 local function init_dlg(show)
+	init_controls()
+	
+	
 	local t = {}
 	username_txt.active = 'yes'
 	phone_txt.active = 'yes'
 	mail_txt.active = 'yes'
 	if show then 
+		local function change(arg)
+			arg = arg or {}
+			local title =  change_title_ or 'Change';
+			return iup.button{
+				title = title;
+				action = function() if type(arg.f) == 'function' then arg.f() end end ;
+				rastersize = '60x';
+			}
+		end
 		t = {
 			iup.hbox{username_lab,username_txt};
-			iup.hbox{phone_lab,phone_txt};
-			iup.hbox{mail_lab,mail_txt};
+			iup.hbox{phone_lab,phone_txt,change()};
+			iup.hbox{mail_lab,mail_txt,change()};
 			iup.hbox{iup.fill{},cancel};
 		}
 		username_txt.active = 'no'
-		phone_txt.active = 'no'
-		mail_txt.active = 'no'
+		-- phone_txt.active = 'no'
+		-- mail_txt.active = 'no'
 	else 
 		t = {
 			iup.hbox{username_lab,username_txt};
@@ -90,6 +109,12 @@ local function init_dlg(show)
 		}
 	end 
 	
+	dlg  = iup.dialog{
+		rastersize = "500x";
+		aligment = 'ARight';
+		iup.vbox(t);
+		margin = "8x8";
+	};
 end
 
 
@@ -104,6 +129,7 @@ local function init_language(lan)
 	ok.title =  language_package_.Register[lan]
 	cancel.title =  language_package_.cancel[lan]
 	dlg.title =  language_package_.Register[lan]
+	change_title_ =  language_package_.Change[lan]
 end
 
 local function init_data(data)
@@ -120,14 +146,6 @@ end
 function pop(t)
 	t= t or {}
 	local user = {name="",password=""};
-
-	local function init()	
-		-- init_dlg(t.show)
-		init_language(t.language)
-		init_data(t.data)
-		
-	end
-	
 	local function on_ok()
 		local username = username_txt.value;
 		local password = password_txt.value;
@@ -157,20 +175,30 @@ function pop(t)
 		}
 	end
 	
-	local function on_cancel()
-		dlg:hide();
+	
+	local function init_callback()
+		local function on_cancel()
+			dlg:hide();
+		end
+		
+		function ok:action()
+			if t.show then return end 
+			on_ok();
+		end
+		
+		function cancel:action()
+			on_cancel();
+		end
+	
 	end
 	
-	function ok:action()
-		if t.show then return end 
-		on_ok();
+	local function init()	
+		init_dlg(t.show)
+		init_language(t.language)
+		init_data(t.data)
+		init_callback()
+		
 	end
-	
-	function cancel:action()
-		on_cancel();
-	end
-	
-
 	
 	init();
 	require'sys.api.iup.key'.register_k_any{dlg=dlg,[iup.K_CR]=on_ok,[iup.K_ESC]=on_cancel};
