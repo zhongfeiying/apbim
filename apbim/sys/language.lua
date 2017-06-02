@@ -9,15 +9,18 @@ local language_list_ = {
 	['English'] = 'English';
 	['Chinese'] = 'Chinese';
 }
-local language_ = 'Chinese'
---local language_ ='English'
+local language_ = 'English'
 
 function set(language)
-	language_ =language and  language_list_[language] or 'English'
+	language_ = language and  language_list_[language] or language_
 end
 
 function get()
 	return language_
+end
+
+function get_language_list()
+	return language_list_
 end
 
 

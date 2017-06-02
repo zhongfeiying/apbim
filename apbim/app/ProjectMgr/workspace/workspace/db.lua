@@ -12,7 +12,8 @@ package_loaded_[modname] = M
 _ENV = M
 
 local file = 'app.ProjectMgr.info.user_gid_file'
-local user_ = 'Sjy' -- require 'user'.get()
+-- local user_ = 'Sjy' -- require 'user'.get()
+local user_ =  require 'sys.user'.get()
 
 local function init_data()
 	return {

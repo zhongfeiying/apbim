@@ -97,6 +97,14 @@ return {
 				English = 'Help';
 				Chinese = '∞Ô÷˙';
 			};
+			['Tools'] = {
+				English = 'Tools';
+				Chinese = 'π§æﬂ';
+			};
+			['Change Language'] = {
+				English = 'Change Language';
+				Chinese = '«–ªª”Ô—‘';
+			};
 		};
    		{
 		name = 'User';
@@ -187,6 +195,14 @@ return {
 			};
 			{
 				name = 'Company/Personal';
+			};
+		};
+	};
+	{
+		name = 'Tools';
+		subs = {
+			{
+				name = 'Change Language';
 			};
 		};
 	};
