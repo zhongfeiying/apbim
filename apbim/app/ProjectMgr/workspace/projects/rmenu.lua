@@ -31,6 +31,7 @@ local title_sort_name_ = {English = 'Name',Chinese = '±ÍÃ‚√˚≥∆'}
 local title_statistics_ = {English = 'Statistics',Chinese = 'Õ≥º∆'}
 local title_manage_ = {English = 'Manage',Chinese = 'π‹¿Ìπ§≥Ã'}
 
+
 local action_create_;
 local action_import_project;
 local action_sort_name_;
@@ -95,6 +96,8 @@ local title_link_to_exe_ = {English = 'Installable Program',Chinese = 'ø…∞≤◊∞≥Ã–
 local title_link_to_member_ = {English = 'Member',Chinese = 'ππº˛'}
 local title_link_to_view_ = {English = 'View',Chinese = ' ”Õº'}
 
+local title_archive_ = {English = 'Archive',Chinese = 'πÈµµ'}
+
 local action_information_;
 local action_add_file_;
 local action_add_folder_;
@@ -122,6 +125,7 @@ local action_link_to_folder_;
 local action_link_to_exe_;
 local action_link_to_member_;
 local action_link_to_view_;
+local action_archive_
 
 local item_information_;
 local item_add_;
@@ -155,6 +159,7 @@ local item_link_to_folder_;
 local item_link_to_exe_;
 local item_link_to_member_;
 local item_link_to_view_;
+local item_archive_ = {} ;
 
 item_information_ = {action = action_information_}
 local function sub_add_items()
@@ -236,6 +241,7 @@ item_link_to_folder_ = {action = action_link_to_folder_}
 item_link_to_member_ = {action = action_link_to_member_}
 item_link_to_view_ = {action = action_link_to_view_}
 item_link_to_exe_ = {action = action_link_to_exe_}
+
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
@@ -276,6 +282,7 @@ local function init()
 	item_import_file_.title = title_import_file_[cur_language_]
 	item_import_folder_.title = title_import_folder_[cur_language_]
 	item_import_id_.title = title_import_id_[cur_language_]
+	item_archive_.title = title_archive_[cur_language_]
 end
 
 function get()
@@ -306,6 +313,7 @@ function get_project_menu()
 		item_server_;
 		'';
 		item_chmod_;
+		item_archive_;
 		item_information_;
 	}
 end
@@ -393,6 +401,6 @@ action_link_to_member_ = function() end
 action_link_to_exe_ = function() end 
 action_link_to_folder_ = function () end 
 action_link_to_file_ = function() end 
-
+item_archive_.action = function() print('item_archive_') end
 
 

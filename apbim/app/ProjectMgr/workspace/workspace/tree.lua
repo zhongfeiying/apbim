@@ -14,14 +14,12 @@ package_loaded_[modname] = M
 _ENV = M
 
 local iupTree_ = require 'sys.Workspace.tree.iuptree'
-local cache_ = {}
-local tree_;
-local data_;
+local tree_ = '';
+local data_ = nil;
 
 local function init_tree()
-	cache_.tree_=  iupTree_.Class:new()
-	tree_ = cache_.tree_
-	cache_.tree_:set_rastersize('300x') 
+	tree_=  iupTree_.Class:new()
+	tree_:set_rastersize('300x') 
 end
 
 
@@ -35,7 +33,7 @@ function init()
 end
 
 function get()
-	return cache_.tree_
+	return tree_
 end
 
 function get_control()
