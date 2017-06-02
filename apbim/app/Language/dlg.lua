@@ -2,6 +2,8 @@ local string = string
 local print = print
 local type = type
 local require =require
+local pairs = pairs
+
 local M = {}
 local modname = ...
 _G[modname] = M
@@ -17,12 +19,12 @@ local language_package_ = {
 	dlg = {English = 'Change Language',Chinese = '«–ªª”Ô—‘'};
 	ok = {English = 'Ok',Chinese = '»∑»œ'};
 	cancel = {English = 'Cancel',Chinese = '»°œ˚'};
-	title = {English = 'Language',Chinese = '”Ô—‘'};
+	title = {English = 'Language : ',Chinese = '”Ô—‘ £∫ '};
 }
 
 local lab_wid = '50x'
 local lab_title_ = iup.label{rastersize = lab_wid}
-local list_title_ = iup.list{expand="Yes",editbox="Yes",DROPDOWN="Yes"}
+local list_title_ = iup.list{expand="HORIZONTAL",editbox="NO",DROPDOWN="Yes",rastersize = '200x'}
 
 
 local btn_wid = '80x'
@@ -36,29 +38,30 @@ local dlg_ = iup.dialog{
 		iup.hbox{btn_ok_,btn_cancel_};
 		margin ='10x10';
 		alignment = 'ARIGHT';
-		rastersize = '300x';
+		-- rastersize = '400x';
 	};
 	expand = 'YES';
 }
 
-local function get_file_data()
+local function get_lan()
 	local s = require"sys.io".read_file{file=language_file_};
 	if type(s)~="table" then s={} end
 	return s;
 end
 
-local function add_lan_to_list(name)
-	local s = get_file_data()
-	s[name]= name 
-	s.__LAST = name
-	require'sys.table'.tofile{file=language_file_,src=s};
+local function save_lan(name)
+	local t = {}
+	t.language = name
+	require'sys.table'.tofile{file=language_file_,src=t};
+	language_.set(name)
 end
 
 local function init_callback(arg)
 	arg = arg or {}
 	function btn_ok_:action()
 		local name = list_title_.value
-		add_lan_to_list(name)
+		save_lan(name)
+		dlg_:hide()
 	end
 
 	function btn_cancel_:action()
@@ -67,12 +70,18 @@ local function init_callback(arg)
 end
 
 local function init_data(data)
-	
+	local data = language_.get_language_list()
+	for k,v in pairs(data) do 
+		list_title_.appenditem= k
+		if v == language_.get() then	
+			list_title_.value = k
+		end
+	end
 end
 
 function pop(arg)
 	arg  = arg or {}
-	local lan = arg.lan -- language_.get()
+	local lan =  language_.get()
 	lan = lan and language_package_.support_[lan] or 'English'
 
 	local function init_title()
@@ -89,7 +98,7 @@ function pop(arg)
 
 	local function show()
 		dlg_:map()
-		init_data(arg.data)
+		init_data()
 		dlg_:popup()
 	end
 	init()

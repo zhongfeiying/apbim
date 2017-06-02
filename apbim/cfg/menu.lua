@@ -203,6 +203,7 @@ return {
 		subs = {
 			{
 				name = 'Change Language';
+				keyword = 'Ap.Language';
 			};
 		};
 	};
