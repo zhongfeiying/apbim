@@ -1,5 +1,3 @@
 return {
-	['English'] = 'English';
-	['Chinese'] = 'Chinese';
-	__current = 'Chinese';
-}
+ 	["language"] = "1";
+};

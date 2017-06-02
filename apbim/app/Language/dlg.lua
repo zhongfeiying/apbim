@@ -24,7 +24,10 @@ local language_package_ = {
 
 local lab_wid = '50x'
 local lab_title_ = iup.label{rastersize = lab_wid}
-local list_title_ = iup.list{expand="HORIZONTAL",editbox="NO",DROPDOWN="Yes",rastersize = '200x'}
+local list_title_ = iup.list{
+	expand="HORIZONTAL",editbox="NO",DROPDOWN="Yes",rastersize = '150x',
+	alignment = 'ARIGHT';
+	}
 
 
 local btn_wid = '80x'
@@ -36,7 +39,7 @@ local dlg_ = iup.dialog{
 	iup.vbox{
 		iup.hbox{lab_title_,list_title_};
 		iup.hbox{btn_ok_,btn_cancel_};
-		margin ='10x10';
+		margin ='5x5';
 		alignment = 'ARIGHT';
 		-- rastersize = '400x';
 	};
@@ -74,7 +77,7 @@ local function init_data(data)
 	for k,v in pairs(data) do 
 		list_title_.appenditem= k
 		if v == language_.get() then	
-			list_title_.value = k
+			list_title_.value = list_title_.count
 		end
 	end
 end
