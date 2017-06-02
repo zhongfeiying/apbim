@@ -24,21 +24,15 @@ local title_search_ = {English = 'Search',Chinese = '²éÑ¯'}
 local title_create_ = {English = 'Create',Chinese = '´´½¨'}
 local title_edit_ = {English = 'Edit',Chinese = '±à¼­'}
 local title_delete_ = {English = 'Delete',Chinese = 'É¾³ý'}
-local action_search_;
-local action_create_;
-local action_edit_;
-local action_delete_;
-local item_search_;
-local item_create_;
-local item_edit_;
-local item_delete_;
+
+local item_search_ = {};
+local item_create_ = {};
+local item_edit_ = {};
+local item_delete_ = {};
 
 --------------------------------------------------------------------------------------------------------
 --item
-item_search_ = {action = action_search_}
-item_create_ = {action = action_create_}
-item_delete_ = {action = action_delete_}
-item_edit_ = {action = action_edit_}
+
 
 --------------------------------------------------------------------------------------------------------
 --api
@@ -80,11 +74,3 @@ end
 --------------------------------------------------------------------------------------------
 --action function
 
-action_search_ = function ()
-	local tree = tree_.get()
-	local id = tree_.get_current_id()
-	--do something
-end
- 
-action_create_ = function()
-end

@@ -49,44 +49,34 @@ local title_link_to_member_ = {English = 'Member',Chinese = '构件'}
 local title_link_to_view_ = {English = 'View',Chinese = '视图'}
 local title_save_ = {English = 'Save',Chinese = '保存'}
 
-local action_sort_name_;
-local action_sort_date_;
-local action_import_file_;
-local action_import_folder_;
-local action_import_id_;
-local action_add_file_;
-local action_add_folder_;
-local action_delete_project_;
-local action_edit_information_;
-local action_ins_folder_;
-local action_ins_file_;
-local action_link_to_file_;
-local action_link_to_folder_;
-local action_link_to_exe_;
-local action_link_to_member_;
-local action_link_to_view_;
-local action_server_backup_;
-local action_server_update_;
-local action_server_history_;
-local action_save_;
 
-local item_sort_;
-local item_sort_date_;
-local item_sort_name_;
-local item_import_;
-local item_import_file_;
-local item_import_folder_;
-local item_import_id_;
-local item_add_;
-local item_add_file_;
-local item_add_folder_;
-local item_delete_project_;
-local item_edit_information_;
-local item_server_;
-local item_server_backup_;
-local item_server_update_;
-local item_server_history_;
-local item_save_;
+local item_sort_ = {};
+local item_sort_date_ = {};
+local item_sort_name_ = {};
+local item_import_ = {};
+local item_import_file_ = {};
+local item_import_folder_ = {};
+local item_import_id_ = {};
+local item_add_ = {};
+local item_add_file_ = {};
+local item_add_folder_ = {};
+local item_delete_project_ = {};
+local item_edit_information_ ={};
+local item_server_ = {};
+local item_server_backup_ = {};
+local item_server_update_ = {};
+local item_server_history_ = {};
+local item_save_ = {};
+local item_ins_folder_ = {}
+local item_ins_file_ = {}
+local item_ins_ = {}
+local item_link_to_ = {}
+local item_link_to_folder_ = {}
+local item_link_to_file_ = {};
+local	item_link_to_member_ = {};
+local	item_link_to_view_ = {};
+local	item_link_to_exe_ = {};
+
 
 --------------------------------------------------------------------------------------------------------
 --item
@@ -97,8 +87,6 @@ local submenu_sort = function()
 }
 end
 item_sort_ = {submenu = submenu_sort}
-item_sort_date_ = {action = action_sort_date_}
-item_sort_name_ = {action = action_sort_name_}
 local function sub_add_items()
 	return {
 		item_add_folder_;
@@ -106,8 +94,6 @@ local function sub_add_items()
 	}
 end
 item_add_ = {submenu = sub_add_items}
-item_add_folder_ = {action = action_add_folder_}
-item_add_file_ = {action = action_add_file_}
 local function sub_import_items()
 	return {
 		item_import_folder_;
@@ -117,11 +103,6 @@ local function sub_import_items()
 	}
 end
 item_import_ = {submenu = sub_import_items}
-item_import_folder_ = {action = action_import_folder_}
-item_import_file_ = {action = action_import_file_}
-item_import_id_ = {action = action_import_id_}
-item_delete_project_ = {action = action_delete_project_}
-item_edit_information_= {action = action_edit_information_}
 local function sub_server_items()
 	return {
 		item_server_backup_;
@@ -131,9 +112,6 @@ local function sub_server_items()
 	}
 end
 item_server_= {submenu = sub_server_items}
-item_server_backup_ = {action = action_server_backup_}
-item_server_update_ = {action = action_server_update_}
-item_server_history_ = {action = action_server_history_}
 local function sub_ins_items()
 	return {
 		item_ins_folder_;
@@ -141,8 +119,7 @@ local function sub_ins_items()
 	}
 end
 item_ins_ = {submenu = sub_ins_items}
-item_ins_file_ = {action = item_ins_file_}
-item_ins_folder_ = {action = item_ins_folder_}
+
 local function sub_link_to_items()
 	return {
 		item_link_to_folder_;
@@ -155,13 +132,6 @@ local function sub_link_to_items()
 	}
 end
 item_link_to_ = {submenu = sub_link_to_items}
-item_link_to_file_ = {action = action_link_to_file_}
-item_link_to_folder_ = {action = action_link_to_folder_}
-item_link_to_member_ = {action = action_link_to_member_}
-item_link_to_view_ = {action = action_link_to_view_}
-item_link_to_exe_ = {action = action_link_to_exe_}
-
-item_save_ = {action = action_save_}
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
@@ -240,29 +210,4 @@ end
 --------------------------------------------------------------------------------------------
 --action function
 
-action_add_contact_ = function ()
-	local tree = tree_.get()
-	local id = tree_.get_current_id()
-	--do something
-end
 
-action_contact_manage_ = function() end 
-action_sort_date_ = function() end 
-action_sort_date_ = function() end 
-action_add_file_ = function() end
-action_add_folder_ = function() end
-action_import_folder_ = function() end
-action_import_file_ = function() end
-action_import_id_ = function() end
-action_delete_project_ = function() end
-action_edit_information_ = function() end
-action_server_backup_ = function() end 
-action_server_update_ = function() end 
-action_server_history_ = function() end 
-action_ins_file_ = function() end 
-action_ins_folder_ = function() end 
-action_link_to_view_ = function() end 
-action_link_to_member_ = function() end 
-action_link_to_exe_ = function() end 
-action_link_to_folder_ = function () end 
-action_link_to_file_ = function() end 

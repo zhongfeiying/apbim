@@ -14,8 +14,8 @@ package_loaded_[modname] = M
 _ENV = M
 
 local iupTree_ = require 'sys.Workspace.tree.iuptree'
-local tree_ = '';
-local data_ = nil;
+local tree_ = true;
+local data_ = true;
 
 local function init_tree()
 	tree_=  iupTree_.Class:new()

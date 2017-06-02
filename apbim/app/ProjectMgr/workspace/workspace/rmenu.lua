@@ -32,14 +32,11 @@ local title_property_ = {English = 'Persional Information',Chinese = '个人信息'}
 local title_change_pwd_ = {English = 'Change Password',Chinese = '修改密码'}
 local title_logout_ = {English = 'Logout',Chinese = '登出'}
 local title_change_user_ = {English = 'Change User',Chinese = '切换用户'}
-local action_property_;
-local action_change_pwd_;
-local action_logout_;
-local action_change_user_;
-local item_property_;
-local item_change_pwd_;
-local item_logout_;
-local item_change_user_;
+
+local item_property_ = {};
+local item_change_pwd_ = {};
+local item_logout_ = {};
+local item_change_user_ = {};
 
 
 --------------------------------------------------------------------------------------------------------
@@ -48,10 +45,6 @@ local item_change_user_;
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
-	item_property_ = {action = action_property_}
-	item_change_pwd_ = {action = action_change_pwd_}
-	item_change_user_ = {action = action_change_user_}
-	item_logout_ = {action = action_logout_}
 
 	local lan = language_.get()
 	cur_language_=  lan and language_support_[lan] or 'English'
@@ -79,7 +72,7 @@ end
 local dlg_reg_ = require 'app.loginpro.dlg_register'
 local dlg_login_ = require 'app.loginpro.dlg_login'
 local dlg_cg_pwd_ = require 'app.loginpro.dlg_change_password'
-action_property_ = function ()
+item_property_.action = function ()
 	local function get_user_info()
 		return {name = 'Sjy',phone = '123'}
 		--[[
@@ -90,22 +83,23 @@ action_property_ = function ()
 	end
 	
 	local tree = tree_.get()
+	print(tree)
 	-- local id = tree.get_current_id()
 	-- local userdata = tree:get_node_data()
 	dlg_reg_.pop{data = get_user_info(),show = true}
 end
 
-action_change_pwd_ = function() 
+item_change_pwd_.action = function() 
 	dlg_cg_pwd_.pop()
 end 
 
-action_change_user_ = function() 
+item_change_user_.action = function() 
 	local function on_ok()
 		require 'sys.main'.init()
 	end
 	dlg_login_.pop{on_ok = on_ok,on_cancel = on_cancel}
 end 
-action_logout_ = function() 
+item_logout_.action = function() 
 	local function save()
 	end
 	local function close()

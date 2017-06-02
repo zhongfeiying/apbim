@@ -18,8 +18,8 @@ _ENV = M
 local keydown_private_ =require 'app.projectmgr.workspace.privates.keydown'  
 local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
 
-local tree_;
-local data_;
+local tree_ = true;
+local data_ = true;
 
 local function init_tree()
 	-- tree_=  iupTree_.Class:new()
