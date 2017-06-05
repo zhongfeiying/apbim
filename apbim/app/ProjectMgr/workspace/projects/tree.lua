@@ -71,7 +71,7 @@ local function project_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_project_menu;
+			rmenu = arg.rmenu or require 'app.projectmgr.workspace.projects.rmenu'.get_project_menu;
 			id = arg.id;
 		};
 		kind = 'branch';
@@ -82,7 +82,7 @@ local function branch_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_branch_menu;
+			rmenu = arg.rmenu or require 'app.projectmgr.workspace.projects.rmenu'.get_branch_menu;
 			id = arg.id;
 		};
 		kind = 'branch';
@@ -93,7 +93,7 @@ local function leaf_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_leaf_menu;
+			rmenu = arg.rmenu or require 'app.projectmgr.workspace.projects.rmenu'.get_leaf_menu;
 			id = arg.id;
 		};
 		kind = 'leaf';
@@ -105,7 +105,7 @@ local function leaf_exe_attr(arg)
 	return {
 		title = arg.name;
 		data = {
-			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_exe_menu;
+			rmenu = arg.rmenu or require 'app.projectmgr.workspace.projects.rmenu'.get_exe_menu;
 			id = arg.id;
 		};
 		kind = 'leaf';

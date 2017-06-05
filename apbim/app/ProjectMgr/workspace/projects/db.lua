@@ -20,7 +20,7 @@ local function init_data()
 
 			{
 				{
-					name = 'App';
+					name = 'App';rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_tpl_menu;
 					{
 						{
 							name = 'Menu',exe = true;
@@ -31,7 +31,7 @@ local function init_data()
 					};
 				};
 				{
-					name = '模型';id=4;
+					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
 					{
 						{
 							name ='梁',id =5;
@@ -148,10 +148,10 @@ local function init_data()
 						};					
 				};
 				{
-					name = '团队';id=4;
+					name = '团队';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_group_menu;
 					{
 						{
-							name ='zgb',id =5;
+							name ='zgb',id =5;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_group_branch_menu;
 						};
 					};
 				};
@@ -167,7 +167,7 @@ local function init_data()
 					};
 				};
 				{
-					name = '工作流';id=4;
+					name = '工作流';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_workstart_menu;
 					{
 						{
 							name ='所有工作流',id =5;
@@ -187,7 +187,7 @@ local function init_data()
 
 			{
 				{
-					name = '模型';id=4;
+					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
 					{
 						{
 							name ='梁',id =5;
@@ -323,7 +323,7 @@ local function init_data()
 					};
 				};
 				{
-					name = '工作流';id=4;
+					name = '工作流';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_workstart_menu;
 					{
 						{
 							name ='所有工作流',id =5;
@@ -342,7 +342,7 @@ local function init_data()
 
 			{
 				{
-					name = '模型';id=4;
+					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
 					{
 						{
 							name ='梁',id =5;
@@ -459,10 +459,10 @@ local function init_data()
 						};					
 				};
 				{
-					name = '团队';id=4;
+					name = '团队';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_group_menu;
 					{
 						{
-							name ='zgb',id =5;
+							name ='zgb',id =5;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_group_branch_menu;
 						};
 					};
 				};
@@ -478,7 +478,7 @@ local function init_data()
 					};
 				};
 				{
-					name = '工作流';id=4;
+					name = '工作流';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_workstart_menu;
 					{
 						{
 							name ='所有工作流',id =5;

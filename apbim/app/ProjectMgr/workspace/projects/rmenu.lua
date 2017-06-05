@@ -65,8 +65,10 @@ local title_version_commit_ = {Englist = 'Commit',Chinese = '提交版本'}
 local title_version_last_ = {English = 'Get Last',Chinese = '获取最新版'}
 local title_version_tag_ = {English = 'Create Tag',Chinese = '创建里程碑'}
 local title_version_history_ = {English = 'Show History',Chinese = '历史记录'}
+local title_version_get_history_ = {English = 'Get History',Chinese = '获取某版本'}
 
 local title_workflow_ = {English = 'Workflow',Chinese = '工作流'}
+local title_workflow_create_ = {English = 'Create',Chinese = '创建'}
 local title_workflow_start_ = {English = 'Start',Chinese = '启动'}
 local title_workflow_stop_ = {English = 'Stop',Chinese = '停止'}
 local title_workflow_commit_ = {English = 'Commit',Chinese = '提交'}
@@ -83,10 +85,10 @@ local title_link_to_ = {English = 'Link To ',Chinese = '链接到'}
 local title_link_to_file_ = {English = 'File',Chinese = '文件'} --可以链接到本地的文件、也可以链接到工程中的某个文件（变成快捷方式）
 local title_link_to_folder_ = {English = 'Folder',Chinese = '文件夹'}-- 文件夹也一样
 local title_link_to_exe_ = {English = 'Installable Program',Chinese = '可安装程序'}
-local title_link_to_member_ = {English = 'Member',Chinese = '构件'}
+local title_link_to_member_ = {English = 'Model',Chinese = '模型'}
 local title_link_to_view_ = {English = 'View',Chinese = '视图'}
 
-local title_move_ =  {English = 'Move To',Chinese = '移动'}
+local title_move_ =  {English = 'Move To',Chinese = '移动到'}
 local title_move_persional_ =  {English = 'Private Folder',Chinese = '私人文件夹'}
 local title_move_recycle_ =  {English = 'Recycle ',Chinese = '回收站'}
 
@@ -95,6 +97,14 @@ local title_archive_ = {English = 'Export',Chinese = '导出'}
 local title_open_ = {English = 'Open',Chinese = '打开'}
 local title_run_ = {English = 'Run',Chinese = '运行'}
 local title_show_ = {English = 'Show',Chinese = '显示'}
+local title_create_tpl_ = {English = 'Create Template',Chinese = '创建模板'}
+local title_load_tpl_ = {English = 'Load Template',Chinese = '加载模板'}
+local title_delete_tpl_ = {English = 'Delete Template',Chinese = '删除模板'}
+local title_add_member_ = {English = 'Add Member',Chinese = '添加成员'}
+local title_add_group_ = {English = 'Add Group',Chinese = '添加组'}
+local title_delete_member_ = {English = 'Delete Member',Chinese = '删除成员'}
+local title_model_show_ = {English = 'Show Model',Chinese = '显示模型'}
+local title_model_import_ = {English = 'Import Model',Chinese = '导入模型'}
 
 
 local item_create_project_ = {};
@@ -134,7 +144,7 @@ local item_version_history_ = {};
 local item_version_tag_ = {};
 
 --local item_workflow_;
-
+local item_workflow_create_ = {}
 local item_workflow_start_ = {};
 local item_workflow_stop_ = {};
 local item_workflow_status_ = {};
@@ -163,6 +173,18 @@ local item_project_import_ = {};
 local item_move_ = {}
 local item_move_persional_ = {}
 local item_move_recycle_ = {}
+
+local item_create_tpl_ = {}
+local item_load_tpl_ = {};
+local item_delete_tpl_ = {};
+
+local item_model_show_ = {}
+local item_import_model_ = {}
+
+local item_add_member_ = {}
+local item_delete_member_ = {}
+local item_add_group_ = {}
+
 
 local function submenu_sort()
 	return {
@@ -314,7 +336,22 @@ local function init()
 	item_move_.title = title_move_[cur_language_]
 	item_move_persional_.title = title_move_persional_[cur_language_]
 	item_move_recycle_.title = title_move_recycle_[cur_language_]
+	item_workflow_create_.title = title_workflow_create_[cur_language_]
 	
+	item_create_tpl_.title = title_create_tpl_[cur_language_]
+	item_load_tpl_.title = title_load_tpl_[cur_language_]
+	item_delete_tpl_.title = title_delete_tpl_[cur_language_]
+	
+	item_add_member_.title = title_add_member_[cur_language_]
+	item_add_group_.title = title_add_group_[cur_language_]
+	item_delete_member_.title = title_delete_member_[cur_language_]
+	
+	item_model_show_.title = title_model_show_[cur_language_]
+	item_import_model_.title = title_model_import_[cur_language_]
+	item_workflow_start_.title = title_workflow_start_[cur_language_]
+	item_workflow_commit_.title = title_workflow_commit_[cur_language_]
+	item_workflow_stop_.title = title_workflow_stop_[cur_language_]
+	item_workflow_status_.title = title_workflow_status_[cur_language_]
 end
 
 function get()
@@ -333,9 +370,9 @@ end
 function get_project_menu()
 	init()
 	return {
+		item_project_create_;
 		item_save_project_;
 		'';
-		item_project_create_;
 		item_project_import_;
 		item_export_;
 		'';
@@ -354,7 +391,7 @@ function get_branch_menu()
 	init()
 	return {
 		item_create_;
-		item_ins_;
+		-- item_ins_;
 		item_import_;
 		'';
 		item_edit_information_;
@@ -362,7 +399,7 @@ function get_branch_menu()
 		-- item_hide_project_;
 		'';
 		item_move_;
-		item_link_to_;
+		-- item_link_to_;
 		'';
 		item_version_;
 		item_cooperate_;
@@ -377,8 +414,8 @@ function get_leaf_menu()
 	init()
 	return {
 		item_open_;
-		'';
-		item_ins_;
+		-- '';
+		-- item_ins_;
 		'';
 		item_edit_information_;
 		item_delete_project_;
@@ -407,6 +444,55 @@ function get_exe_menu()
 		item_cooperate_;
 		'';
 		item_property_;
+	}
+end
+
+function get_tpl_menu()
+	init()
+	return {
+		item_create_tpl_;
+		item_load_tpl_;
+		item_delete_tpl_;
+	}
+end
+
+function get_group_menu()
+	init()
+	return {
+		item_add_member_;
+		item_add_group_;
+	}
+end
+
+function get_group_branch_menu()
+	init()
+	return {
+		item_add_member_;
+		item_delete_member_;
+	}
+end
+
+function get_model_menu()
+	init()
+	return {
+		item_model_show_;
+		'';
+		item_import_model_;
+	}
+end
+
+
+
+function get_workstart_menu()
+	init()
+	return {
+		item_workflow_create_;
+		'';
+		item_workflow_start_;
+		item_workflow_commit_;
+		item_workflow_stop_;
+		'';
+		item_workflow_status_;
 	}
 end
 --------------------------------------------------------------------------------------------
