@@ -15,7 +15,35 @@ local file = 'app.ProjectMgr.info.user_gid_file'
 -- local user_ = 'Sjy' -- require 'user'.get()
 local user_ =  require 'sys.user'.get()
 
+local function admin_data()
+	return {
+		project = {
+			title = '工程',
+			
+			image = {open ='app/ProjectMgr/res/projects.bmp',close =  'app/ProjectMgr/res/projects.bmp'} ;
+			data= {
+				rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get;
+				__title = 'ProjectList';
+			};
+		};
+		dahe= {
+			title = '大河',
+		};
+		{
+			index = project;
+			{
+				{
+					index = dahe;
+					{};
+				};
+			};
+		}
+	}
+end
+
 local function init_data()
+	-- return admin_data()
+	----[[
 	return {
 		user = {
 			title = user_,
@@ -96,6 +124,7 @@ local function init_data()
 		};
 
 	};
+	--]]
 	--save_file()
 end
 

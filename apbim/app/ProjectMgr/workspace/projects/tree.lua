@@ -7,6 +7,8 @@ local table = table
 local string = string
 local print = print
 
+local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
+
 local M = {}
 local modname = ...
 _G[modname] = M
@@ -14,10 +16,8 @@ package_loaded_[modname] = M
 _ENV = M
 
 -- local iupTree_ = require 'sys.Workspace.tree.iuptree'
-local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
-
-local tree_ = true;
-local data_ = true;
+local tree_;
+local data_;
 
 local function init_tree()
 	-- tree_=  iupTree_.Class:new()

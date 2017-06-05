@@ -20,7 +20,7 @@ require 'iupluacontrols'
 require "iupluaimglib"
 
 local dlg_;
-local default_image_ = 'templateFiles/res/default.bmp'
+local default_image_ = 'template/res/default.bmp'
 
 
 local btn_next_;

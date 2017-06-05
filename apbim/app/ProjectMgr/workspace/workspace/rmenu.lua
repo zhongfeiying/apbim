@@ -6,6 +6,7 @@ local print = print
 local table = table
 local os_exit_ = os.exit
 local pairs = pairs
+local string = string
 
 local M = {}
 local modname = ...
@@ -13,7 +14,6 @@ _G[modname] = M
 package_loaded_[modname] = M
 
 _ENV = M
-
 
 local language_ = require 'sys.language'
 local cur_language_ = 'English'

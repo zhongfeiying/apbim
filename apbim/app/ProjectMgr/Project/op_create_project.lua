@@ -17,7 +17,7 @@ local lfs = require 'lfs'
 local language_pack_path_ =  'app.ProjectMgr.project.language_create_project'
 local language_ = require 'sys.language'
 
-local path = 'app/projectmgr/templateFiles/'
+local path = 'app/projectmgr/template/'
 local db_ ;
 
 local function require_data_file(file)

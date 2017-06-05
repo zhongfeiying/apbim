@@ -2,6 +2,10 @@ local require  = require
 local package_loaded_ = package.loaded
 local print = print
 local table = table
+local string = string
+local pairs = pairs
+
+
 
 local M = {}
 local modname = ...
@@ -9,11 +13,15 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
-
 local language_ = require 'sys.language'
 local cur_language_ = 'English'
 local project_ = require 'app.projectmgr.project'
-local tree_ = require 'app.ProjectMgr.workspace.projects.tree'
+-- local tree_ = require 'app.ProjectMgr.workspace.projects.tree'
+local op_ = require 'app.ProjectMgr.workspace.projects.op'
+
+
+
+-- local tree_ = require 'app.ProjectMgr.workspace.projects.tree'
 --[[
 	local tree = tree_.get()
 	local id = tree_.get_current_id()
@@ -509,7 +517,10 @@ item_create_.action = function ()
 	local id = tree_.get_current_id()
 	--do something
 end
-
+item_create_project_.action = function() 
+	-- print(tree_.get())
+	op_.create_project()
+end
 item_import_project_.action = function() end 
 item_sort_name_.action = function() end 
 item_sort_date_.action = function() end 

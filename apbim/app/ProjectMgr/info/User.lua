@@ -1,6 +1,6 @@
 return {
 	{
-		name =get_username();
+		name ='Project';
 		image = 'app/ProjectMgr/res/user.bmp';
 		{
 			{
