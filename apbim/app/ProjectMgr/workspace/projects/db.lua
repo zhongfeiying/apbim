@@ -20,6 +20,17 @@ local function init_data()
 
 			{
 				{
+					name = 'App';
+					{
+						{
+							name = 'Menu',exe = true;
+						};
+						{
+							name = 'Toolbar',exe = true;
+						};
+					};
+				};
+				{
 					name = 'Ä£ÐÍ';id=4;
 					{
 						{
