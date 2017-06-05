@@ -142,6 +142,7 @@ local item_version_commit_ = {};
 local item_version_last_ = {};
 local item_version_history_ = {};
 local item_version_tag_ = {};
+local item_version_get_history_ = {}
 
 --local item_workflow_;
 local item_workflow_create_ = {}
@@ -221,6 +222,7 @@ item_project_import_ = {submenu =sub_project_import_items }
 local function sub_server_items()
 	return {
 		item_version_commit_;
+		item_version_get_history_;
 		item_version_last_;
 		item_version_tag_;
 		'';
@@ -302,11 +304,14 @@ local function init()
 	item_delete_project_.title = title_delete_project_[cur_language_]
 	item_edit_information_.title = title_edit_information_[cur_language_]
 	item_save_project_.title = title_save_project_[cur_language_]
+	
 	item_version_.title = title_version_[cur_language_]
 	item_version_commit_.title = title_version_commit_[cur_language_]
 	item_version_last_.title = title_version_last_[cur_language_]
 	item_version_tag_.title =  title_version_tag_[cur_language_]
 	item_version_history_.title = title_version_history_[cur_language_]
+	item_version_get_history_.title = title_version_get_history_[cur_language_]
+	
 	item_personal_folder_.title = title_personal_folder_[cur_language_]
 	item_ins_.title = title_ins_[cur_language_]
 	item_ins_folder_.title = title_ins_folder_[cur_language_]
@@ -328,6 +333,7 @@ local function init()
 	item_show_.title = title_show_[cur_language_]
 	item_project_create_.title = title_project_create_[cur_language_]
 	item_project_import_.title = title_import_[cur_language_]
+	
 	item_cooperate_start_.title =  title_cooperate_start_[cur_language_]
 	item_cooperate_transfer_.title =  title_cooperate_transfer_[cur_language_]
 	item_cooperate_cancel_.title =  title_cooperate_cancel_[cur_language_]

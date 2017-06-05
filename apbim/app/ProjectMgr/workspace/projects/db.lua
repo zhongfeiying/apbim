@@ -20,82 +20,6 @@ local function init_data()
 
 			{
 				{
-					name = 'App';rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_tpl_menu;
-					{
-						{
-							name = 'Menu',exe = true;
-						};
-						{
-							name = 'Toolbar',exe = true;
-						};
-					};
-				};
-				{
-					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
-					{
-						{
-							name ='梁',id =5;
-							{
-								{
-									name ='B-1',id =5;
-								}	
-							};
-						};
-						{
-							name ='柱',id =5;
-							{
-								{
-									name ='C-1',id =5;
-								}	
-							};
-						};
-						{
-							name ='板',id =5;
-							{
-								{
-									name ='PL-1',id =5;
-								}	
-							};
-						};
-						{
-							name ='组',id =5;
-							{
-								{
-									name ='第一工区',id =5;
-								}	
-							};
-						};
-						{
-							name ='层',id =5;
-							{
-								{
-									name ='第一层',id =5;
-								},	
-								{
-									name ='第二层',id =5;
-								},	
-								{
-									name ='顶层',id =5;
-								},	
-								{
-									name ='地下一层',id =5;
-								},	
-							};
-						};
-						{
-							name ='族',id =5;
-							{
-								{
-									name ='系统组',id =5;
-								},	
-								{
-									name ='自定义族',id =5;
-								},	
-							};
-						};
-					};
-				};
-				{
 					
 						name = '文档';id=4;
 						{
@@ -180,12 +104,17 @@ local function init_data()
 						};
 					};
 				};
-			};
-		};
-		{
-			name = '肯德基',id = 2,
-
-			{
+				{
+					name = 'App';rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_tpl_menu;
+					{
+						{
+							name = 'Menu',exe = true;
+						};
+						{
+							name = 'Toolbar',exe = true;
+						};
+					};
+				};
 				{
 					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
 					{
@@ -251,6 +180,13 @@ local function init_data()
 						};
 					};
 				};
+			};
+		};
+		{
+			name = '肯德基',id = 2,
+
+			{
+				
 				{
 					
 						name = '文档';id=4;
@@ -336,11 +272,17 @@ local function init_data()
 						};
 					};
 				};
-			};		};
-		{
-			name = '麦当劳',id = 3,
-
-			{
+				{
+					name = 'App';rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_tpl_menu;
+					{
+						{
+							name = 'Menu',exe = true;
+						};
+						{
+							name = 'Toolbar',exe = true;
+						};
+					};
+				};
 				{
 					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
 					{
@@ -406,6 +348,13 @@ local function init_data()
 						};
 					};
 				};
+			};		
+		};
+		{
+			name = '麦当劳',id = 3,
+
+			{
+				
 				{
 					
 						name = '文档';id=4;
@@ -491,7 +440,84 @@ local function init_data()
 						};
 					};
 				};
-			};		};--]]
+				{
+					name = 'App';rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_tpl_menu;
+					{
+						{
+							name = 'Menu',exe = true;
+						};
+						{
+							name = 'Toolbar',exe = true;
+						};
+					};
+				};
+				{
+					name = '模型';id=4;rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_model_menu;
+					{
+						{
+							name ='梁',id =5;
+							{
+								{
+									name ='B-1',id =5;
+								}	
+							};
+						};
+						{
+							name ='柱',id =5;
+							{
+								{
+									name ='C-1',id =5;
+								}	
+							};
+						};
+						{
+							name ='板',id =5;
+							{
+								{
+									name ='PL-1',id =5;
+								}	
+							};
+						};
+						{
+							name ='组',id =5;
+							{
+								{
+									name ='第一工区',id =5;
+								}	
+							};
+						};
+						{
+							name ='层',id =5;
+							{
+								{
+									name ='第一层',id =5;
+								},	
+								{
+									name ='第二层',id =5;
+								},	
+								{
+									name ='顶层',id =5;
+								},	
+								{
+									name ='地下一层',id =5;
+								},	
+							};
+						};
+						{
+							name ='族',id =5;
+							{
+								{
+									name ='系统组',id =5;
+								},	
+								{
+									name ='自定义族',id =5;
+								},	
+							};
+						};
+					};
+				};
+			};		
+		};--]]
 	}
 end
 
