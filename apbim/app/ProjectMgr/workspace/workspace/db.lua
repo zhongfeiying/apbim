@@ -28,7 +28,7 @@ local function init_data()
 			
 		};
 		project = {
-			title = '工程列表',
+			title = '工程',
 			
 			image = {open ='app/ProjectMgr/res/projects.bmp',close =  'app/ProjectMgr/res/projects.bmp'} ;
 			data= {
@@ -37,7 +37,7 @@ local function init_data()
 			};
 		};
 		contact = {
-			title = '联系人列表',
+			title = '联系人',
 			
 			image = {open ='app/ProjectMgr/res/contacts2.bmp',close =  'app/ProjectMgr/res/contacts2.bmp'} ;
 			data= {
@@ -73,15 +73,15 @@ local function init_data()
 			index = 'user';
 			{
 				{
-					index = 'private';
-					{};
-				};
-				{
 					index='project';
 					{};
 				};
 				{
 					index='contact';
+					{};
+				};
+				{
+					index = 'private';
 					{};
 				};
 				{

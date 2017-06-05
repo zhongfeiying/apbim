@@ -29,20 +29,14 @@ local title_sort_name_ = {English = 'Name',Chinese = 'Ãû³Æ'}
 local title_delete_project_ = {English = 'Delete',Chinese = 'É¾³ý'}
 local title_edit_information_ = {English = 'Edit',Chinese = '±à¼­'}
 
-local action_add_contact_;
-local action_contact_manage_;
-local action_sort_name_;
-local action_sort_date_;
-local action_delete_project_;
-local action_edit_information_;
 
-local item_add_contact_;
-local item_contact_manage_;
-local item_sort_;
-local item_sort_date_;
-local item_sort_name_;
-local item_delete_project_;
-local item_edit_information_;
+local item_add_contact_ = {};
+local item_contact_manage_ = {};
+local item_sort_ = {};
+local item_sort_date_ = {};
+local item_sort_name_ = {};
+local item_delete_project_ = {};
+local item_edit_information_ = {};
 
 --------------------------------------------------------------------------------------------------------
 --item
@@ -52,13 +46,7 @@ local submenu_sort = function()
 	item_sort_name_;
 }
 end 
-item_add_contact_ = {action = action_add_contact_}
-item_contact_manage_ = {action = action_contact_manage_}
-item_sort_ = {submenu = submenu_sort}
-item_sort_date_ = {action = action_sort_date_}
-item_sort_name_ = {action = action_sort_name_}
-item_delete_project_ = {action = action_delete_project_}
-item_edit_information_= {action = action_edit_information_}
+
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
@@ -102,13 +90,10 @@ end
 --------------------------------------------------------------------------------------------
 --action function
 
-action_add_contact_ = function ()
+item_add_contact_.action = function ()
 	local tree = tree_.get()
 	local id = tree_.get_current_id()
 	--do something
 end
 
-action_contact_manage_ = function() end 
-action_sort_date_ = function() end 
-action_sort_date_ = function() end 
 

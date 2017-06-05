@@ -16,8 +16,8 @@ _ENV = M
 -- local iupTree_ = require 'sys.Workspace.tree.iuptree'
 local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
 
-local tree_;
-local data_;
+local tree_ = true;
+local data_ = true;
 
 local function init_tree()
 	-- tree_=  iupTree_.Class:new()
@@ -100,6 +100,18 @@ local function leaf_attr(arg)
 		
 	}
 end
+
+local function leaf_exe_attr(arg)
+	return {
+		title = arg.name;
+		data = {
+			rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get_exe_menu;
+			id = arg.id;
+		};
+		kind = 'leaf';
+		
+	}
+end
 function turn_tree_data(data)
 	local function deal_data(db,lev)
 		if type(db) ~= 'table' then return end 
@@ -113,7 +125,11 @@ function turn_tree_data(data)
 				t.attributes = branch_attr(v)
 				t[1] = deal_data(v[1],lev+1) or {}
 			else 
+				if not v.exe then 
 				t.attributes = leaf_attr(v)
+				else 
+				t.attributes = leaf_exe_attr(v)
+				end
 			end
 			table.insert(tempt,t)
 		end

@@ -23,71 +23,62 @@ local language_support_ = {English = 'English',Chinese = 'Chinese'}
 --------------------------------------------------------------------------------------------------------
 -- define project list menu
 
-local title_create_ = {English = 'Create',Chinese = '´´½¨¹¤³Ì'}
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------
+local title_create_project_ = {English = 'Create',Chinese = '´´½¨¹¤³Ì'}
 local title_import_project_ = {English = 'Import',Chinese = 'µ¼Èë¹¤³Ì'}--µ¼ÈëµÄ¹¤³Ì£¬ÓÐ¿ÉÄÜÊÇÒ»¸öidÒ²¿ÉÄÜÊÇÒ»¸ö±¾µØ¹¤³Ì°ü
 local title_sort_ = {English = 'Sort',Chinese = 'ÅÅÐò'}
-local title_sort_date_ = {English = 'Date',Chinese = 'Ìí¼ÓÊ±¼ä'}
-local title_sort_name_ = {English = 'Name',Chinese = '±êÌâÃû³Æ'}
+local title_sort_date_ = {English = 'Date',Chinese = '´´½¨Ê±¼ä'}
+local title_sort_name_ = {English = 'Name',Chinese = '¹¤³ÌÃû³Æ'}
 local title_statistics_ = {English = 'Statistics',Chinese = 'Í³¼Æ'}
 local title_manage_ = {English = 'Manage',Chinese = '¹ÜÀí¹¤³Ì'}
 
-local action_create_;
-local action_import_project;
-local action_sort_name_;
-local action_sort_date_;
-local action_statistics_;
-local action_manage_;
+local title_property_ = {English = 'Properties',Chinese = 'ÊôÐÔ'}
 
-local item_create_;
-local item_import_project_;
-local item_sort_;
-local item_sort_date_;
-local item_sort_name_;
-local item_statistics_;
-local item_manage_;
+local title_create_ = {English = 'Create',Chinese = '´´½¨'}
+local title_create_file_  = {English = 'File',Chinese = 'ÎÄ¼þ'}
+local title_create_folder_ = {English = 'Folder',Chinese = 'ÎÄ¼þ¼Ð'}
+local title_project_create_ = {English  = 'Create Folder',Chinese = '´´½¨ÎÄ¼þ¼Ð'}
 
-item_create_ = {action = action_create_}
-item_import_project_ = {action = action_import_project}
-item_sort_date_ = {action = action_sort_date_}
-item_sort_name_ = {action = action_sort_name_}
-item_statistics_ = {action = action_statistics_}
-item_manage_ = {action = action_manage_}
-local function submenu_sort()
-	return {
-		item_sort_date_;
-		item_sort_name_;
-	}
-end
-item_sort_ = {submenu = submenu_sort}
+local title_cooperate_ = {English = 'Cooperate',Chinese = 'Ð­Í¬¿ØÖÆ'}
+local title_cooperate_start_ = {English = 'Start',Chinese = '·¢ÆðÐ­Í¬'}
+local title_cooperate_transfer_ = {English = 'Transfer Update',Chinese = '×ªÈÃ¸üÐÂÈ¨'}
+local title_cooperate_cancel_ = {English = 'Cancel Transfer',Chinese = 'ÊÕ»Ø¸üÐÂÈ¨'}
+local title_cooperate_manage_ = {English = 'Manage',Chinese = '¹ÜÀíÐ­Í¬'}
 
---------------------------------------------------------------------------------------------------------
-local title_information_ = {English = 'Information',Chinese = '¹¤³ÌÐÅÏ¢'}
-local title_add_ = {English = 'Add',Chinese = 'Ìí¼Ó'}
-local title_add_file_  = {English = 'File',Chinese = 'ÎÄ¼þ'}
-local title_add_folder_ = {English = 'Folder',Chinese = 'ÎÄ¼þ¼Ð'}
-local title_chmod_ = {English = 'Cooperate',Chinese = 'Ð­Í¬¿ØÖÆ'}
 local title_import_ = {English = 'Import',Chinese= 'µ¼Èë'}
 local title_import_folder_ = {English = 'Folder',Chinese= 'ÎÄ¼þ¼Ð'}
 local title_import_file_ = {English = 'File',Chinese= 'ÎÄ¼þ'}
-local title_import_id_ = {English = 'Id',Chinese= 'ÎÄ¼þId'}
+local title_import_id_ = {English = 'Id',Chinese= 'Id'}
+
 local title_hide_project_ = {English = 'Hide',Chinese = 'Òþ²Ø'}
 local title_delete_project_ = {English = 'Delete',Chinese = 'É¾³ý'}
 local title_edit_information_ = {English = 'Edit',Chinese = '±à¼­'}
 local title_save_project_ = {English = 'Save',Chinese = '±£´æ'}
-local title_server_ = {English = 'Server',Chinese = '·þÎñÆ÷'}
-local title_server_backup_ = {Englist = 'Backup',Chinese = '±¸·Ý'}
-local title_server_update_ = {English = 'Update',Chinese = '¸üÐÂ'}
-local title_server_history_ = {English = 'Backup History',Chinese = 'ÀúÊ·¼ÇÂ¼'}
+
+local title_version_ = {English = 'Version Manage',Chinese = '°æ±¾¹ÜÀí'}
+local title_version_commit_ = {Englist = 'Commit',Chinese = 'Ìá½»°æ±¾'}
+local title_version_last_ = {English = 'Get Last',Chinese = '»ñÈ¡×îÐÂ°æ'}
+local title_version_tag_ = {English = 'Create Tag',Chinese = '´´½¨Àï³Ì±®'}
+local title_version_history_ = {English = 'Show History',Chinese = 'ÀúÊ·¼ÇÂ¼'}
+
 local title_workflow_ = {English = 'Workflow',Chinese = '¹¤×÷Á÷'}
 local title_workflow_start_ = {English = 'Start',Chinese = 'Æô¶¯'}
 local title_workflow_stop_ = {English = 'Stop',Chinese = 'Í£Ö¹'}
 local title_workflow_commit_ = {English = 'Commit',Chinese = 'Ìá½»'}
 local title_workflow_status_ = {English = 'Status',Chinese = '×´Ì¬'}
+
 local title_personal_folder_ = {English = 'Personal Folder',Chinese = 'Ë½ÈËÎÄ¼þ¼Ð'}
 local title_add_to_ = {English = 'Add To ',Chinese = 'Ìí¼Óµ½'}
+
 local title_ins_ = {English = 'Insert',Chinese = '²åÈë'}
 local title_ins_file_  = {English = 'File',Chinese = 'ÎÄ¼þ'}
 local title_ins_folder_ = {English = 'Folder',Chinese = 'ÎÄ¼þ¼Ð'}
+
 local title_link_to_ = {English = 'Link To ',Chinese = 'Á´½Óµ½'} 
 local title_link_to_file_ = {English = 'File',Chinese = 'ÎÄ¼þ'} --¿ÉÒÔÁ´½Óµ½±¾µØµÄÎÄ¼þ¡¢Ò²¿ÉÒÔÁ´½Óµ½¹¤³ÌÖÐµÄÄ³¸öÎÄ¼þ£¨±ä³É¿ì½Ý·½Ê½£©
 local title_link_to_folder_ = {English = 'Folder',Chinese = 'ÎÄ¼þ¼Ð'}-- ÎÄ¼þ¼ÐÒ²Ò»Ñù
@@ -95,78 +86,99 @@ local title_link_to_exe_ = {English = 'Installable Program',Chinese = '¿É°²×°³ÌÐ
 local title_link_to_member_ = {English = 'Member',Chinese = '¹¹¼þ'}
 local title_link_to_view_ = {English = 'View',Chinese = 'ÊÓÍ¼'}
 
-local action_information_;
-local action_add_file_;
-local action_add_folder_;
-local action_chmod_;
-local action_import_folder_;
-local action_import_file_;
-local action_import_id_;
-local action_hide_project_;
-local action_delete_project_;
-local action_edit_information_;
-local action_save_project_;
-local action_server_backup_;
-local action_server_update_;
-local action_server_history_;
---local action_workflow_;
-local action_workflow_start_;
-local action_workflow_stop_;
-local action_workflow_status_;
-local action_workflow_commit_;
-local action_personal_folder_;
-local action_ins_folder_;
-local action_ins_file_;
-local action_link_to_file_;
-local action_link_to_folder_;
-local action_link_to_exe_;
-local action_link_to_member_;
-local action_link_to_view_;
+local title_move_ =  {English = 'Move To',Chinese = 'ÒÆ¶¯'}
+local title_move_persional_ =  {English = 'Private Folder',Chinese = 'Ë½ÈËÎÄ¼þ¼Ð'}
+local title_move_recycle_ =  {English = 'Recycle ',Chinese = '»ØÊÕÕ¾'}
 
-local item_information_;
-local item_add_;
-local item_add_file_;
-local item_add_folder_;
-local item_chmod_;
-local item_import_;
-local item_import_file_;
-local item_import_folder_;
-local item_import_id_;
-local item_hide_project_;
-local item_delete_project_;
-local item_edit_information_;
-local item_save_project_;
-local item_server_;
-local item_server_backup_;
-local item_server_update_;
-local item_server_history_;
+
+local title_archive_ = {English = 'Export',Chinese = 'µ¼³ö'}
+local title_open_ = {English = 'Open',Chinese = '´ò¿ª'}
+local title_run_ = {English = 'Run',Chinese = 'ÔËÐÐ'}
+local title_show_ = {English = 'Show',Chinese = 'ÏÔÊ¾'}
+
+
+local item_create_project_ = {};
+local item_import_project_ = {};
+local item_sort_ = {};
+local item_sort_date_ = {};
+local item_sort_name_ = {};
+
+local item_statistics_ = {};
+local item_manage_ = {};
+local item_property_ = {};
+
+local item_create_ = {};
+local item_create_file_ = {};
+local item_create_folder_ = {};
+
+local item_cooperate_ = {};
+local item_cooperate_start_ = {};
+local item_cooperate_transfer_ = {};
+local item_cooperate_cancel_ = {};
+local item_cooperate_manage_ = {};
+
+local item_import_ = {};
+local item_import_file_ = {};
+local item_import_folder_ = {};
+local item_import_id_ = {};
+
+local item_hide_project_ = {};
+local item_delete_project_ = {};
+local item_edit_information_ = {};
+local item_save_project_ = {};
+
+local item_version_ = {};
+local item_version_commit_ = {};
+local item_version_last_ = {};
+local item_version_history_ = {};
+local item_version_tag_ = {};
+
 --local item_workflow_;
-local item_workflow_start_;
-local item_workflow_stop_;
-local item_workflow_status_;
-local item_workflow_commit_;
-local item_personal_folder_;
-local item_ins_;
-local item_ins_folder_;
-local item_ins_file_;
-local item_link_to_;
-local item_link_to_file_;
-local item_link_to_folder_;
-local item_link_to_exe_;
-local item_link_to_member_;
-local item_link_to_view_;
 
-item_information_ = {action = action_information_}
-local function sub_add_items()
+local item_workflow_start_ = {};
+local item_workflow_stop_ = {};
+local item_workflow_status_ = {};
+local item_workflow_commit_ = {};
+
+local item_personal_folder_ = {};
+
+local item_ins_ = {};
+local item_ins_folder_ = {};
+local item_ins_file_ = {};
+
+local item_link_to_ = {};
+local item_link_to_file_ = {};
+local item_link_to_folder_ = {};
+local item_link_to_exe_ = {};
+local item_link_to_member_ = {};
+local item_link_to_view_ = {};
+
+local item_export_ = {} ;
+local item_open_ = {};
+local item_run_ = {};
+local item_show_ = {}
+local item_project_create_ = {};
+local item_project_import_ = {};
+
+local item_move_ = {}
+local item_move_persional_ = {}
+local item_move_recycle_ = {}
+
+local function submenu_sort()
 	return {
-		item_add_folder_;
-		item_add_file_;
+		item_sort_date_;
+		item_sort_name_;
 	}
 end
-item_add_ = {submenu = sub_add_items}
-item_add_folder_ = {action = action_add_folder_}
-item_add_file_ = {action = action_add_file_}
-item_chmod_ = {action = action_chmod_}
+item_sort_ = {submenu = submenu_sort}
+local function sub_add_items()
+	return {
+		item_create_folder_;
+		item_create_file_;
+	}
+end
+item_create_ = {submenu = sub_add_items}
+
 local function sub_import_items()
 	return {
 		item_import_folder_;
@@ -175,26 +187,26 @@ local function sub_import_items()
 		item_import_id_;
 	}
 end
-item_import_ = {submenu = sub_import_items}
-item_import_folder_ = {action = action_import_folder_}
-item_import_file_ = {action = action_import_file_}
-item_import_id_ = {action = action_import_id_}
-item_hide_project_ = {action = action_hide_project_}
-item_delete_project_ = {action = action_delete_project_}
-item_edit_information_= {action = action_edit_information_}
-item_save_project_= {action = action_save_project_}
-local function sub_server_items()
+local function sub_project_import_items()
 	return {
-		item_server_backup_;
-		item_server_update_;
-		'';
-		item_server_history_;
+		item_import_folder_;
+		item_import_id_;
 	}
 end
-item_server_= {submenu = sub_server_items}
-item_server_backup_ = {action = action_server_backup_}
-item_server_update_ = {action = action_server_update_}
-item_server_history_ = {action = action_server_history_}
+item_import_ = {submenu = sub_import_items}
+item_project_import_ = {submenu =sub_project_import_items }
+
+local function sub_server_items()
+	return {
+		item_version_commit_;
+		item_version_last_;
+		item_version_tag_;
+		'';
+		item_version_history_;
+	}
+end
+item_version_= {submenu = sub_server_items}
+
 local function sub_workflow_items()
 	return {
 		item_workflow_start_;
@@ -205,11 +217,7 @@ local function sub_workflow_items()
 	}
 end
 item_workflow_ = {submenu = sub_workflow_items}
-item_workflow_start_ = {action = action_workflow_start_}
-item_workflow_stop_ = {action = action_workflow_stop_}
-item_workflow_commit_ = {action = action_workflow_commit_}
-item_workflow_status_ = {action = action_workflow_status_}
-item_personal_folder_ = {action = action_personal_folder_}
+
 local function sub_ins_items()
 	return {
 		item_ins_folder_;
@@ -217,8 +225,7 @@ local function sub_ins_items()
 	}
 end
 item_ins_ = {submenu = sub_ins_items}
-item_ins_file_ = {action = item_ins_file_}
-item_ins_folder_ = {action = item_ins_folder_}
+
 local function sub_link_to_items()
 	return {
 		item_link_to_folder_;
@@ -231,36 +238,53 @@ local function sub_link_to_items()
 	}
 end
 item_link_to_ = {submenu = sub_link_to_items}
-item_link_to_file_ = {action = action_link_to_file_}
-item_link_to_folder_ = {action = action_link_to_folder_}
-item_link_to_member_ = {action = action_link_to_member_}
-item_link_to_view_ = {action = action_link_to_view_}
-item_link_to_exe_ = {action = action_link_to_exe_}
+
+local function sub_cooperate_items()
+	return {
+		item_cooperate_start_;
+		'';
+		item_cooperate_transfer_;
+		item_cooperate_cancel_;
+		'';
+		item_cooperate_manage_;
+	}
+end
+item_cooperate_ = {submenu = sub_cooperate_items}
+
+local function sub_move_items()
+	return {
+		item_move_persional_;
+		item_move_recycle_;
+	}
+end
+item_move_ = {submenu = sub_move_items}
+
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
 	local lan = language_.get()
 	cur_language_=  lan and language_support_[lan] or 'English'
-	item_create_.title = title_create_[cur_language_]
+	item_create_project_.title = title_create_project_[cur_language_]
 	item_import_project_.title = title_import_project_[cur_language_]
 	item_sort_.title = title_sort_[cur_language_]
 	item_sort_date_.title = title_sort_date_[cur_language_]
 	item_sort_name_.title = title_sort_name_[cur_language_]
 	item_statistics_.title = title_statistics_[cur_language_]
 	
-	item_information_.title = title_information_[cur_language_]
-	item_add_.title = title_add_[cur_language_]
-	item_add_folder_.title = title_add_folder_[cur_language_]
-	item_add_file_.title = title_add_file_[cur_language_]
-	item_chmod_.title = title_chmod_[cur_language_]
+	item_property_.title = title_property_[cur_language_]
+	item_create_.title = title_create_[cur_language_]
+	item_create_folder_.title = title_create_folder_[cur_language_]
+	item_create_file_.title = title_create_file_[cur_language_]
+	item_cooperate_.title = title_cooperate_[cur_language_]
 	item_hide_project_.title = title_hide_project_[cur_language_]
 	item_delete_project_.title = title_delete_project_[cur_language_]
 	item_edit_information_.title = title_edit_information_[cur_language_]
 	item_save_project_.title = title_save_project_[cur_language_]
-	item_server_.title = title_server_[cur_language_]
-	item_server_backup_.title = title_server_backup_[cur_language_]
-	item_server_update_.title = title_server_update_[cur_language_]
-	item_server_history_.title = title_server_history_[cur_language_]
+	item_version_.title = title_version_[cur_language_]
+	item_version_commit_.title = title_version_commit_[cur_language_]
+	item_version_last_.title = title_version_last_[cur_language_]
+	item_version_tag_.title =  title_version_tag_[cur_language_]
+	item_version_history_.title = title_version_history_[cur_language_]
 	item_personal_folder_.title = title_personal_folder_[cur_language_]
 	item_ins_.title = title_ins_[cur_language_]
 	item_ins_folder_.title = title_ins_folder_[cur_language_]
@@ -276,17 +300,32 @@ local function init()
 	item_import_file_.title = title_import_file_[cur_language_]
 	item_import_folder_.title = title_import_folder_[cur_language_]
 	item_import_id_.title = title_import_id_[cur_language_]
+	item_export_.title = title_archive_[cur_language_]
+	item_open_.title = title_open_[cur_language_]
+	item_run_.title = title_run_[cur_language_]
+	item_show_.title = title_show_[cur_language_]
+	item_project_create_.title = title_project_create_[cur_language_]
+	item_project_import_.title = title_import_[cur_language_]
+	item_cooperate_start_.title =  title_cooperate_start_[cur_language_]
+	item_cooperate_transfer_.title =  title_cooperate_transfer_[cur_language_]
+	item_cooperate_cancel_.title =  title_cooperate_cancel_[cur_language_]
+	item_cooperate_manage_.title =  title_cooperate_manage_[cur_language_]
+	
+	item_move_.title = title_move_[cur_language_]
+	item_move_persional_.title = title_move_persional_[cur_language_]
+	item_move_recycle_.title = title_move_recycle_[cur_language_]
+	
 end
 
 function get()
 	init()
 	return {
-		item_create_;
+		item_create_project_;
 		item_import_project_;
 		'';
-		item_manage_;
 		item_sort_;
 		'';
+		item_show_;
 		item_statistics_;
 	}
 end
@@ -296,38 +335,39 @@ function get_project_menu()
 	return {
 		item_save_project_;
 		'';
-		item_add_;
-		item_import_;
+		item_project_create_;
+		item_project_import_;
+		item_export_;
 		'';
 		item_edit_information_;
 		item_delete_project_;
 		item_hide_project_;
 		'';
-		item_server_;
+		item_version_;
+		item_cooperate_;
 		'';
-		item_chmod_;
-		item_information_;
+		item_property_;
 	}
 end
 
 function get_branch_menu()
 	init()
 	return {
-		item_add_;
+		item_create_;
 		item_ins_;
 		item_import_;
 		'';
 		item_edit_information_;
 		item_delete_project_;
-		item_hide_project_;
+		-- item_hide_project_;
 		'';
-		item_personal_folder_;
+		item_move_;
 		item_link_to_;
 		'';
-		item_server_;
+		item_version_;
+		item_cooperate_;
 		'';
-		item_chmod_;
-		item_information_;
+		item_property_;
 
 
 	}
@@ -336,63 +376,81 @@ end
 function get_leaf_menu()
 	init()
 	return {
+		item_open_;
+		'';
 		item_ins_;
 		'';
 		item_edit_information_;
 		item_delete_project_;
-		item_hide_project_;
+		-- item_hide_project_;
 		'';
-		item_personal_folder_;
+		item_move_;
 		item_link_to_;
 		'';
-		item_server_;
+		item_version_;
+		item_cooperate_;
 		'';
-		item_chmod_;
-		item_information_;
+		item_property_;
+	}
+end
+
+
+function get_exe_menu()
+	init()
+	return {
+		item_run_;
+		'';
+		item_edit_information_;
+		item_delete_project_;
+		'';
+		item_version_;
+		item_cooperate_;
+		'';
+		item_property_;
 	}
 end
 --------------------------------------------------------------------------------------------
 --action function
 
-action_create_ = function ()
+item_create_.action = function ()
 	local tree = tree_.get()
 	local id = tree_.get_current_id()
 	--do something
 end
 
-action_import_project = function() end 
-action_sort_name_ = function() end 
-action_sort_date_ = function() end 
-action_statistics_ = function() end 
-action_manage_ = function() end 
+item_import_project_.action = function() end 
+item_sort_name_.action = function() end 
+item_sort_date_.action = function() end 
+item_statistics_.action = function() end 
+item_manage_.action = function() end 
 
 
-action_information_ = function() end
-action_add_file_ = function() end
-action_add_folder_ = function() end
-action_chmod_ = function() end
-action_import_folder_ = function() end
-action_import_file_ = function() end
-action_import_id_ = function() end
-action_hide_project_ = function() end
-action_delete_project_ = function() end
-action_edit_information_ = function() end
-action_save_project_ = function() end
-action_server_backup_ = function() end 
-action_server_update_ = function() end 
-action_server_history_ = function() end 
-action_workflow_start_ = function() end 
-action_workflow_stop_ = function() end 
-action_workflow_commit_ = function() end 
-action_workflow_status_ = function() end 
-action_ins_file_ = function() end 
-action_ins_folder_ = function() end 
-action_personal_folder_ = function() end 
-action_link_to_view_ = function() end 
-action_link_to_member_ = function() end 
-action_link_to_exe_ = function() end 
-action_link_to_folder_ = function () end 
-action_link_to_file_ = function() end 
-
+item_property_.action = function() end
+item_create_file_.action = function() end
+item_create_folder_.action = function() end
+item_cooperate_.action = function() end
+item_import_folder_.action = function() end
+item_import_file_.action = function() end
+item_import_id_.action = function() end
+item_hide_project_.action = function() end
+item_delete_project_.action = function() end
+item_edit_information_.action = function() end
+item_save_project_.action = function() end
+item_version_commit_.action = function() end 
+item_version_last_.action = function() end 
+item_version_history_.action = function() end 
+item_workflow_start_.action = function() end 
+item_workflow_stop_.action = function() end 
+item_workflow_commit_.action = function() end 
+item_workflow_status_.action = function() end 
+item_ins_file_.action = function() end 
+item_ins_folder_.action = function() end 
+item_link_to_file_.action= function() end 
+item_link_to_folder_.action = function() end 
+item_link_to_exe_.action = function() end 
+item_link_to_member_.action = function() end 
+item_link_to_view_.action = function () end 
+item_personal_folder_.action = function() end 
+item_export_.action = function() print('item_export_') end
 
 
