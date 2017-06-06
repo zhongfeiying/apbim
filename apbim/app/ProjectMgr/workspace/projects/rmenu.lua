@@ -145,7 +145,7 @@ local item_import_id_ = {};
 local item_hide_project_ = {};
 local item_delete_project_ = {};
 local item_edit_information_ = {};
-local item_save_project_ = {};
+local item_project_save_ = {};
 
 local item_version_ = {};
 local item_version_commit_ = {};
@@ -313,7 +313,7 @@ local function init()
 	item_hide_project_.title = title_hide_project_[cur_language_]
 	item_delete_project_.title = title_delete_project_[cur_language_]
 	item_edit_information_.title = title_edit_information_[cur_language_]
-	item_save_project_.title = title_save_project_[cur_language_]
+	item_project_save_.title = title_save_project_[cur_language_]
 	
 	item_version_.title = title_version_[cur_language_]
 	item_version_commit_.title = title_version_commit_[cur_language_]
@@ -387,7 +387,7 @@ function get_project_menu()
 	init()
 	return {
 		item_project_create_;
-		item_save_project_;
+		item_project_save_;
 		'';
 		item_project_import_;
 		item_export_;
@@ -519,6 +519,7 @@ item_create_.action = function ()
 	local id = tree_.get_current_id()
 	--do something
 end
+-- root menu
 item_create_project_.action = function() op_.create_project() end
 item_import_project_.action = function() op_.import_project() end 
 item_sort_name_.action = function() op_.sort_name() end 
@@ -526,18 +527,25 @@ item_sort_date_.action = function() op_.sort_time()  end
 item_statistics_.action = function() op_.statistics() end 
 item_manage_.action = function() end 
 
+-- project menu
+item_project_create_.action = function() op_.project_create_folder()  end 
+item_project_save_.action = function() op_.project_save()  end 
+item_import_folder_.action = function() op_.import_folder()  end
+item_import_id_.action = function() op_.import_id()  end
+item_export_.action = function() op_.export()  end
+item_edit_information_.action =  function() op_.edit_info()  end
 
 item_property_.action = function() end
 item_create_file_.action = function() end
 item_create_folder_.action = function() end
 item_cooperate_.action = function() end
-item_import_folder_.action = function() end
+
 item_import_file_.action = function() end
 item_import_id_.action = function() end
 item_hide_project_.action = function() end
 item_delete_project_.action = function() end
 item_edit_information_.action = function() end
-item_save_project_.action = function() end
+
 item_version_commit_.action = function() end 
 item_version_last_.action = function() end 
 item_version_history_.action = function() end 

@@ -33,11 +33,6 @@ end
 load();
 init()
 
-function update()
-	menu_.init();
-	menu_.update();
-end
-
 
 	
 

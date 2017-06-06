@@ -22,10 +22,10 @@ local language_package_ = {
 	title = {English = 'Language : ',Chinese = '”Ô—‘ £∫ '};
 }
 
-local lab_wid = '50x'
+local lab_wid = '80x'
 local lab_title_ = iup.label{rastersize = lab_wid}
 local list_title_ = iup.list{
-	expand="HORIZONTAL",editbox="NO",DROPDOWN="Yes",rastersize = '150x',
+	expand="HORIZONTAL",editbox="NO",DROPDOWN="Yes",rastersize = '200x',
 	alignment = 'ARIGHT';
 	}
 

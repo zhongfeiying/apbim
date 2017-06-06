@@ -20,7 +20,7 @@ function new_id()
 end 
 function map(id,value)
 	if(value==nil) then 
-		trace_out("value == nil in functon map(id,value)\n");
+	--	trace_out("value == nil in functon map(id,value)\n");
 		return 
 	end
 	--trace_out("id = ".. id .. ";value = " .. value .."\n");

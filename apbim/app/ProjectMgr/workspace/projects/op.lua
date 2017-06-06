@@ -17,6 +17,8 @@ _ENV = M
 local tree_ = require 'app.projectmgr.workspace.projects.tree'
 local control_create_project_ = require 'app.projectmgr.project.control_create_project'
 local iup = require 'iuplua'
+local dlg_add_ = require 'app.projectmgr.interface.dlg_add'
+local sys_lfs_ = require 'sys.lfs'
 
 function create_project()
 	local data = control_create_project_.pop()
@@ -49,4 +51,40 @@ end
 function statistics()
 end
 
+--------------------------------------------------------
+function project_create_folder()
+	local title;
+	dlg_add_.pop{set_data = function (str) title = str  end }
+	if not title then return end 
+	tree_.create_folder{name = title}
+end
+
+function project_save()
+	print('save !')
+end
+
+function import_folder()
+	local dlgfile = iup.filedlg{dialogtype = 'DIR'}
+	dlgfile:popup()
+	local val = dlgfile.value 
+	if not val then return end 
+	if string.sub(val,-1,-1) ~= '\\' then 
+		val = val .. '\\'
+	end
+	val  = string.gsub(val,'\\','/')
+	local t = sys_lfs_.get_folder_content(val,true,true)
+	tree_.import_folder(t)
+end
+
+function import_id(id)
+	if string.sub(id,-1,-1) == '1' then return end 
+end
+
+function export()
+		print('export')
+end
+
+function edit_info()
+		print('export')
+end
 

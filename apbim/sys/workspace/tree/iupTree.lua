@@ -817,6 +817,7 @@ function Class:init_rbtn()
 	local function deal_callback(id)
 		self:set_node_marked(id)
 		local t = self:get_node_data(id)
+		-- require 'sys.table'.totrace(t)
 		if type(self.selection_cb) == 'function' then 
 			self.selection_cb(id, 1)
 		end

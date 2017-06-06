@@ -11,7 +11,6 @@ local menu_ = require 'sys.menu'
 local dlg_ = require 'app.language.dlg'
 
 local function set_language()
-	print('here')
 	dlg_.pop()
 end
 

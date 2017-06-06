@@ -21,8 +21,8 @@ end
 
 function init_tree_data()
 	local data = db_control_.get()
-	tree_control_.turn_tree_data(data)
-	tree_control_.set_tree_data()
+	
+	tree_control_.set_tree_data(tree_control_.turn_tree_data(data))
 end
 
 

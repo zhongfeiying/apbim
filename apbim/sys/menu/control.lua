@@ -15,7 +15,20 @@ local MF_SEPARATOR = MF_SEPARATOR;
 local remove_menu = remove_menu
 local del_menu = del_menu
 local get_mainmenu = get_mainmenu
+local MFS_CHECKED = MFS_CHECKED
 
+--[[
+Value Meaning 
+MFS_CHECKED Checks the menu item. For more information about selected menu items, see the hbmpChecked member. 
+MFS_DEFAULT Specifies that the menu item is the default. A menu can contain only one default menu item, which is displayed in bold. 
+MFS_DISABLED Disables the menu item and grays it so that it cannot be selected. This is equivalent to MFS_GRAYED. 
+MFS_ENABLED Enables the menu item so that it can be selected. This is the default state. 
+MFS_GRAYED Disables the menu item and grays it so that it cannot be selected. This is equivalent to MFS_DISABLED. 
+MFS_HILITE Highlights the menu item. 
+MFS_UNCHECKED Unchecks the menu item. For more information about clear menu items, see the hbmpUnchecked member. 
+MFS_UNHILITE Removes the highlight from the menu item. This is the default state. 
+
+--]]
 local ID_MGR = require "sys.res.id_mgr";
 local language_ =require 'sys.language'
 _ENV = module(...)
@@ -84,7 +97,7 @@ local function create_items(data,items,level)
 			submenu.name =turn_lan( v.name  ) 
 			submenu.items = {}
 			create_items(v.subs,submenu.items,1)
-			table.insert(items,{name =turn_lan( v.name  ) ,id = sub_menu(submenu) ,flags = MF_POPUP})
+			table.insert(items,{name =turn_lan( v.name  ) ,fState  = MFS_CHECKED,id = sub_menu(submenu) ,flags = MF_POPUP})
 		elseif  not v.subs then
 			if v.name and v.name ~= '' then 
 				local sys_id = ID_MGR.new_id();
