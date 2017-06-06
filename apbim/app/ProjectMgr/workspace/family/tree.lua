@@ -1,4 +1,6 @@
+local string = string
 local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
 local ipairs = ipairs
 local pairs = pairs

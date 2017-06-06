@@ -92,6 +92,7 @@ function pop(arg)
 		dlg_.title = language_package_.dlg[lan]
 		btn_ok_.title = language_package_.ok[lan]
 		btn_cancel_.title = language_package_.cancel[lan]
+		list_title_[1] = nil
 	end
 	
 	local function init()

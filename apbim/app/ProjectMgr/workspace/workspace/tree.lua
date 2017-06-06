@@ -1,4 +1,6 @@
+local string = string
 local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
 local ipairs = ipairs
 local pairs = pairs
@@ -90,12 +92,11 @@ end
 --------------------------------------------------------------------------------------------------
 --op
 
-
 function add_branch(arg)
 	if not tree_  then return end 
 	if type(arg) ~= 'table'  then return end 
 	tree_:add_branch(arg.name,arg.id)
-	local id = arg.id and (arg.id+1) or (self:get_tree_selected() +1)
+	local id = arg.id and (arg.id+1) or (tree_:get_tree_selected() +1)
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
 	end 
@@ -108,7 +109,7 @@ function add_leaf(arg)
 	if not tree_  then return end 
 	if type(arg) ~= 'table'  then return end 
 	tree_:add_leaf(arg.name,arg.id)
-	local id = arg.id and (arg.id+1) or (self:get_tree_selected() +1)
+	local id = arg.id and (arg.id+1) or (tree_:get_tree_selected() +1)
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
 	end 
@@ -122,7 +123,7 @@ function insert_branch(arg)
 	if not tree_  then return end 
 	if type(arg) ~= 'table'  then return end 
 	tree_:insert_branch(arg.name,arg.id)
-	local id = arg.id  or self:get_tree_selected()
+	local id = arg.id  or tree_:get_tree_selected()
 	id = id + tree_:get_totalchildcount(id) + 1
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)
@@ -136,7 +137,7 @@ function insert_leaf(arg)
 	if not tree_  then return end 
 	if type(arg) ~= 'table'  then return end 
 	tree_:insert_leaf(arg.name,arg.id)
-	local id = arg.id  or self:get_tree_selected()
+	local id = arg.id  or tree_:get_tree_selected()
 	id = id + tree_:get_totalchildcount(id) + 1
 	if type(arg.attr) == 'table' then 
 		tree_:set_node_status(arg.attr,id)

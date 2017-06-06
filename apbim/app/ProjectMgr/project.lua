@@ -1,11 +1,14 @@
 
+local string = string
 local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
+local package_loaded_ = package.loaded
 local print = print
 local type = type
 local M = {}
 local modname = ...
 _G[modname] = M
-package.loaded[modname] = M
+package_loaded_[modname] = M
 _ENV = M
 
 -- local tree_project_list_ =   require 'app.projectmgr.workspace.tree_project_list'

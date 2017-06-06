@@ -1,4 +1,6 @@
+local string = string
 local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
 local ipairs = ipairs
 local pairs = pairs
@@ -7,13 +9,13 @@ local table = table
 local string = string
 local print = print
 
-local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
 
 local M = {}
 local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
+local tree_workspace_ = require 'app.projectmgr.workspace.workspace.tree'
 
 -- local iupTree_ = require 'sys.Workspace.tree.iuptree'
 local tree_;
@@ -67,7 +69,7 @@ function set_tree_data(data)
 	tree_:init_node_data(data,get_id())
 end
 
-local function project_attr(arg)
+function project_attr(arg)
 	return {
 		title = arg.name;
 		data = {
@@ -78,7 +80,7 @@ local function project_attr(arg)
 		
 	}
 end
-local function branch_attr(arg)
+function branch_attr(arg)
 	return {
 		title = arg.name;
 		data = {
@@ -89,7 +91,7 @@ local function branch_attr(arg)
 		
 	}
 end
-local function leaf_attr(arg)
+function leaf_attr(arg)
 	return {
 		title = arg.name;
 		data = {
@@ -101,7 +103,7 @@ local function leaf_attr(arg)
 	}
 end
 
-local function leaf_exe_attr(arg)
+function leaf_exe_attr(arg)
 	return {
 		title = arg.name;
 		data = {
@@ -143,4 +145,22 @@ function get_tree_data()
 end
 
 function init_tree_data()
+end
+
+
+function add_project(data)
+	local attr = project_attr{name = data.name}
+	attr.basedata = data
+	local t = {}
+	t.name = data.name
+	t.attr = attr
+	tree_workspace_.add_branch(t)
+end
+function import_project(data)
+	local attr = project_attr{name = data.name}
+	attr.basedata = data
+	local t = {}
+	t.name = data.name
+	t.attr = attr
+	tree_workspace_.add_branch(t)
 end

@@ -44,13 +44,14 @@ local function get_language()
 	end 
 end
 
-local function get_language_list()
+local function get_language_list_file_data()
 	local file,require_file = language_list_file_,require_language_list_file_;
 	return  get_data(file,require_file)
 end
 
 function set(language)
 	save(language_file_,{language = language})
+	require 'sys.menu'.reload()
 end
 
 function get()

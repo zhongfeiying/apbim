@@ -1,7 +1,8 @@
 local print = print
-local require  = require 
-local package_loaded_ = package.loaded
 local string = string
+local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
+local package_loaded_ = package.loaded
 local pairs = pairs
 local type = type
 local table = table
@@ -18,7 +19,6 @@ local language_pack_path_ =  'app.ProjectMgr.project.language_create_project'
 local language_ = require 'sys.language'
 
 local path = 'app/projectmgr/template/'
-local db_ ;
 
 local function require_data_file(file)
 	package_loaded_[file] = nil
@@ -49,12 +49,8 @@ local function init_files()
 	return t
 end
 
-local function init_data()
-	db_ = nil
-end  
 
-function init()
-	init_data()
+function get()
 	local data = {}
 	local tempt = init_files()
 	for k,v in pairs(tempt) do 
@@ -68,22 +64,11 @@ end
 
 
 
---arg = {name,location,data_tpl}
-function on_next(arg)
-	db_ = arg 
+
+function next_pop(file)
+		local dlg_base_info = require_data_file(file)
+		return dlg_base_info.main()
 end
 
-function next()
-	if not db_ then return end 
-	local t = db_.data_tpl 
-	if type(t) == 'table' and t.SettingBaseInformation then 
-		local dlg_base_info = require_data_file(t.SettingBaseInformation)
-		db_.data = dlg_base_info.main()
-	end
-end
-
-function get_data()
-	return db_
-end
 
 

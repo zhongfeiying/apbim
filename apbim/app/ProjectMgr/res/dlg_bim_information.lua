@@ -1,8 +1,10 @@
 local require  = require 
+local string = string
+local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
 local frm_hwnd  = frm_hwnd 
 local ipairs = ipairs
-local string = string
 local table = table
 local type = type
 local print = print

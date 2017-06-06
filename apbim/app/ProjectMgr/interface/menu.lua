@@ -1,7 +1,9 @@
 
+local string = string
 local require  = require 
-local g_load_ = load
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
+local g_load_ = load
 local load = nil
 local M = {}
 local modname = ...

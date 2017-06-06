@@ -1,9 +1,10 @@
 
+local string = string
 local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
 local frm_hwnd  = frm_hwnd 
 local ipairs = ipairs
-local string = string
 local table = table
 local type = type
 local print = print
@@ -134,8 +135,8 @@ local function init_callback(arg)
 	arg = arg or {}
 	local function exit_dlg()
 		dlg_:hide()
-		iup.Destroy(dlg_)
-		dlg_ = nil
+		--iup.Destroy(dlg_)
+		--dlg_ = nil
 	end
 	
 	local data = arg.data or {}

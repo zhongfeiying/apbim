@@ -1,4 +1,5 @@
 ----[===[
+
 return {
 		language_package = {
 			User = {
@@ -179,10 +180,10 @@ return {
 			};			
 		};
 	};
-	{
-		name = 'File';
-		subs = {};
-	};
+	-- {
+		-- name = 'File';
+		-- subs = {};
+	-- };
 	{
 		name = 'Cooperate';
 		subs = {};
@@ -207,10 +208,10 @@ return {
 			};
 		};
 	};
-	{
-		name ='Window';
-		subs = {};
-	};
+	-- {
+		-- name ='Window';
+		-- subs = {};
+	-- };
 	{
 		name ='Help';
 		subs = {};

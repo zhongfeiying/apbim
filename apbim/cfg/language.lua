@@ -1,3 +1,3 @@
 return {
- 	["language"] = "ÖĞÎÄ¼òÌå";
+ 	["language"] = "English";
 };

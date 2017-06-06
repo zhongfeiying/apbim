@@ -1,4 +1,6 @@
+local string = string
 local require  = require 
+local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
 local print = print
 local table = table
@@ -517,14 +519,11 @@ item_create_.action = function ()
 	local id = tree_.get_current_id()
 	--do something
 end
-item_create_project_.action = function() 
-	-- print(tree_.get())
-	op_.create_project()
-end
-item_import_project_.action = function() end 
-item_sort_name_.action = function() end 
-item_sort_date_.action = function() end 
-item_statistics_.action = function() end 
+item_create_project_.action = function() op_.create_project() end
+item_import_project_.action = function() op_.import_project() end 
+item_sort_name_.action = function() op_.sort_name() end 
+item_sort_date_.action = function() op_.sort_time()  end 
+item_statistics_.action = function() op_.statistics() end 
 item_manage_.action = function() end 
 
 
