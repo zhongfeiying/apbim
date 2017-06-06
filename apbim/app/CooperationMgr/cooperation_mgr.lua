@@ -18,6 +18,9 @@ function transfer_right()
 
 end
 
+
+--others
+
 --撤销更新权利
 function revoke_right()
 
