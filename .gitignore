@@ -2,3 +2,4 @@
 *.fuben
 *.png
 apbim/cfg/login.lua
+apbim/*.bmp
