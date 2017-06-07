@@ -84,7 +84,17 @@ function export()
 		print('export')
 end
 
-function edit_info()
-		print('export')
+function project_edit()
+	print('project_edit')
+end
+
+function project_delete()
+	print('project_delete')
+end
+
+function version_commit()
+	print('version_commit')
+	-- check_all
+	
 end
 

@@ -143,8 +143,8 @@ local item_import_folder_ = {};
 local item_import_id_ = {};
 
 local item_hide_project_ = {};
-local item_delete_project_ = {};
-local item_edit_information_ = {};
+local item_project_delete_ = {};
+local item_project_edit_ = {};
 local item_project_save_ = {};
 
 local item_version_ = {};
@@ -311,8 +311,8 @@ local function init()
 	item_create_file_.title = title_create_file_[cur_language_]
 	item_cooperate_.title = title_cooperate_[cur_language_]
 	item_hide_project_.title = title_hide_project_[cur_language_]
-	item_delete_project_.title = title_delete_project_[cur_language_]
-	item_edit_information_.title = title_edit_information_[cur_language_]
+	item_project_delete_.title = title_delete_project_[cur_language_]
+	item_project_edit_.title = title_edit_information_[cur_language_]
 	item_project_save_.title = title_save_project_[cur_language_]
 	
 	item_version_.title = title_version_[cur_language_]
@@ -392,8 +392,8 @@ function get_project_menu()
 		item_project_import_;
 		item_export_;
 		'';
-		item_edit_information_;
-		item_delete_project_;
+		item_project_edit_;
+		item_project_delete_;
 		item_hide_project_;
 		'';
 		item_version_;
@@ -410,8 +410,8 @@ function get_branch_menu()
 		-- item_ins_;
 		item_import_;
 		'';
-		item_edit_information_;
-		item_delete_project_;
+		item_project_edit_;
+		item_project_delete_;
 		-- item_hide_project_;
 		'';
 		item_move_;
@@ -433,8 +433,8 @@ function get_leaf_menu()
 		-- '';
 		-- item_ins_;
 		'';
-		item_edit_information_;
-		item_delete_project_;
+		item_project_edit_;
+		item_project_delete_;
 		-- item_hide_project_;
 		'';
 		item_move_;
@@ -453,8 +453,8 @@ function get_exe_menu()
 	return {
 		item_run_;
 		'';
-		item_edit_information_;
-		item_delete_project_;
+		item_project_edit_;
+		item_project_delete_;
 		'';
 		item_version_;
 		item_cooperate_;
@@ -533,7 +533,9 @@ item_project_save_.action = function() op_.project_save()  end
 item_import_folder_.action = function() op_.import_folder()  end
 item_import_id_.action = function() op_.import_id()  end
 item_export_.action = function() op_.export()  end
-item_edit_information_.action =  function() op_.edit_info()  end
+item_project_edit_.action =  function() op_.project_edit()  end
+item_project_delete_.action =  function() op_.project_delete()  end
+item_version_commit_.action =  function() op_.version_commit()  end
 
 item_property_.action = function() end
 item_create_file_.action = function() end
@@ -543,8 +545,8 @@ item_cooperate_.action = function() end
 item_import_file_.action = function() end
 item_import_id_.action = function() end
 item_hide_project_.action = function() end
-item_delete_project_.action = function() end
-item_edit_information_.action = function() end
+item_project_delete_.action = function() end
+item_project_edit_.action = function() end
 
 item_version_commit_.action = function() end 
 item_version_last_.action = function() end 
