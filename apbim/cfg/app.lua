@@ -17,4 +17,5 @@ return  {
 	'app.LoginPro.main';
 	'app.ProjectMgr.main';
 	'app.language.main';
+	'app.bgcolor.main';
 };

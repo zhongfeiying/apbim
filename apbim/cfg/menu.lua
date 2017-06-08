@@ -106,6 +106,10 @@ return {
 				English = 'Change Language';
 				Chinese = 'ÇÐ»»ÓïÑÔ';
 			};
+			['Change Bgcolor'] = {
+				English = 'Change Bgcolor';
+				Chinese = 'ÇÐ»»±³¾°É«';
+			};
 		};
    		{
 		name = 'User';
@@ -205,6 +209,10 @@ return {
 			{
 				name = 'Change Language';
 				keyword = 'Ap.Language';
+			};
+			{
+				name = 'Change Bgcolor';
+				keyword = 'Ap.Bgcolor';
 			};
 		};
 	};
