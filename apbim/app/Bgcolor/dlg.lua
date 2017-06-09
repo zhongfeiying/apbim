@@ -69,11 +69,11 @@ local function get_color_control()
 	local t
 	t = {
 		iup.label{title = 'Red : ',rastersize = small_wid,ctitle = 'red'},
-		iup.text{expand = 'HORIZONTAL',init = function(arg) arg = arg or {} t[2].value = arg.r  end },
+		iup.text{expand = 'HORIZONTAL',init = function(arg) arg = arg or {} t[2].value = arg.r  end,filter = 'NUMBER',alignment = 'ARIGHT' },
 		iup.label{title = 'Green : ',rastersize = small_wid,ctitle = 'green'},
-		iup.text{expand = 'HORIZONTAL',init = function(arg) arg = arg or {} t[4].value = arg.g  end},
+		iup.text{expand = 'HORIZONTAL',init = function(arg) arg = arg or {} t[4].value = arg.g  end,filter = 'NUMBER',alignment = 'ARIGHT' },
 		iup.label{title = 'Blue : ',rastersize = small_wid,ctitle = 'blue'},
-		iup.text{expand = 'HORIZONTAL',init = function(arg) arg = arg or {} t[6].value = arg.b  end},
+		iup.text{expand = 'HORIZONTAL',init = function(arg) arg = arg or {} t[6].value = arg.b  end,filter = 'NUMBER',alignment = 'ARIGHT' },
 		iup.button{title = 'Selector',ctitle = 'selector',rastersize = small_wid,action = function() 
 			local dlg = iup.colordlg{}
 			dlg.value = t[2].value .. ' ' .. t[4].value .. ' ' .. t[6].value
@@ -153,17 +153,30 @@ end
 
 local function init_txt(arg)
 	for k,v in ipairs (controls_) do 
+		local t = v
+		t[2].value,t[4].value,t[6].value = 0,0,0
+--[[
 		for m,n in ipairs(v) do 	
 			if type(n.init) == 'function' then 
 				n.init(arg)
 			end
 		end
+		--]]
 	end
 end
 
 local function init_data()
 	 init_list()
 	 init_txt()
+end
+
+local function init_color_value()
+	return {
+		leftbottom = {r = ,g = ,b = };
+		rightbottom = {r = ,g = ,b = };
+		leftup = {r = ,g = ,b = };
+		rightup = {r = ,g = ,b = };
+	}
 end
 
 local function add()
