@@ -940,7 +940,7 @@ end
 
 local function get_path_data(path,rule)
 	
-	print(path)
+	-- print(path)
 	function add_data(path,lev)
 		local data = {}
 		if lev == 1 then 
