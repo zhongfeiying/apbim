@@ -8,12 +8,15 @@ local ipairs = ipairs
 local string = string
 local print = print
 local type = type
+local tonumber = tonumber
 
 local M = {}
 local modname = ...
 _G[modname] = M
 package.loaded[modname] = M
 _ENV = M
+
+local dat_ = {};
 
 local iup = require 'iuplua'
 local default_language_ = 'English'
@@ -133,54 +136,109 @@ local function init_title(lan)
 		end
 	end
 end
-local bgcolor_lib_file_ = 'app/bgcolorLib.lua'
+local bgcolor_lib_file_ = 'app/bgcolor/Lib.lua'
 local function get()
 	local s = require"sys.io".read_file{file=bgcolor_lib_file_};
 	if type(s)~="table" then s={} end
 	return s;
 end
 
-local function save()
+local function save(t)
 	require'sys.table'.tofile{file=bgcolor_lib_file_,src=t};
 end
 
+local bgcolor_cfg_file_ = 'cfg/bgcolor.lua'
+
+local function get_default()
+	local s = require"sys.io".read_file{file=bgcolor_cfg_file_};
+	if type(s)~="table" then s={} end
+	return s;
+end
+local function save_default(t)
+	require'sys.table'.tofile{file=bgcolor_cfg_file_,src=t};
+end
+
+
 local function init_list()
-	local t = get()
+	local t = dat_
+	list_[1] = nil
 	for k,v in ipairs(t) do 
 		list_.appenditem = v.name
 	end
 end
 
 local function init_txt(arg)
-	for k,v in ipairs (controls_) do 
-		local t = v
-		t[2].value,t[4].value,t[6].value = 0,0,0
---[[
-		for m,n in ipairs(v) do 	
-			if type(n.init) == 'function' then 
-				n.init(arg)
-			end
+	arg = arg or {}
+	for k,v in ipairs (controls_) do
+		if k == 1 then 
+			local t = v
+			local dat = arg.leftbottom or {r=0,g=0,b=0}
+			t[2].value,t[4].value,t[6].value = dat.r,dat.g,dat.b
+		elseif k == 2 then 
+			local t = v
+			local dat = arg.rightbottom or {r=0,g=0,b=0}
+			t[2].value,t[4].value,t[6].value = dat.r,dat.g,dat.b
+		elseif k == 3 then 
+			local t = v
+			local dat = arg.rightup or {r=0,g=0,b=0}
+			t[2].value,t[4].value,t[6].value = dat.r,dat.g,dat.b
+		elseif k == 4 then 
+			local t = v
+			local dat = arg.leftup or {r=0,g=0,b=0}
+			t[2].value,t[4].value,t[6].value = dat.r,dat.g,dat.b
 		end
-		--]]
 	end
 end
 
+local function init_var()
+	dat_ = get()
+end
+
 local function init_data()
-	 init_list()
-	 init_txt()
+	txt_name_.value = ''
+	init_var()
+	init_list()
+	init_txt()
 end
 
 local function init_color_value()
-	return {
-		leftbottom = {r = ,g = ,b = };
-		rightbottom = {r = ,g = ,b = };
-		leftup = {r = ,g = ,b = };
-		rightup = {r = ,g = ,b = };
-	}
+	local t = {}
+	local function init(name,r,g,b)
+		t[name] = {r =r,g = g,b = b}
+	end
+
+	for k,v in ipairs (controls_) do
+		if k == 1 then 
+			init('leftbottom',v[2].value,v[4].value,v[6].value)
+		elseif k == 2 then 
+			init('rightbottom',v[2].value,v[4].value,v[6].value)
+		elseif k == 3 then 
+			init('rightup',v[2].value,v[4].value,v[6].value)
+		elseif k == 4 then 
+			init('leftup',v[2].value,v[4].value,v[6].value)
+		end
+	end
+
+	return t
 end
 
 local function add()
 	local name = txt_name_.value
+	if name == '' then iup.Message('Notice','Add name firstly !') return end 
+	local t = init_color_value()
+	t.name = name
+	list_.appenditem = name
+	local s = dat_
+	table.insert(s,t)
+	save(s)
+end
+
+local function init_select(pos)
+	if dat_ and dat_[pos] then
+		local t = dat_[pos]
+		txt_name_.value = t.name
+		init_txt(t)
+	end
 end
 
 local function init_callback(arg)
@@ -189,6 +247,7 @@ local function init_callback(arg)
 		if type(arg.on_close) == 'function' then 
 			arg.on_close()
 		end
+		dlg_:hide()
 	end
 
 	function btn_add_:action()
@@ -197,14 +256,16 @@ local function init_callback(arg)
 	
 	function btn_pre_:action()
 		if type(arg.on_preview) == 'function' then 
-			arg.on_preview()
+			arg.on_preview(init_color_value())
 		end
 	end
 	
 	function btn_ok_:action()
 		if type(arg.on_ok) == 'function' then 
-			arg.on_ok()
+			save_default(init_color_value())
+			arg.on_ok(init_color_value())
 		end
+		dlg_:hide()
 	end
 	
 	function btn_cancel_:action()
@@ -216,7 +277,10 @@ local function init_callback(arg)
 	end
 	
 	function list_:action(text, item, state)
-		 print(text,item,state)
+		item = tonumber(item)
+		if state == 1 then
+			 init_select(item)
+		end
 	end
 end
 
