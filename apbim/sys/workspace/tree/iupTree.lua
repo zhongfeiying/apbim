@@ -196,8 +196,10 @@ local string_match_ = string.match
 local string_upper_ = string.upper
 local string_find_ = string.find
 local table_insert_ = table.insert
+local table_sort_ = table.sort
 local string_sub_ = string.sub
 local string_lower_ = string.lower
+local io_open_ = io.open
 
 local M = {}
 local modname = ...
@@ -831,7 +833,7 @@ function Class:init_rbtn()
 			return rmenu:show(self,id)
 		elseif t and   type(t.rbtn) == 'function' then 
 			return t.rbtn(self,id)
-		elseif self.Rmenu then 
+		elseif  type(self.Rmenu) == 'table' then 
 			local rmenu = RMenu_.new()
 			rmenu:set_data(self.Rmenu)
 			return rmenu:show(self,id)
@@ -1139,4 +1141,85 @@ function Class:init_tree_tips()
 		deal_callback(x,y)
 	end
 
+end
+
+
+-------------------------------------better --------------------------
+local function require_family_file(familyfile)
+	local file = io.open(familyfile,'r')
+	if not file then return end
+	file:close()
+	
+end
+
+function Class:init_family_data(src)
+	local src = type(src) == 'string' and require_family_file(src) or src
+	if not type(src) ~= 'table' then error('parameter is a table or family file ! ') return  end 
+	local t = {}
+	local function deal_per_line(key,data)
+		local kind = string_sub_(key,-1,-1) == '/' and 'branch' or 'leaf'
+		local str;
+		local tempt = t
+		for k in string_match_(key,'[^/]+') do 	
+			if not tempt[k] then tempt[k] = {} end 
+			tempt = tempt[k] 
+			str = k
+		end
+		tempt.attributes = {}
+		tempt.attributes.title = data.title or str
+		tempt.attributes.kind = kind 
+		if not data.icon then 
+			local path,str = string_sub_(key,'(.+/)[^/]+')
+			if not path then 
+				path = key
+				str =  string_match_(path,'([^/]+)'')
+			else
+				 str = string_match_(path,'.+([^/]+)'')
+			end 
+			local bmpfile = path .. str .. '.bmp'
+			local file = io_open_(bmpfile,'r')
+			if file then 
+				file:close()
+				data.icon = bmpfile
+			end
+		end 
+		if kind == 'branch' then 
+			tempt.attributes.image = {open = data.icon,close = data.icon}
+		else 
+			tempt.attributes.image = data.icon
+		end 
+		tempt.attributes.tip = data.tip
+		tempt.attributes.data =data
+	end
+	
+	for k,v in pairs(src) do 
+		deal_per_line(k,v)
+	end
+	
+	local function sort(t)
+		return table_sort_(t,function(a,b) return a < b end )
+	end
+	
+	local function deal_family_data(t,data)
+		local tempt = {}
+		for k,v in pairs(t) do 
+			table.insert(tempt,k)
+			sort(tempt)
+		end
+		
+		for k,v in ipairs(tempt) do 
+			local temp = {}
+			temp.attributes = t[v].attributes
+			if  t[v].attributes.kind == 'branch' then
+				temp[1] = {}
+				deal_family_data(t[v],temp[1])
+			end
+			table_insert_(data,temp)
+		end
+	end
+	require 'sys.table'.totrace(t)
+	local family_data = {}
+	deal_family_data(t,family_data)
+	
+	return family_data
 end
