@@ -181,6 +181,11 @@
 			--f 接受的参数：f(id,status)	
 				id:取消/选中 的节点。
 				status:0（取消选中），1（选中）
+				
+			---------------------------2017年6月13日-------------------------------------
+			Class:init_family_data(src)
+			--将family原始数据处理，并返回tree类需要的数据格式。
+			--src 表结构的数据。
 ]]
 
 local require = require
@@ -199,6 +204,7 @@ local table_insert_ = table.insert
 local table_sort_ = table.sort
 local string_sub_ = string.sub
 local string_lower_ = string.lower
+local string_gmatch_ = string.gmatch
 local io_open_ = io.open
 
 local M = {}
@@ -211,7 +217,9 @@ local iup = require "iuplua"
 require "iupluacontrols"
 require "iupluaimglib"
 local lfs = require 'lfs'
-local RMenu_ =  require 'sys.workspace.tree.rmenu'
+-- local RMenu_ =  require 'sys.workspace.tree.rmenu'
+local RMenu_ =  {}
+
 Class = {}
 
 ----------------------------------------------------------------------------------------------------------
@@ -1152,15 +1160,31 @@ local function require_family_file(familyfile)
 	
 end
 
+
+--[[
+Class:init_family_data(src)
+功能：
+	将原始数据处理，并返回tree类需要的数据格式。
+使用示例：
+	local tree = require '...'.Class:new(t)
+	local data = tree:init_family_data(src)
+	tree:set_data(data)
+	参数说明：
+		src ： 符合规定的family 原始数据。
+	返回值：	
+		data : 表结构数据。
+
+--]]
 function Class:init_family_data(src)
 	local src = type(src) == 'string' and require_family_file(src) or src
-	if not type(src) ~= 'table' then error('parameter is a table or family file ! ') return  end 
+	if  type(src) ~= 'table' then error('parameter is a table or family file ! ') return  end 
 	local t = {}
 	local function deal_per_line(key,data)
+		-- print(key)
 		local kind = string_sub_(key,-1,-1) == '/' and 'branch' or 'leaf'
 		local str;
 		local tempt = t
-		for k in string_match_(key,'[^/]+') do 	
+		for k in string_gmatch_(key,'[^/]+') do 	
 			if not tempt[k] then tempt[k] = {} end 
 			tempt = tempt[k] 
 			str = k
@@ -1169,12 +1193,12 @@ function Class:init_family_data(src)
 		tempt.attributes.title = data.title or str
 		tempt.attributes.kind = kind 
 		if not data.icon then 
-			local path,str = string_sub_(key,'(.+/)[^/]+')
+			local path,str = string_match_(key,'(.+/)[^/]+')
 			if not path then 
 				path = key
-				str =  string_match_(path,'([^/]+)'')
+				str =  string_match_(path,'([^/]+)')
 			else
-				 str = string_match_(path,'.+([^/]+)'')
+				 str = string_match_(path,'.+([^/]+)')
 			end 
 			local bmpfile = path .. str .. '.bmp'
 			local file = io_open_(bmpfile,'r')
@@ -1195,7 +1219,10 @@ function Class:init_family_data(src)
 	for k,v in pairs(src) do 
 		deal_per_line(k,v)
 	end
-	
+	-- local ser = require 'serialize'
+	-- local file = io_open_('d:\\test.lua','w+')
+	-- file:write(ser.serialize(t))
+	-- file:close()
 	local function sort(t)
 		return table_sort_(t,function(a,b) return a < b end )
 	end
@@ -1203,21 +1230,23 @@ function Class:init_family_data(src)
 	local function deal_family_data(t,data)
 		local tempt = {}
 		for k,v in pairs(t) do 
-			table.insert(tempt,k)
+			if k ~= 'attributes' then
+			table_insert_(tempt,k)
 			sort(tempt)
+			end
 		end
 		
 		for k,v in ipairs(tempt) do 
+			local attr = type(t[v] == 'table') and t[v].attributes or {title = v,kind = 'branch'}
 			local temp = {}
-			temp.attributes = t[v].attributes
-			if  t[v].attributes.kind == 'branch' then
+			temp.attributes = attr
+			if attr.kind == 'branch' then
 				temp[1] = {}
 				deal_family_data(t[v],temp[1])
 			end
 			table_insert_(data,temp)
 		end
 	end
-	require 'sys.table'.totrace(t)
 	local family_data = {}
 	deal_family_data(t,family_data)
 	
