@@ -13,6 +13,7 @@ local code_ = require 'sys.api.code'
 local file_ = 'cfg/user.lua'
 local require_file_ = 'cfg.user'
 local default_ = 'Default'
+local user_ = {}
 
 local function save(file,t)
 	code_.save{file=file;src=t}
@@ -42,3 +43,11 @@ function get()
 	return default_
 end
 
+--arg = {user,gid}
+function set(arg)
+	user_ = arg
+end
+
+function get()
+	return user_	
+end
