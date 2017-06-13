@@ -183,7 +183,7 @@
 				status:0（取消选中），1（选中）
 				
 			---------------------------2017年6月13日-------------------------------------
-			Class:init_family_data(src)
+			Class:turn_data(src)
 			--将family原始数据处理，并返回tree类需要的数据格式。
 			--src 表结构的数据。
 ]]
@@ -206,6 +206,7 @@ local string_sub_ = string.sub
 local string_lower_ = string.lower
 local string_gmatch_ = string.gmatch
 local io_open_ = io.open
+local _g_next_ = _G.next
 
 local M = {}
 local modname = ...
@@ -217,13 +218,15 @@ local iup = require "iuplua"
 require "iupluacontrols"
 require "iupluaimglib"
 local lfs = require 'lfs'
--- local RMenu_ =  require 'sys.workspace.tree.rmenu'
-local RMenu_ =  {}
+local RMenu_ =  require 'sys.workspace.tree.rmenu'
+-- local RMenu_ =  {}
 
 Class = {}
 
 ----------------------------------------------------------------------------------------------------------
-
+local function table_is_empty(t)
+	return _g_next_(t) == nil
+end
 ----------------------------------------------------------------------------------------------------------
 --warning function 
 --[[
@@ -927,9 +930,14 @@ end
 
 
 function Class:init_tree_data(data)
-	local data = data or self.data
-	self:delete_nodes('ALL')
-	self:set_tree_data(data,-1)
+	if not self.Map then
+		 self.data = data
+	else 
+		local data = data or self.data
+		self:delete_nodes('ALL')
+		self:set_tree_data(data,-1)
+	end 
+	
 end
 
 function Class:init_node_data(data,id)
@@ -1056,9 +1064,11 @@ Class:get_selected_path(id)
 		id ： 指定选中节点，缺省会自动获得选中的节点。
 	返回值：
 		返回一个字符串。示例 : a/b/c.lua
+	注意：	
+		修改后的函数，优先返回节点中附着的path 属性对应的值，如果path不存在则按照title返回
 --]]
 function Class:get_selected_path(id)
-	if not map_warning(self) then return end
+	-- if not map_warning(self) then return end
 	local id = id or self:get_tree_selected()	
 	local keyIndex = 'TrueName'
 	local function get_path(id,str)
@@ -1074,6 +1084,8 @@ function Class:get_selected_path(id)
 		str = curstr  .. str
 		return get_path(self:get_node_parent(id),str)
 	end
+	local t = self:get_node_data(id)
+	if t and t.path then return t.path  end 
 	return get_path(id)
 end
 
@@ -1162,12 +1174,12 @@ end
 
 
 --[[
-Class:init_family_data(src)
+Class:turn_data(src)
 功能：
 	将原始数据处理，并返回tree类需要的数据格式。
 使用示例：
 	local tree = require '...'.Class:new(t)
-	local data = tree:init_family_data(src)
+	local data = tree:turn_data(src)
 	tree:set_data(data)
 	参数说明：
 		src ： 符合规定的family 原始数据。
@@ -1175,12 +1187,11 @@ Class:init_family_data(src)
 		data : 表结构数据。
 
 --]]
-function Class:init_family_data(src)
+function Class:turn_data(src)
 	local src = type(src) == 'string' and require_family_file(src) or src
 	if  type(src) ~= 'table' then error('parameter is a table or family file ! ') return  end 
 	local t = {}
 	local function deal_per_line(key,data)
-		-- print(key)
 		local kind = string_sub_(key,-1,-1) == '/' and 'branch' or 'leaf'
 		local str;
 		local tempt = t
@@ -1213,6 +1224,7 @@ function Class:init_family_data(src)
 			tempt.attributes.image = data.icon
 		end 
 		tempt.attributes.tip = data.tip
+		data.path = key
 		tempt.attributes.data =data
 	end
 	
@@ -1227,7 +1239,7 @@ function Class:init_family_data(src)
 		return table_sort_(t,function(a,b) return a < b end )
 	end
 	
-	local function deal_family_data(t,data)
+	local function deal_turn_data(t,data)
 		local tempt = {}
 		for k,v in pairs(t) do 
 			if k ~= 'attributes' then
@@ -1242,13 +1254,13 @@ function Class:init_family_data(src)
 			temp.attributes = attr
 			if attr.kind == 'branch' then
 				temp[1] = {}
-				deal_family_data(t[v],temp[1])
+				deal_turn_data(t[v],temp[1])
 			end
 			table_insert_(data,temp)
 		end
 	end
 	local family_data = {}
-	deal_family_data(t,family_data)
+	deal_turn_data(t,family_data)
 	
 	return family_data
 end
