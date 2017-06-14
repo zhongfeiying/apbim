@@ -99,7 +99,7 @@ local function login(t)
 			trace_out("Login:"..user_name_.."\n");
 			t.on_ok();
 			add_user_to_list(t.user,t.password,t.keep);
-			print('gid',gid)
+			-- print('gid',gid)
 			require 'sys.user'.set{user = t.user,gid = gid}
 			-- require"sys.net.test".test();
 			-- require"sys.statusbar".show_user(require"sys.mgr".get_user());
