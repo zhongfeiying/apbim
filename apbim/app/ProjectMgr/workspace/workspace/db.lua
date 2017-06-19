@@ -15,7 +15,7 @@ _ENV = M
 
 local file = 'app.ProjectMgr.info.user_gid_file'
 -- local user_ = 'Sjy' -- require 'user'.get()
-local user_ =  require 'sys.user'.get()
+local user_ =  require 'sys.user'.get() or {user = 'default',}
 
 local function admin_data()
 	return {
@@ -48,7 +48,7 @@ local function init_data()
 	----[[
 	return {
 		user = {
-			title = user_,
+			title = user_.user,
 			data= {
 				rmenu = require 'app.projectmgr.workspace.workspace.rmenu'.get;
 				__title = 'User';

@@ -566,3 +566,37 @@ function send_channel(id,msg)
 	hub_send(ct,s)	
 end
 
+------------------------------------------------------------------
+-- require 'sys.net.sjy'
+
+
+function unserialize(lua)  
+    local t = type(lua)  
+    if t == "nil" or lua == "" then  
+        return nil  
+    elseif t == "number" or t == "string" or t == "boolean" then  
+        lua = tostring(lua)  
+    else  
+        error("can not unserialize a " .. t .. " type.")  
+    end  
+    lua = "return " .. lua  
+    local func = load(lua)  
+    if func == nil then  
+        return nil  
+    end  
+    return func()  
+end  
+
+--arg = {user,gid}
+function userinfo(arg)
+	local str = "userinfo\r\n".. arg.user .. "\r\n";
+	local s = string.len(str) .. "\r\n" .. str
+	local ct = content();
+	hub_send(ct,s)	
+end
+
+function cmds.userinfo(content,line)
+	local userinfo = string.match(line,"([^\r\n]*)\r\n")
+	local db = unserialize(userinfo) 
+	require 'sys.user'.save_userinfo(db)
+end

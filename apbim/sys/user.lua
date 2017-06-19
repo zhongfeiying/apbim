@@ -2,6 +2,9 @@ local io_open_ = io.open
 local package_loaded_ = package.loaded
 local require  =require
 local type = type
+local print = print
+local string = string
+local loadfile = loadfile
 
 local M = {}
 local modname = ...
@@ -9,45 +12,46 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 local code_ = require 'sys.api.code'
+local lfs_ = require 'lfs'
+local path_ = 'user/'
 
-local file_ = 'cfg/user.lua'
-local require_file_ = 'cfg.user'
-local default_ = 'Default'
 local user_ = {}
-
-local function save(file,t)
-	code_.save{file=file;src=t}
-end
-
-local function get_data(file,require_file)
-	local file =io_open_(file,'r')
-	if file then 
-		file:close()
-		package_loaded_[require_file] = nil
-		return   require (require_file) 
-	end
-end
-
-function init(arg)
-	if type(arg) == 'table' then 
-		save(file_,arg)
-	end 
-end
-
-function get()
-	local file,require_file = file_,require_file_;
-	local t =  get_data(file,require_file)
-	if type(t) == 'table' and t.name then 
-		return t.name
-	end
-	return default_
-end
-
 --arg = {user,gid}
 function set(arg)
-	user_ = arg
+	user_ =  type(arg) == 'table' and arg or user_
 end
 
 function get()
 	return user_	
+end
+
+local function file_is_exist(file)
+	local file = io_open_(file,'r')
+	if file then file:close() return true end 
+end
+
+local function load_file(file)
+	if  file_is_exist(file) then 
+		local info = {}
+		local f = loadfile(file,'bt',info)
+		if type(f) == 'function' then 
+			f()
+		end
+		return info.db
+	end 
+end
+
+function save_userinfo(db)
+	if type(db) ~= 'table' or not db.gid then return end 
+	local file = path_ .. db.gid .. '/'
+	lfs_.mkdir(file)
+	file = file  .. 'baseinfo.lua'
+	db.pass = nil
+	code_.save{file=file;data=db}
+end
+
+function get_userinfo()
+	if not user_ then return end 
+	local file = path_ .. user_.gid .. '/' .. 'baseinfo.lua'
+	return load_file(file)
 end

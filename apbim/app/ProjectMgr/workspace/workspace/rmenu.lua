@@ -76,18 +76,10 @@ local dlg_login_ = require 'app.loginpro.dlg_login'
 local dlg_cg_pwd_ = require 'app.loginpro.dlg_change_password'
 item_property_.action = function ()
 	local function get_user_info()
-		return {name = 'Sjy',phone = '123'}
-		--[[
-		local file = 'a.lua'
-		package_loaded_[file] = nil
-		return require (file)
-		--]]
+		return  require 'sys.user'.get_userinfo() or {}
 	end
 	
 	local tree = tree_.get()
-	print(tree)
-	-- local id = tree.get_current_id()
-	-- local userdata = tree:get_node_data()
 	dlg_reg_.pop{data = get_user_info(),show = true}
 end
 

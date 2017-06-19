@@ -138,16 +138,65 @@ local function deal_bitmap( data )
 	return index
 end
 
+--[[
+	["asset_name"] = "NoiseSchema";
+	["Blue"] = "255";
+	["Class"] = "Liquid";
+	["MaterialClass"] = "Liquid";
+	["PatternOffset"] = "Autodesk.Revit.DB.DoubleArray";
+	["asset_libraryName"] = "assetlibrary_base.fbx";
+	["Green"] = "255";
+	["kind"] = "Material";
+	["Id"] = "395161";
+	["Smoothness"] = "50";
+	["Red"] = "255";
+	["MaterialCagtegory"] = "Liquid";
+	["Overridden"] = "False";
+	["Glossiness"] = "64";
+	["Transparency"] = "0";
+	["Name"] = "SH_resin Floor";
+	
+	["Facets_count"] = "4";
+	["UVs_count"] = "6";
+	["Points_count"] = "6";
+	["Normals"] = "(0.000000000, 0.000000000, -1.000000000)";
+	["Normals_count"] = "1";
+	["Facets"] = "(5, 0, 2)(2, 0, 1)(5, 2, 4)(3, 4, 2)";
+	["UVs"] = "(5.999367993, -15.389626374)(5.999367993, 2.005386749)(-3.843151692, 2.005386749)(-3.843151692, 4.295412996)(-53.055750118, 4.295412996)(-53.055750118, -15.389626374)";
+	["Points"] = "(42.854106903, 9.181121826, -0.492125988)(42.854106903, -8.213891029, -0.492125988)(33.011585236, -8.213891029, -0.492125988)(33.011585236, -10.503917694, -0.492125988)(-16.201011658, -10.503917694, -0.492125988)(-16.201011658, 9.181121826, -0.492125988)";
+	["kind"] = "Polymesh";
+	
+	
+	["asset_name"] = "UnifiedBitmapSchema";
+	["Blue"] = "127";
+	["Class"] = "Concrete";
+	["MaterialClass"] = "Concrete";
+	["asset_libraryName"] = "assetlibrary_base.fbx";
+	["Green"] = "127";
+	["kind"] = "Material";
+	["Id"] = "581376";
+	["Smoothness"] = "50";
+	["Red"] = "127";
+	["MaterialCagtegory"] = "Concrete";
+	["Overridden"] = "False";
+	["Glossiness"] = "0";
+	["Transparency"] = "0";
+	["unifiedbitmap_Bitmap"] = "102.png";
+	["Name"] = "Concrete, Sand/Cement Screed";
+]]
+
 local function deal_faces(data)
 	local cr,bmpIndex;
+	local attr;
 	for k,v in ipairs (data) do 
 		if v.kind == "Material" then 
+			attr = v
 			cr = {v.Red,v.Green,v.Blue}
 			bmpIndex =  deal_bitmap(v) or bmpIndex
 		elseif  v.kind == 'Element_Instance' then 
 			deal_faces(v)
 		elseif v.kind == "Polymesh" then 
-			deal_polymesh{data = v,color = cr,bitmapIndex = bmpIndex}
+			deal_polymesh{data = v,color = cr,bitmapIndex = bmpIndex,attr = attr}
 		end
 	end 
 end 
