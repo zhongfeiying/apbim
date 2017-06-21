@@ -34,11 +34,13 @@ local title_property_ = {English = 'Persional Information',Chinese = '个人信息'}
 local title_change_pwd_ = {English = 'Change Password',Chinese = '修改密码'}
 local title_logout_ = {English = 'Logout',Chinese = '登出'}
 local title_change_user_ = {English = 'Change User',Chinese = '切换用户'}
+local title_update_ = {English = 'Update',Chinese = '更新'}
 
 local item_property_ = {};
 local item_change_pwd_ = {};
 local item_logout_ = {};
 local item_change_user_ = {};
+local item_update_ = {};
 
 
 --------------------------------------------------------------------------------------------------------
@@ -54,13 +56,15 @@ local function init()
 	item_change_pwd_.title = title_change_pwd_[cur_language_]
 	item_change_user_.title = title_change_user_[cur_language_]
 	item_logout_.title = title_logout_[cur_language_]
-	
+	item_update_.title = title_update_[cur_language_]
 	
 end
 
 function get()
 	init()
 	return {
+		item_update_;
+		'';
 		item_property_;
 		'';
 		item_change_user_;
@@ -102,3 +106,7 @@ item_logout_.action = function()
 	-- save()
 	close()
 end 
+
+item_update_.action = function()
+	
+end
