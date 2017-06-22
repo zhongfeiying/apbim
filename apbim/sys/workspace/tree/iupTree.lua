@@ -723,8 +723,10 @@ function Class:init()
 	self:init_lbtn() --初始化鼠标左键操作
 	self:init_dlbtn() --初始化双击鼠标左键操作
 	self:init_rbtn() --初始化鼠标右键操作
+	self:init_branchopen() -- 初始化branchopen callback
 	self:init_tree_tips()
 	self:init_tree_data() --如果有数据则初始化界面中的显示内容。
+	
 end
 
 function Class:init_map_cbs()
@@ -776,6 +778,11 @@ end
 function Class:set_selection_cb(f)
 	self.selection_cb = type(f) == 'function' and f 
 end
+
+function Class:set_branchopen(f)
+	self.branchopen = type(f) == 'function' and f 
+end
+
 
 
 
@@ -1263,4 +1270,21 @@ function Class:turn_data(src)
 	deal_turn_data(t,family_data)
 	
 	return family_data
+end
+----------------------------------2017年6月22日15:59:04----------------------
+function Class:init_branchopen()
+	local tree = self:get_tree()
+	
+	local function deal_callback(id)
+		local t = self:get_node_data()
+		if t and type(t.branchopen) == 'function' then 
+			t.branchopen(id)
+		elseif type(self.branchopen) == 'function'  then 
+			self.branchopen(id)
+		end
+	end
+	
+	function tree:branchopen_cb(id)
+		deal_callback(id)
+	end
 end

@@ -14,8 +14,8 @@ package_loaded_[modname] = M
 _ENV = M
 
 local file = 'app.ProjectMgr.info.user_gid_file'
--- local user_ = 'Sjy' -- require 'user'.get()
-local user_ =  require 'sys.user'.get() or {user = 'default',}
+local doc_cfg_file_ = ''
+local user_ =  require 'sys.user'.get() or {user = 'Default',}
 
 local function admin_data()
 	return {
@@ -59,7 +59,6 @@ local function init_data()
 		};
 		project = {
 			title = '¹¤³Ì',
-			
 			image = {open ='app/ProjectMgr/res/projects.bmp',close =  'app/ProjectMgr/res/projects.bmp'} ;
 			data= {
 				rmenu = require 'app.projectmgr.workspace.projects.rmenu'.get;

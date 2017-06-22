@@ -24,6 +24,7 @@ local function init_tree()
 	-- tree_=  iupTree_.Class:new()
 	-- tree_:set_rastersize('300x') 
 	tree_ = tree_workspace_.get()
+	
 end
 
 function init()
@@ -60,16 +61,25 @@ function set_tree_data(data)
 	tree_:init_node_data(data,get_id())
 end
 
+function branch_open(id)
+	local data = tree_:get_node_data(id)
+	if not data or data.branchOpenStatus == true then return end 
+	data.branchOpenStatus = true
+	tree_:set_node_data(data,id)
+	
+	-- show_next_content()
+end
+
 function project_attr(arg)
 	return {
 		title = arg.name;
 		data = {
 			rmenu = arg.rmenu or require 'app.projectmgr.workspace.projects.rmenu'.get_project_menu;
-			id = arg.id;
+			branchopen = branch_open;
+			gid = arg.gid;
 			data = arg.data;
 		};
 		kind = 'branch';
-		
 	}
 end
 function branch_attr(arg)
@@ -113,20 +123,23 @@ function turn_tree_data(data,init)
 		if type(db) ~= 'table' then return end 
 		local tempt = {}
 		for k,v in ipairs(db) do 
+			-- local t = {}
+			-- if lev == 1 and not init then
+				-- t.attributes = project_attr(v)
+				-- t[1] = deal_data(v[1],lev+1) or {}
+			-- elseif #v ~= 0 then 
+				-- t.attributes = branch_attr(v)
+				-- t[1] = deal_data(v[1],lev+1) or {}
+			-- else 
+				-- if not v.exe then 
+				-- t.attributes = leaf_attr(v)
+				-- else 
+				-- t.attributes = leaf_exe_attr(v)
+				-- end
+			-- end
+			-- table.insert(tempt,t)
 			local t = {}
-			if lev == 1 and not init then
-				t.attributes = project_attr(v)
-				t[1] = deal_data(v[1],lev+1) or {}
-			elseif #v ~= 0 then 
-				t.attributes = branch_attr(v)
-				t[1] = deal_data(v[1],lev+1) or {}
-			else 
-				if not v.exe then 
-				t.attributes = leaf_attr(v)
-				else 
-				t.attributes = leaf_exe_attr(v)
-				end
-			end
+			t.attributes = project_attr(v)
 			table.insert(tempt,t)
 		end
 		return tempt 

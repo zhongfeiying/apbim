@@ -18,7 +18,6 @@ _ENV = M
 
 
 local tree_;
-local data_;
 
 local function init_tree()
 	tree_=  iupTree_.Class:new()
@@ -26,13 +25,8 @@ local function init_tree()
 end
 
 
-local function init_data()
-	data_ = nil
-end
-
 function init()
 	init_tree()
-	init_data()
 end
 
 function get()
@@ -81,12 +75,14 @@ function turn_tree_data(data)
 		end 
 		return tempt 
 	end
-	data_ = deal_data(data) or {}
+	local data = deal_data(data) or {}
+	-- require 'sys.table'.totrace(data)
+	return  data
 end
 
-function get_tree_data()
-	return data_
-end
+-- function get_tree_data()
+	-- return data_
+-- end
 
 
 --------------------------------------------------------------------------------------------------

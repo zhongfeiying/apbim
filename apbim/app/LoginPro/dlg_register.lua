@@ -142,6 +142,26 @@ local function init_data(data)
 	mail_txt.value = data.mail
 end
 
+
+local function save(gid)
+	local path = 'app/projectmgr/data/'
+	local file = path .. gid
+	local data = {
+		gid = gid;
+		projects={};--工程列表
+		frineds={};--好友列表
+		private_folder={};--私人文件夹
+		family={};--族库
+		recycle={};--回收站
+	}
+	require 'sys.api.code'.save{file = file,data = data,key = 'db'}
+	require 'sys.net.file'.send{
+		cbf = function() dlg:hide();end ;
+		name = gid,
+		path =file;
+	}
+end
+
 --t = {language = ,show =true}
 function pop(t)
 	t= t or {}
@@ -157,17 +177,19 @@ function pop(t)
 		if not phone then iup.Alarm("Warning","Input Pone") return end
 		if not mail then iup.Alarm("Warning","Input Mail") return end
 		if password~=password_again then iup.Alarm("Warning","Passwords does not match","OK") return end
+		local gid = require'luaext'.guid();
 		require'sys.net.user'.reg{
 			user=username,
 			password=password,
 			mail=mail,
 			phone=phone,
-			cbf=function(gid)
-				trace_out('Register:'..gid..'\n')
-				if string.upper(gid) == 'OK' then
+			gid = gid;
+			cbf=function(str)
+				trace_out('Register:'..str..'\n')
+				if string.upper(str) == 'OK' then
 					user.name = username;
 					user.password = password;
-					dlg:hide();
+					save(gid)
 				else
 					iup.Message("Warning","Username already registered") 
 				end

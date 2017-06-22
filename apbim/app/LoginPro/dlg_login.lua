@@ -101,7 +101,7 @@ local function login(t)
 			add_user_to_list(t.user,t.password,t.keep);
 			-- print('gid',gid)
 			require 'sys.user'.set{user = t.user,gid = gid}
-			require 'sys.net.main'.userinfo{user = t.user,gid = gid}
+			-- require 'sys.net.main'.userinfo{user = t.user,gid = gid}
 			-- require"sys.net.test".test();
 			-- require"sys.statusbar".show_user(require"sys.mgr".get_user());
 			--require'sys.api.dos'.md(require'sys.mgr'.get_user_path());

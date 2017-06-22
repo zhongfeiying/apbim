@@ -20,6 +20,8 @@ local recycle_ =  require 'app.projectmgr.workspace.recycles.main'
 local private_ =  require 'app.projectmgr.workspace.privates.main'
 local family_ =  require 'app.projectmgr.workspace.family.main'
 
+local server_ =  require 'app.projectmgr.net.server'
+
 
 local var_workspace_;
 
@@ -46,11 +48,7 @@ end
 local function load_project_list()
 	workspace_.main()
 	-- qinit(workspace_)
-	private_.main()
-	projectlist_.main()
-	contacts_.main()
-	family_.main()
-	recycle_.main()
+	
 	var_workspace_ = init_control_data()
 	sys_workspace_.add(var_workspace_)
 end 
@@ -63,8 +61,18 @@ local function unload_project_list()
 	
 end
 
+local function load_apps()
+	projectlist_.main()
+	contacts_.main()
+	recycle_.main()
+	private_.main()
+	family_.main()
+end
+
 function on_load()
 	load_project_list()
+	server_.get_user_list{cbf = load_apps}
+	
 end
 
 function on_unload()
