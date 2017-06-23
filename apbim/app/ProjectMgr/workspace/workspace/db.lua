@@ -14,8 +14,9 @@ package_loaded_[modname] = M
 _ENV = M
 
 local file = 'app.ProjectMgr.info.user_gid_file'
+local user_ = require 'sys.user'
 local doc_cfg_file_ = ''
-local user_ =  require 'sys.user'.get() or {user = 'Default',}
+
 
 local function admin_data()
 	return {
@@ -46,9 +47,10 @@ end
 local function init_data()
 	-- return admin_data()
 	----[[
+	local user =  user_.get() or {user = 'Default',}
 	return {
 		user = {
-			title = user_.user,
+			title = user.user,
 			data= {
 				rmenu = require 'app.projectmgr.workspace.workspace.rmenu'.get;
 				__title = 'User';
@@ -137,11 +139,11 @@ end
 
 function init()
 	package_loaded_[file] = nil
-	data_ = init_file() and type(require (file)) == 'table' and require (file)  or init_data()
+	-- data_ = init_file() and type(require (file)) == 'table' and require (file)  or init_data()
 end
 
 function get()
-	return data_
+	return init_data()
 end
 
 

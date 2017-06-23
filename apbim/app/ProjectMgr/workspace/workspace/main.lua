@@ -27,6 +27,11 @@ function get_control()
 	return tree_control_.get_control()
 end
 
+function update()
+	local data = db_control_.get()
+	tree_control_.update(tree_control_.turn_tree_data(data))
+end
+
 function main()
 	init()
 	init_tree_data()

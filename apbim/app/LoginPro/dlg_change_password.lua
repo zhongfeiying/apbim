@@ -54,7 +54,7 @@ local dlg = iup.dialog{
 	
 	aligment = 'ARight';
 	iup.vbox{
-		iup.hbox{username_lab,username_txt};
+		-- iup.hbox{username_lab,username_txt};
 		iup.hbox{password_lab,password_txt};
 		iup.hbox{password_new_lab,password_new_txt};
 		iup.hbox{password_again_lab,password_confirm};
@@ -80,14 +80,15 @@ function pop(t)
 	t = t or {}
 	local function init()
 		init_language(t.language)
-		username_txt.value = require'sys.mgr'.get_user();
+		-- username_txt.value = require'sys.user'.get().user;
+		-- username_txt.active = active
 		password_txt.value = "";
 		password_new_txt.value = "";
 		password_confirm.value = "";
 	end
 	
 	local function on_ok()
-		local username = username_txt.value;
+		local username =require'sys.user'.get().user;-- username_txt.value;
 		local password = password_txt.value;
 		local password_new = password_new_txt.value;
 		local password_again = password_confirm.value;

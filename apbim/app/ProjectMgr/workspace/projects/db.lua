@@ -13,14 +13,13 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
-local file = 'app.ProjectMgr.info.user_gid_projects_file'
+local server_ = require 'app.projectmgr.net.server'
 local user_ = require 'sys.user'
-local default_path_ = 'app/projectmgr/data/'
+
 
 local function init_data()
-	local user = user_.get()
-	local file = default_path_ .. user.gid
-	local data = require"sys.io".read_file{file=file,key = 'db'};
+
+	local data = server_.get_user_list()
 	if not data or not data.projects then return {} end 
 	return data.projects
 end
@@ -32,8 +31,9 @@ local function init_file()
 end 
 
 function init()
-	package_loaded_[file] = nil
-	data_ = init_file() and type(require (file)) == 'table' and require (file)  or init_data()
+	-- package_loaded_[file] = nil
+	-- data_ = init_file() and type(require (file)) == 'table' and require (file)  or init_data()
+	data_ = init_data()
 end
 
 function get()
@@ -47,6 +47,13 @@ function edit(arg)
 end
 
 function delete(arg)
+end
+
+function add_project()
+	local data = server_.get_user_list()
+	data.projects = data.projects or {}
+	table.insert(data.projects,{name = data.name,gid = data.gid})
+	server_.save_user_list(data)
 end
 
 

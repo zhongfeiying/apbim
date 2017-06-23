@@ -21,6 +21,7 @@ local language_ = require 'sys.language'
 local cur_language_ = 'English'
 local project_ = require 'app.projectmgr.project'
 local tree_ = require 'app.projectmgr.workspace.workspace.tree'
+local main_ =  require 'app.projectmgr.workspace.workspace.main'
 
 --[[
 	local tree = tree_.get()
@@ -78,13 +79,16 @@ end
 local dlg_reg_ = require 'app.loginpro.dlg_register'
 local dlg_login_ = require 'app.loginpro.dlg_login'
 local dlg_cg_pwd_ = require 'app.loginpro.dlg_change_password'
+local server_ = require 'app.projectmgr.net.server'
+local cmd_ = require 'app.projectmgr.cmd'
+
 item_property_.action = function ()
-	local function get_user_info()
-		return  require 'sys.user'.get_userinfo() or {}
+	local function pop()
+		local data = require 'sys.user'.get_userinfo()
+		local tree = tree_.get()
+		dlg_reg_.pop{data = data,show = true}
 	end
-	
-	local tree = tree_.get()
-	dlg_reg_.pop{data = get_user_info(),show = true}
+	server_.get_user_info{cbf = pop}
 end
 
 item_change_pwd_.action = function() 
@@ -93,10 +97,12 @@ end
 
 item_change_user_.action = function() 
 	local function on_ok()
-		require 'sys.main'.init()
+		-- require 'sys.main'.init()
+		main_.update()
 	end
 	dlg_login_.pop{on_ok = on_ok,on_cancel = on_cancel}
 end 
+
 item_logout_.action = function() 
 	local function save()
 	end
@@ -108,5 +114,8 @@ item_logout_.action = function()
 end 
 
 item_update_.action = function()
-	
+	local function cbf()
+		main_.update()
+	end
+	server_.update_user_list{cbf = cbf}
 end

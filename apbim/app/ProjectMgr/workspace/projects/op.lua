@@ -6,6 +6,7 @@ local pairs = pairs
 local print = print
 local string = string
 local type = type
+local os_time_ = os.time
 
 
 local M = {}
@@ -16,18 +17,36 @@ _ENV = M
 
 local tree_ = require 'app.projectmgr.workspace.projects.tree'
 local control_create_project_ = require 'app.projectmgr.project.control_create_project'
+local db_ =  require 'app.projectmgr.workspace.projects.db'
 local iup = require 'iuplua'
 local dlg_add_ = require 'app.projectmgr.interface.dlg_add'
+local luaext_ = require 'luaext'
 local sys_lfs_ = require 'sys.lfs'
+local user_ = require 'sys.user'
+
+local function create_baseinformation(title,status)
+	local data = {}
+	data.gid = luaext_.guid() .. (status and status == 'leaf' and 1 or 0)
+	data.createTime = os_time_()
+	data.name = title
+	data.owner = user_.get().user
+	return data
+end
+
 
 function create_project()
-	local data = control_create_project_.pop()
-	local t = data and data.data_tpl
-	if type(t) == 'table' and t.SettingBaseInformation then 
-		data.BaseInformation  = control_create_project_.next_pop(t.SettingBaseInformation)
-		tree_.add_project(data)	
-	end
-
+	-- local data = control_create_project_.pop()
+	-- local t = data and data.data_tpl
+	-- if type(t) == 'table' and t.SettingBaseInformation then 
+		-- data.BaseInformation  = control_create_project_.next_pop(t.SettingBaseInformation)
+		-- tree_.add_project(data)	
+	-- end
+	local title;
+	dlg_add_.pop{set_data = function (str) title = str  end }
+	if not title then return end 
+	local data = create_baseinformation(title)
+	db_.add_project(data)
+	tree_.add_project{name = title,gid = data.gid}
 end
 
 function import_project()

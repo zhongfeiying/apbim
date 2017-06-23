@@ -84,6 +84,9 @@ end
 	-- return data_
 -- end
 
+function update(data)
+	tree_:init_tree_data(data)
+end
 
 --------------------------------------------------------------------------------------------------
 --op

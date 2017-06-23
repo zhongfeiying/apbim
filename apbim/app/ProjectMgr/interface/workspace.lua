@@ -71,7 +71,7 @@ end
 
 function on_load()
 	load_project_list()
-	server_.get_user_list{cbf = load_apps}
+	server_.init_user_list{cbf = load_apps}
 	
 end
 

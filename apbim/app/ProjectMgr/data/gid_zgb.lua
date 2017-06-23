@@ -1,6 +1,6 @@
 gid_zgb = 
 {
-	gid = "“;
+	gid = '';
 	projects={};--工程列表
 	frineds={};--好友列表
 	private_folder={};--私人文件夹

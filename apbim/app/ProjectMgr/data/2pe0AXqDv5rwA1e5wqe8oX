@@ -4,17 +4,4 @@ db["private_folder"] = {}
 db["recycle"] = {}
 db["family"] = {}
 db["frineds"] = {}
-db["projects"] = {
-	{
-		name = '大河';
-		gid = '1';
-	};
-	{
-		name = '肯德基';
-		gid = '2';
-	};
-	{
-		name = '麦当劳';
-		gid = '3';
-	};
-}
+db["projects"] = {}

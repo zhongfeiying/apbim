@@ -149,12 +149,8 @@ end
 
 
 function add_project(data)
-	local attr = project_attr{name = data.name}
-	attr.basedata = data
-	local t = {}
-	t.name = data.name
-	t.attr = attr
-	tree_workspace_.add_branch(t)
+	local attr = project_attr(data)
+	tree_workspace_.add_branch{name = data.name,attr = attr}
 end
 
 function import_project(data)

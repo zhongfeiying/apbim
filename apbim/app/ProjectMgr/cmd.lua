@@ -8,4 +8,3 @@ local modname = ...
 _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
-

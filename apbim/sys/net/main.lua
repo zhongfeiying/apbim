@@ -588,15 +588,21 @@ function unserialize(lua)
 end  
 
 --arg = {user,gid}
+local userinfo_;
 function userinfo(arg)
 	local str = "userinfo\r\n".. arg.user .. "\r\n";
 	local s = string.len(str) .. "\r\n" .. str
 	local ct = content();
 	hub_send(ct,s)	
+	userinfo_ = arg.cbf
 end
 
 function cmds.userinfo(content,line)
 	local userinfo = string.match(line,"([^\r\n]*)\r\n")
 	local db = unserialize(userinfo) 
 	require 'sys.user'.save_userinfo(db)
+	if type(userinfo_) == 'function' then 
+		userinfo_()
+	end
+	userinfo_ = nil
 end
