@@ -14,7 +14,18 @@ package_loaded_[modname] = M
 _ENV = M
 
 local server_ = require 'app.projectmgr.net.server'
+local default_path_ = require 'app/projectmgr/data/'
 local user_ = require 'sys.user'
+
+local function get_project_baseinfo(arg)
+	return {
+		name = arg.name;
+		gid = arg.gid or require 'luaext'.guid();
+		info = arg.info or {};
+		owner = arg.owner;
+		versionLib = {};
+	}
+end
 
 
 local function init_data()
@@ -48,12 +59,9 @@ end
 
 function delete(arg)
 end
-
-function add_project()
-	local data = server_.get_user_list()
-	data.projects = data.projects or {}
-	table.insert(data.projects,{name = data.name,gid = data.gid})
-	server_.save_user_list(data)
+--arg = {name,gid;info;owner;versionLib}
+function create_project(arg)
+	local file = default_path_ .. arg.gid
 end
 
 

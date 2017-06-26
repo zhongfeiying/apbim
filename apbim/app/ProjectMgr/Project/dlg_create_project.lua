@@ -22,6 +22,7 @@ require "iupluaimglib"
 
 local dlg_;
 local default_image_ = 'template/res/default.bmp'
+local dafualt_path_ = 'Projects\\'
 
 
 local btn_next_;
@@ -61,7 +62,7 @@ local function init_controls(language)
 	
 	local wid = '70x'
 	list_template_ = iup.list{
-		fontsize = '25',
+		fontsize = '12',
 		SHOWIMAGE= 'YES';
 		rastersize = '350x450';
 		expand = 'HORIZONTAL',
@@ -106,7 +107,7 @@ local function init_controls(language)
 	lab_location_= iup.label{}
 	lab_location_.title = language.lab_location[cur_]
 	lab_location_.rastersize =wid
-	txt_location_ = iup.text{expand = 'HORIZONTAL'}
+	txt_location_ = iup.text{expand = 'HORIZONTAL',readonly = 'YES',value = dafualt_path_}
 	
 	filedlg_ = iup.filedlg{DIALOGTYPE = 'DIR';}
 end
@@ -120,7 +121,7 @@ local function init_dlg(language)
 				frame_info_;
 			};
 			iup.hbox{lab_name_,txt_name_};
-			iup.hbox{lab_location_,txt_location_,btn_dir_};
+			-- iup.hbox{lab_location_,txt_location_,btn_dir_};
 			iup.fill{rastersize = 'x10'};
 			iup.hbox{btn_next_,btn_cancel_};
 			alignment = 'ARIGHT';
@@ -149,8 +150,8 @@ local function init_callback(arg)
 		if type(arg.on_next) == 'function' then 
 			arg.on_next{
 				name = txt_name_.value;
-				location = txt_location_.value;
-				data_tpl = data[selected_item] and data[data[selected_item]];
+				path = txt_location_.value;
+				tpl = data[selected_item] and data[data[selected_item]];
 			}
 		exit_dlg()
 		end

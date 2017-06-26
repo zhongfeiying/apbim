@@ -1,6 +1,35 @@
 Template = {
-	name = '空项目';
-	information = '这是一个空的项目';
+	name = 'Empty';
+	information = 'Create  project folder !';
+	image = 'app/projectMgr/res/projects.bmp';
+	--[[
+	
+	preimage = '';
+	dlg = '';
+	attributes = {
+		name = '';
+		projectdis ='';
+		createtime = '';
+		
+	};
+	structure = {
+		{
+			title = 'menu';
+			{
+			};
+		};
+		{
+			title = 'toolbar';
+			{
+			};
+		};
+		{
+			title = 'menu';
+			{
+			};
+		};
+	}
+	--]]
 }
 
 return Template
