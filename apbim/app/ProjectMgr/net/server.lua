@@ -32,7 +32,9 @@ end
 function get_user_list()
 	local user = user_.get()
 	local file = default_path_ .. user.gid
+	print(file)
 	local data = require"sys.io".read_file{file=file,key = 'db'};
+	require 'sys.table'.totrace(data)
 	return data
 end
 
