@@ -43,7 +43,9 @@ local function init_files()
 				require_path = require_path .. '.'
 			end
 			local str = require_path ..  name
-			t[file] = require_data_file(str)
+			local tab = require_data_file(str)
+			t[file] = type(tab) == 'table' and tab
+			table.insert(t,file)
 		end
 	end 
 	return t
@@ -51,24 +53,18 @@ end
 
 
 function get()
-	local data = {}
 	local tempt = init_files()
-	for k,v in pairs(tempt) do 
-		if type(v) =='table' and v.name then 
-			data[v.name] = v
-			table.insert(data,v.name)
-		end
-	end
-	return data
+	table.sort(tempt,function(a,b) return a<b end)
+	return tempt
 end
 
 
 
 
-function next_pop(file)
-		local dlg_base_info = require_data_file(file)
-		return dlg_base_info.main()
-end
+-- function next_pop(file)
+		-- local dlg_base_info = require_data_file(file)
+		-- return dlg_base_info.main()
+-- end
 
 
 

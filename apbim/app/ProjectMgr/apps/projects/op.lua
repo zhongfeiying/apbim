@@ -42,15 +42,20 @@ function create_project()
 	local data = control_create_project_.pop()
 	if type(data) ~= 'table' then return end 
 	local tplData = data and data.tpl
-	local defaultBaseInfoDlg=  'app.projectmgr.project.dlg_base_information'
-	local dlgStr = tplData.dlg or defaultBaseInfoDlg
-	local info = control_create_project_.next_pop(dlgStr)
+	-- local defaultBaseInfoDlg=  'app.projectmgr.project.dlg_base_information'
+	local defaultBaseInfoDlg=  'app.projectmgr.interface.dlg_info'
+	require (defaultBaseInfoDlg).pop()
+	-- local dlgStr = tplData.dlg or defaultBaseInfoDlg
+	-- local info = control_create_project_.next_pop(dlgStr)
 	-- local t =create_baseinformation(data)
 	local gid = luaext_.guid() .. '0'
 	tree_.add_project{gid = gid,name = data.name}
 	server_.userlist_add_project{gid = gid,name = data.name}
 	db_.create_project{name = data.name,gid = gid,info = info}
-	cache_db_.add{}
+	-- cache_db_.add{f = tree_.add_project,data = {gid = gid,name = data.name}}
+	-- cache_db_.add{f = server_.userlist_add_project,data = {gid = gid,name = data.name}}
+	-- cache_db_.add{f = db_.create_project,data = {name = data.name,gid = gid,info = info}}
+	-- cache_db_.save()
 end
 
 function import_project()
