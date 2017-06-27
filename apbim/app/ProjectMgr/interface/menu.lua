@@ -12,16 +12,15 @@ package_loaded_[modname] = M
 _ENV = M
 
 local menu_ =  require 'sys.menu'
-local project_ =  require 'app.projectmgr.project'
 
 function on_load()
-	menu_.add{
-		keyword = 'AP.ProjectMgr.Project.New';
-		action = project_.new;
-		name = 'File.ProjectMgr.New';
-		view = true;
-		frame = true;
-	}
+	-- menu_.add{
+		-- keyword = 'AP.ProjectMgr.Project.New';
+		-- action = project_.new;
+		-- name = 'File.ProjectMgr.New';
+		-- view = true;
+		-- frame = true;
+	-- }
 end
 
 

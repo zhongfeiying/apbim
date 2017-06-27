@@ -723,8 +723,10 @@ function Class:init()
 	self:init_lbtn() --初始化鼠标左键操作
 	self:init_dlbtn() --初始化双击鼠标左键操作
 	self:init_rbtn() --初始化鼠标右键操作
+	self:init_branchopen() -- 初始化branchopen callback
 	self:init_tree_tips()
 	self:init_tree_data() --如果有数据则初始化界面中的显示内容。
+	
 end
 
 function Class:init_map_cbs()
@@ -776,6 +778,11 @@ end
 function Class:set_selection_cb(f)
 	self.selection_cb = type(f) == 'function' and f 
 end
+
+function Class:set_branchopen(f)
+	self.branchopen = type(f) == 'function' and f 
+end
+
 
 
 
@@ -1263,4 +1270,45 @@ function Class:turn_data(src)
 	deal_turn_data(t,family_data)
 	
 	return family_data
+end
+----------------------------------2017年6月22日15:59:04----------------------
+function Class:init_branchopen()
+	local tree = self:get_tree()
+	
+	local function deal_callback(id)
+		local t = self:get_node_data()
+		if t and type(t.branchopen) == 'function' then 
+			t.branchopen(id)
+		elseif type(self.branchopen) == 'function'  then 
+			self.branchopen(id)
+		end
+	end
+	
+	function tree:branchopen_cb(id)
+		deal_callback(id)
+	end
+end
+----------------------------------2017-06-27 10:02:28----------------------
+--[[
+Class:get_child_last_id(id)
+功能：
+	获得指定文件夹节点内最有一个子节点的id（仅子一级，不包含子的子），
+使用示例：
+	local tree = require '...'.Class:new(t)
+	local data = tree:get_child_last_id(id)
+注意：	
+	如果指定的是文件节点或者文件夹下没有子节点则返回 nil
+--]]
+function Class:get_child_last_id(id)
+	local id = id or self:get_tree_selected()
+	local count = self:get_childcount(id)
+	if not count or count == 0 then return  end 
+	local curid = id + 1
+	for i = 1,count do 
+		if i ~= count then 
+			curid = curid + 1+ self:get_totalchildcount(curid)
+		else 
+			return curid
+		end
+	end
 end

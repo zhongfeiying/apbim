@@ -5,6 +5,8 @@ local type = type
 local print = print
 local string = string
 local loadfile = loadfile
+local coroutine = coroutine
+local trace_out = trace_out
 
 local M = {}
 local modname = ...
@@ -19,9 +21,14 @@ local user_ = {}
 --arg = {user,gid}
 function set(arg)
 	user_ =  type(arg) == 'table' and arg or user_
+	-- trace_out('set end = ')
+	-- require 'sys.table'.totrace(user_)
 end
 
+
 function get()
+	-- trace_out('get = ')
+	-- require 'sys.table'.totrace(user_)
 	return user_	
 end
 
@@ -31,14 +38,12 @@ local function file_is_exist(file)
 end
 
 local function load_file(file)
-	if  file_is_exist(file) then 
 		local info = {}
 		local f = loadfile(file,'bt',info)
 		if type(f) == 'function' then 
 			f()
 		end
 		return info.db
-	end 
 end
 
 function save_userinfo(db)
@@ -53,5 +58,7 @@ end
 function get_userinfo()
 	if not user_ then return end 
 	local file = path_ .. user_.gid .. '/' .. 'baseinfo.lua'
-	return load_file(file)
+	if  file_is_exist(file) then 
+		return load_file(file)
+	end
 end

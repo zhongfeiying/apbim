@@ -1,0 +1,13 @@
+db = {}
+db["friends"] = {}
+db["family"] = {}
+db["projects"] = {}
+db["projects"][1] = {}
+db["projects"][1]["name"] = "1"
+db["projects"][1]["gid"] = "1cJhHLLjH2ReaMJWql7QDi0"
+db["projects"][2] = {}
+db["projects"][2]["gid"] = "2OSYQhrhv44RTAkClVe$lc0"
+db["projects"][2]["name"] = "3"
+db["private_folder"] = {}
+db["gid"] = "2$Ppujz3z13u8i4Gl1CdVo"
+db["recycle"] = {}
