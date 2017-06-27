@@ -3,7 +3,6 @@ local string = string
 local require  = require 
 local require  = function (str)  return require(string.lower(str)) end 
 local package_loaded_ = package.loaded
-local ipairs =ipairs
 local M = {}
 local modname = ...
 _G[modname] = M
@@ -12,19 +11,15 @@ _ENV = M
 
 local iup_ = require 'iuplua'
 require 'iupluacontrols'
-local file_ =  require 'app.projectmgr.file'
-function require_data_file(file)
-	local file = string.lower(file)
-	if  file_.datafile_is_exist(file) then 
-		package_loaded_[file] = nil
-		return require (file)
-	end
-end
 
 local sys_workspace_ = require 'sys.workspace'
-local workspace_ =  require 'app.projectmgr.workspace.main'
-local app_file_ = 'app.projectmgr.app'
-local app_path_ = 'app.projectmgr.apps.';
+local workspace_ =  require 'app.projectmgr.workspace.workspace.main'
+local projectlist_ =  require 'app.projectmgr.workspace.projects.main'
+local contacts_ =  require 'app.projectmgr.workspace.contacts.main'
+local recycle_ =  require 'app.projectmgr.workspace.recycles.main'
+local private_ =  require 'app.projectmgr.workspace.privates.main'
+local family_ =  require 'app.projectmgr.workspace.family.main'
+
 local server_ =  require 'app.projectmgr.net.server'
 
 
@@ -67,11 +62,11 @@ local function unload_project_list()
 end
 
 local function load_apps()
-	local data = require_data_file(app_file_)
-	for k,v in ipairs(data) do 
-		local str = app_path_ .. v .. '.main'
-		require (str).main()
-	end
+	projectlist_.main()
+	contacts_.main()
+	recycle_.main()
+	private_.main()
+	family_.main()
 end
 
 function on_load()

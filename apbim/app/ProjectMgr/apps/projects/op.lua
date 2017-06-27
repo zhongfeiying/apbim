@@ -15,11 +15,11 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
-local tree_ = require 'app.projectmgr.workspace.projects.tree'
+local tree_ = require 'app.projectmgr.apps.projects.tree'
 local control_create_project_ = require 'app.projectmgr.project.control_create_project'
 local server_ =  require 'app.projectmgr.net.server'
 local cache_db_ =   require 'app.projectmgr.net.cache_db'
-local db_ =  require 'app.projectmgr.workspace.projects.db'
+local db_ =  require 'app.projectmgr.apps.projects.db'
 local iup = require 'iuplua'
 local dlg_add_ = require 'app.projectmgr.interface.dlg_add'
 local luaext_ = require 'luaext'
@@ -45,11 +45,12 @@ function create_project()
 	local defaultBaseInfoDlg=  'app.projectmgr.project.dlg_base_information'
 	local dlgStr = tplData.dlg or defaultBaseInfoDlg
 	local info = control_create_project_.next_pop(dlgStr)
-	local t =create_baseinformation(data)
-	server_.userlist_add_project{gid = t.gid,name = t.name}
-	tree_.add_project{gid = t.gid,name = t.name}
-	db_.create_project{}
-	cache_db_.add(file,data)
+	-- local t =create_baseinformation(data)
+	local gid = luaext_.guid() .. '0'
+	tree_.add_project{gid = gid,name = data.name}
+	server_.userlist_add_project{gid = gid,name = data.name}
+	db_.create_project{name = data.name,gid = gid,info = info}
+	cache_db_.add{}
 end
 
 function import_project()

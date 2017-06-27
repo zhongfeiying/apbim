@@ -64,8 +64,8 @@ end
 function get()
 	init()
 	return {
-		item_update_;
-		'';
+		-- item_update_;
+		-- '';
 		item_property_;
 		'';
 		item_change_user_;
