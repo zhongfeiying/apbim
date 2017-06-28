@@ -1,0 +1,7 @@
+db = {}
+db["createTime"] = 1498608957
+db["owner"] = "Sjy"
+db["name"] = "1"
+db["writer"] = "Sjy"
+db["versions"] = {}
+db["gid"] = "3XiKxiYjL8IBFwT$jvhHty0"

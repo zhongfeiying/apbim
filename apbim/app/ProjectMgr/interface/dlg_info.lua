@@ -35,8 +35,10 @@ local language_package_ = {
 	Mval = {English = 'Value ',Chinese = '值'};
 	dlg = {English = 'Setting Attributes',Chinese = '设置属性'};
 	edit =  {English = 'Edit',Chinese = '编辑'};
+	key_message = {English = {'Notice','Please input key !'},Chinese = {'注意','请输入属性名！'}};
 } 
-
+local matrix_num_ = 0;
+local lan;
 
 local btn_wid = '100x';
 local btn_cancel_ = iup.button{title = 'Cancel',rastersize = btn_wid};
@@ -44,27 +46,29 @@ local btn_ok_ = iup.button{title = 'Ok',rastersize = btn_wid};
 local btn_add_ = iup.button{title = 'Add',rastersize = btn_wid};
 local btn_delete_ = iup.button{title = 'Delete',rastersize = btn_wid};
 local btn_edit_ = iup.button{title = 'Edit',rastersize = btn_wid};
-local lab_wid = '50x'
-local lab_key_ = iup.label{title = 'Key : ',rastersize = lab_wid}
+local lab_wid = '70x'
+local lab_key_ = iup.label{title = ' Key : ',}
 local txt_key_ = iup.text{expand = 'HORIZONTAL'}
-local lab_val_ = iup.label{title = 'Value : ',rastersize = lab_wid}
-local txt_val_ = iup.text{expand = 'HORIZONTAL',rastersize = 'x100',multiline = 'YES',wordwarp = 'YES'}
+local lab_val_ = iup.label{title = ' Value : '}
+local txt_val_ = iup.text{expand = 'HORIZONTAL',
+-- rastersize = 'x100',multiline = 'YES',wordwarp = 'YES'
+}
 local matrix_info_ = iup.matrix{
 	numcol = 2;
 	numlin = 20;
 	HIDDENTEXTMARKS = 'yes';
 	RESIZEMATRIX = 'YES';
-	RASTERWIDTH1 = '200x';
-	RASTERWIDTH2 = '200x';
-	MARKMODE = 'NO';
-	rastersize = '430x300';
+	RASTERWIDTH1 = '300x';
+	RASTERWIDTH2 = '300x';
+	MARKMODE = 'LIN';
+	rastersize = '635x300';
 	bgcolor = '255 255 255';
 }
 local frame_info_ = iup.frame{
 	iup.vbox{
 		matrix_info_;
-		iup.hbox{lab_key_,txt_key_};
-		iup.hbox{lab_val_,txt_val_};
+		iup.hbox{lab_key_,txt_key_,lab_val_,txt_val_};
+		-- iup.hbox{lab_val_,txt_val_};
 		iup.hbox{btn_add_,btn_edit_,btn_delete_};
 		alignment = 'ARIGHT';
 		margin = '5x5';
@@ -82,7 +86,7 @@ local dlg_ = iup.dialog{
 };
 
 local function init_title()
-	local lan =  language_.get()
+	lan =  language_.get()
 	lan = lan and language_package_[lan] or language_package_.default_
 	
 	btn_ok_.title = language_package_.ok[lan]
@@ -101,6 +105,40 @@ local function init_title()
 	init_matrix_head()
 end
 
+local function init_select_matrix(lin,state)
+	local state = state or 1
+	matrix_info_['MARK' .. lin] = state 
+	if state == 1 then
+		txt_key_.value = matrix_info_:getcell(lin,1)
+		txt_val_.value = matrix_info_:getcell(lin,2)
+	end
+end
+
+--arg = {key,value}
+local function matrix_add_line(arg)
+	matrix_num_ = matrix_num_ + 1
+	if matrix_num_ > tonumber(matrix_info_.numlin) then 
+		matrix_info_.numlin = matrix_num_
+	end
+	matrix_info_:setcell(matrix_num_,1,arg.key)
+	matrix_info_:setcell(matrix_num_,2,arg.value)
+	matrix_info_.redraw = 'L' .. matrix_num_
+end
+
+local function matrix_edit_line(arg)
+	matrix_info_:setcell(arg.lin,1,arg.key)
+	matrix_info_:setcell(arg.lin,2,arg.value)
+	matrix_info_.redraw = 'L' .. arg.lin
+end
+
+local function get_selected_lin()
+	local str = matrix_info_.value
+	print(str)
+	local lin = tonumber(string.match(str,'%d+'))
+	print(lin)
+	return lin
+end
+
 local function init_callback()
 	function btn_ok_:action()
 	end
@@ -108,12 +146,46 @@ local function init_callback()
 	function btn_cancel_:action()
 	end
 	
+	function matrix_info_:click_cb(lin, col,state)
+		lin = tonumber(lin)
+		col =tonumber(col)
+		if string.find(state,'1') then 
+			init_select_matrix(lin)
+		end
+	end
+	
+	function btn_add_:action()
+		local str = txt_key_.value
+		if not string.find(str,'%S+') then iup.Message( language_package_.key_message[lan] ) return end 
+		matrix_add_line{key = txt_key_.value,value = txt_val_.value}
+	end
+	
+	
+	function btn_edit_:action()
+		local lin = get_selected_lin()
+		if not lin or lin == 0 or lin > tonumber(matrix_info_.numlin) then return end 
+		matrix_edit_line{key = txt_key_.value,value = txt_val_.value,lin = lin}
+	end
+	
+	function btn_delete_:action()
+		local lin = get_selected_lin()
+		if not lin or lin == 0 or lin > tonumber(matrix_info_.numlin) then return end 
+		matrix_info_.DELLIN = lin
+		matrix_num_ = matrix_num_ - 1
+	end
 	
 end
 
 
 
-local function init_data()
+local function init_data(data)
+	matrix_num_ = 0
+	table.sort(data,function(a,b) return a.key<b.key end)
+	for k,v in ipairs(data) do 
+		if type(v) == 'table' then 
+		
+		end
+	end
 end
 
 
@@ -123,7 +195,7 @@ function pop(arg)
 		init_title()
 		init_callback()
 		dlg_:map()
-		init_data()
+		init_data(arg.data)
 	end
 
 	init()
