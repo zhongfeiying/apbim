@@ -73,6 +73,19 @@ function get()
 		item_logout_;
 	}
 end
+
+
+function get_root()
+	return {
+	
+	}
+end
+
+function get_project()
+	return {
+	
+	}
+end
 --------------------------------------------------------------------------------------------
 --action function
 local dlg_reg_ = require 'app.loginpro.dlg_register'

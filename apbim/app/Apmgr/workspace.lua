@@ -11,14 +11,15 @@ package_loaded_[modname] = M
 _ENV = M
 
 local iup_ = require 'iuplua'
-local file_ =  require 'app.Apmgr.file'
+local disk_ =  require 'app.Apmgr.disk'
 local sys_workspace_ = require 'sys.workspace'
 local tree_ = require 'app.Apmgr.project.tree';
+local db_ = require 'app.Apmgr.project.db';
 local var_workspace_;
 
 function require_data_file(file)
 	local file = string.lower(file)
-	if  file_.datafile_is_exist(file) then 
+	if  disk_.datafile_is_exist(file) then 
 		package_loaded_[file] = nil
 		return require (file)
 	end
@@ -39,9 +40,9 @@ local function init_control_data()
 end
 
 local function load_project_list()
-	tree_.init()
 	var_workspace_ = init_control_data()
 	sys_workspace_.add(var_workspace_)
+	tree_.set_data( tree_.turn_data(db_.get_project_list()) )
 end 
 
 local function unload_project_list()

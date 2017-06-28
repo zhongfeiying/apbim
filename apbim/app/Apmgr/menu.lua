@@ -12,15 +12,37 @@ package_loaded_[modname] = M
 _ENV = M
 
 local menu_ =  require 'sys.menu'
+local op_ = require 'app.Apmgr.project.op'
 
 function on_load()
-	-- menu_.add{
-		-- keyword = 'AP.ProjectMgr.Project.New';
-		-- action = project_.new;
-		-- name = 'File.ProjectMgr.New';
-		-- view = true;
-		-- frame = true;
-	-- }
+	menu_.add{
+		keyword = 'AP.Apmgr.New';
+		action = op_.project_new;
+		name = 'File.New';
+		view = true;
+		frame = true;
+	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Open';
+		action = op_.project_open;
+		name = 'File.Open';
+		view = true;
+		frame = true;
+	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Save';
+		action = op_.project_save;
+		name = 'File.Save';
+		view = true;
+		frame = true;
+	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Close';
+		action = op_.project_close;
+		name = 'File.Close';
+		view = true;
+		frame = true;
+	}
 end
 
 
