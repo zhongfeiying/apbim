@@ -68,6 +68,10 @@ local function tree_project_attributes(arg)
 			rmenu = require 'app.Apmgr.project.rmenu'.get_project;
 			gid = arg.gid;
 		};
+		image = {
+			open ='app/Apmgr/res/project_open.bmp',
+			close =  'app/Apmgr/res/project_close.bmp'
+		} ;
 		kind = 'branch';
 		branchopen = branch_open;
 	}

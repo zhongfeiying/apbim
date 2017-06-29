@@ -60,19 +60,18 @@ function index_hid_data(zipfile,gidFile)
 end
 
 local function index_project_data(data)
-	
 	local t = disk_.zip_index(data.path)
 	if type(t) ~= 'table' or not t.gid then return end 
-	data.gid = t.gid
-	local child_data = index_gid_data(data.path,t.gid)
-	table.insert(data,child_data)
+	-- data.gid = t.gid
+	-- local child_data = index_gid_data(data.path,t.gid)
+	-- table.insert(data,child_data)
 end
 
 function get_project_list()
 	local listData =  get_projectlist()
-	for k,v in ipairs(listData) do 
-		index_project_data(v)	
-	end
+	-- for k,v in ipairs(listData) do 
+		-- index_project_data(v)	
+	-- end
 	return listData
 end
 
