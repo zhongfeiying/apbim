@@ -7,6 +7,9 @@ local string = string
 local table = table
 local type = type
 local pairs = pairs
+local g_next_ = _G.next
+local os_time_ = os.time
+local print = print
 
 local M = {}
 local modname = ...
@@ -21,20 +24,21 @@ local function require_data_file(file)
 end
 
 local lfs = require 'lfs'
+local luaext_ = require 'luaext'
 local disk_ =  require 'app.Apmgr.disk'
 local dlg_create_project_ =  require 'app.apmgr.dlg.dlg_create_project'
 local dlg_info_ = require 'app.apmgr.dlg.dlg_info'
+local project_db_ = require 'app.apmgr.project.db'
+local tree_ =  require 'app.apmgr.project.tree'
+local version_ = require 'app.Apmgr.version'
+local temp_path_ = 'app/apmgr/temp/'
+local caches_ = require 'app.Apmgr.project.caches'
 
 
+local project_open;
 
-
-
-function get()
-	local tempt = init_files()
-	table.sort(tempt,function(a,b) return a<b end)
-	table.insert(tempt,1,'Null')
-	tempt['Null'] = {}
-	return tempt
+local function table_is_empty(t)
+	return g_next_(t) == nil
 end
 
 local function get_tpl_data()
@@ -59,22 +63,93 @@ local function get_tpl_data()
 	return data
 end
 
-function project_new()
-	local data;
-	local function on_next(arg)
-		data = arg
+local function get_project_data()
+	local project_info;--{name,path,data,pop,open}
+	local function on_next(warning,arg)
+		local content = disk_.get_folder_contents('Projects/')
+		for k,v in pairs(content) do 
+			content[string.lower(k)] = true
+		end
+		local file = string.lower(arg.name) .. '.apc'
+		if content[file] then warning() return end 
+		project_info = arg
+		return true
 	end
+	
 	dlg_create_project_.pop{on_next = on_next,data = get_tpl_data()}
-	if type(data) ~= 'table' then return end 
-	-- dlg_info_.pop{}
-	-- local gid = luaext_.guid() .. '0'
-	-- tree_.add_project{gid = gid,name = data.name}
+	if type(project_info) ~= 'table' then return end 
+	local attributes = project_info.data.attributes
+	if project_info.pop then 
+		local function on_ok(arg)
+			attributes = arg
+		end
+		dlg_info_.pop{data = attributes,on_ok = on_ok}
+	end
+	return project_info,attributes
+end
+
+local function save_zip_file(zipfile,data,id)
+	disk_.save_file(temp_path_ .. 'temp.lua',data)
+	disk_.create_project_file(zipfile,id,temp_path_ .. 'temp.lua')
+	disk_.delete_file(temp_path_ .. 'temp.lua')
+end
+
+local function project_import_tpl(arg)
+	local data = arg.data
+	local zipfile = arg.zipfile
+	local db = {}
+	for k,v in ipairs(data) do 
+		if type(v) == 'table' then 
+			local t = {}
+			t.gid =  luaext_.guid() .. '0'
+			t.name = v.title
+			t.hid = '-1'
+			table.insert(db,t)
+			save_zip_file(zipfile,t.gid,data)
+		end
+	end
+	disk_.save_file(temp_path_ .. 'temp.lua',db)
+	local hash = version_.hash_file(temp_path_ .. 'temp.lua') .. '0'
+	disk_.create_project_file(zipfile,hash,temp_path_ .. 'temp.lua')
+	disk_.delete_file(temp_path_ .. 'temp.lua')
+	
+	local ver_data = version_.gid_version_data{hid = hash,name =arg.name }
+	local gid_data = disk_.zip_file_data(zip,arg.gid)
+	gid_data.versions = gid_data.versions or {}
+	table.insert(gid_data.versions,hash)
+	gid_data.versions[hash] = ver_data
+	
+	disk_.save_file(temp_path_ .. 'temp.lua',gid_data)
+	disk_.create_project_file(zipfile,arg.gid,temp_path_ .. 'temp.lua')
+	disk_.delete_file(temp_path_ .. 'temp.lua')
+end
+
+function project_new()
+	local project_info,attributes = get_project_data()
+	local gid = luaext_.guid() .. '0'
+	local filename = project_info.name .. '.apc'
+	local path = project_db_.get_project_path()
+	local zipfile =  path.. filename
+	disk_.create_project(zipfile,gid)
+	tree_.add_project{name =  project_info.name,file = zipfile}
+	
+	
+	
+	if type(project_info.structure) == 'table' and not table_is_empty(project_info.structure) then 
+		-- versions = project_import_tpl{name =project_info.name,zipfile=zipfile,data =project_info.structure,gid =  gid}
+	end
+	disk_.create_project_file(zipfile,gid,version_.gid_data{gid = gid,name = project_info.name,attributes = attributes,versions = versions})
+	if project_info.open then 
+		project_open()
+	end
+	
 end
 
 function project_open()
 end
 
 function project_save()
+	
 end
 
 function project_delete()

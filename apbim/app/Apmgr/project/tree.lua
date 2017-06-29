@@ -52,6 +52,7 @@ local function tree_root_attributes()
 		} ;
 		data= {
 			rmenu = require 'app.Apmgr.project.rmenu'.get_root;
+			
 		};
 		kind = 'branch';
 		state = 'EXPANDED';
@@ -66,7 +67,7 @@ local function tree_project_attributes(arg)
 		title = arg.name;
 		data= {
 			rmenu = require 'app.Apmgr.project.rmenu'.get_project;
-			gid = arg.gid;
+			file = arg.file;
 		};
 		image = {
 			open ='app/Apmgr/res/project_open.bmp',
@@ -104,5 +105,33 @@ end
 
 
 
+
+
 --------------------------------------------------------------------------------------------------
 --op
+
+local function get_insert_pos(id,data)
+	local count = tree_:get_childcount(id)
+	local t = {}
+	local cur_id = id + 1
+	local posId = cur_id;
+	for i = 1,count do 
+		local title = tree_:get_node_title(cur_id)
+		if string.lower(title) > string.lower(data.name)  then 
+			return posId
+		end
+		posId = cur_id
+		cur_id = cur_id + 1+ tree_:get_totalchildcount(cur_id)
+	end
+	
+	return posId
+end
+
+--arg = {name,file}
+function add_project(arg)
+	if not tree_  then return end 
+	if type(arg) ~= 'table'  then return end 
+	local posid = get_insert_pos(0,arg)
+	tree_:insert_branch(arg.name,posid)
+	tree_:set_node_status( tree_project_attributes(arg),posid + 1+ tree_:get_totalchildcount(posid))
+end

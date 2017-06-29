@@ -9,6 +9,8 @@ local table = table
 local type = type
 local print = print
 local tonumber = tonumber
+local pairs = pairs
+local tostring = tostring
 
 local M = {}
 local modname = ...
@@ -35,7 +37,8 @@ local language_package_ = {
 	Mval = {English = 'Value ',Chinese = '值'};
 	dlg = {English = 'Setting Attributes',Chinese = '设置属性'};
 	edit =  {English = 'Edit',Chinese = '编辑'};
-	key_message = {English = {'Notice','Please input key !'},Chinese = {'注意','请输入属性名！'}};
+	message1 = {English = {'Notice','Please input key !'},Chinese = {'注意','请输入属性名！'}};
+	message2 = {English = {'Notice','The key has been exists !'},Chinese = {'注意','这个属性已经被定义 ！'}};
 } 
 local matrix_num_ = 0;
 local lan;
@@ -60,9 +63,12 @@ local matrix_info_ = iup.matrix{
 	RESIZEMATRIX = 'YES';
 	RASTERWIDTH1 = '300x';
 	RASTERWIDTH2 = '300x';
-	MARKMODE = 'LIN';
+	MARKMODE = 'CELL';
 	rastersize = '635x300';
 	bgcolor = '255 255 255';
+	ALIGNMENT1 = 'ALEFT';
+	ALIGNMENT2 = 'ALEFT';
+	ALIGNMENTLIN0 = 'ALEFT';
 }
 local frame_info_ = iup.frame{
 	iup.vbox{
@@ -107,7 +113,8 @@ end
 
 local function init_select_matrix(lin,state)
 	local state = state or 1
-	matrix_info_['MARK' .. lin] = state 
+	matrix_info_['MARK' .. lin .. ':1'] = state 
+	matrix_info_['MARK' .. lin .. ':2'] = state 
 	if state == 1 then
 		txt_key_.value = matrix_info_:getcell(lin,1)
 		txt_val_.value = matrix_info_:getcell(lin,2)
@@ -120,9 +127,11 @@ local function matrix_add_line(arg)
 	if matrix_num_ > tonumber(matrix_info_.numlin) then 
 		matrix_info_.numlin = matrix_num_
 	end
-	matrix_info_:setcell(matrix_num_,1,arg.key)
-	matrix_info_:setcell(matrix_num_,2,arg.value)
-	matrix_info_.redraw = 'L' .. matrix_num_
+	matrix_info_:setcell(matrix_num_,1,tostring(arg.key))
+	matrix_info_:setcell(matrix_num_,2,tostring(arg.value))
+	if arg.redraw then 
+		matrix_info_.redraw = 'L' .. matrix_num_
+	end
 end
 
 local function matrix_edit_line(arg)
@@ -132,18 +141,35 @@ local function matrix_edit_line(arg)
 end
 
 local function get_selected_lin()
-	local str = matrix_info_.value
-	print(str)
+	local str = matrix_info_.FOCUSCELL
 	local lin = tonumber(string.match(str,'%d+'))
-	print(lin)
 	return lin
 end
 
-local function init_callback()
+local function get_matrix_data()
+	if matrix_num_ <=0 then return {} end 
+	local data = {}
+	for i = 1,matrix_num_ do 
+		data[matrix_info_:getcell(i,1)] = matrix_info_:getcell(i,2)
+	end
+	return data
+end
+
+local function init_text()
+	txt_key_.value = '';
+	txt_val_.value ='';
+end
+
+local function init_callback(arg)
 	function btn_ok_:action()
+		if type(arg.on_ok) == 'function' then 
+			arg.on_ok(get_matrix_data())
+		end
+		dlg_:hide()
 	end
 	
 	function btn_cancel_:action()
+		dlg_:hide()
 	end
 	
 	function matrix_info_:click_cb(lin, col,state)
@@ -156,44 +182,81 @@ local function init_callback()
 	
 	function btn_add_:action()
 		local str = txt_key_.value
-		if not string.find(str,'%S+') then iup.Message( language_package_.key_message[lan] ) return end 
-		matrix_add_line{key = txt_key_.value,value = txt_val_.value}
+		
+		if not string.find(str,'%S+') then 
+			local t = language_package_.message1[lan]
+			iup.Message( t[1],t[2] ) 
+			return
+		end 
+		local data = arg.data or {}
+		if data[str] then 
+			local t = language_package_.message2[lan]
+			iup.Message( t[1],t[2] ) 
+			return 
+		end 
+		matrix_add_line{key =str ,value = txt_val_.value,redraw = true}
+		init_text()
 	end
 	
 	
 	function btn_edit_:action()
 		local lin = get_selected_lin()
-		if not lin or lin == 0 or lin > tonumber(matrix_info_.numlin) then return end 
+		if not lin or lin == 0 or lin > tonumber(matrix_num_) then return end 
 		matrix_edit_line{key = txt_key_.value,value = txt_val_.value,lin = lin}
+		init_text()
 	end
 	
 	function btn_delete_:action()
 		local lin = get_selected_lin()
-		if not lin or lin == 0 or lin > tonumber(matrix_info_.numlin) then return end 
+		if not lin or lin == 0 or lin > tonumber(matrix_num_) then return end 
 		matrix_info_.DELLIN = lin
+		init_select_matrix(lin)
 		matrix_num_ = matrix_num_ - 1
+		if matrix_num_< 20 then 
+			matrix_info_.numlin = 20
+		end
+		init_text()
 	end
 	
 end
 
+local function sort(data)
+	local t = {}
+	for k,v in pairs(data) do 
+		table.insert(t,{key = k,value = v})
+	end
+	table.sort(t,function(a,b) return a.key<b.key end)
+	return t
+end
 
+local function clear_matrix()
+	if matrix_num_ >0 then	
+		matrix_info_.DELLIN = 1 .. '-' .. matrix_num_
+		matrix_info_.numlin =20
+	end
+	matrix_num_ = 0
+end
 
 local function init_data(data)
-	matrix_num_ = 0
-	table.sort(data,function(a,b) return a.key<b.key end)
+	clear_matrix()
+	
+	data = data or {}
+	local data = sort(data)
 	for k,v in ipairs(data) do 
 		if type(v) == 'table' then 
-		
+			matrix_add_line{key = v.key,value = v.value}
 		end
 	end
+	matrix_info_.redraw = 'all'
 end
 
 
 
 function pop(arg)
+	arg = arg or {}
 	local function init()
 		init_title()
-		init_callback()
+		init_callback(arg)
 		dlg_:map()
 		init_data(arg.data)
 	end
