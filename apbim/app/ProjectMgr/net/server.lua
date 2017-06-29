@@ -36,9 +36,7 @@ function init_user_list(arg)
 end
 
 function get_user_list()
-<<<<<<< HEAD
 
-=======
 	local user = user_.get()
 	local file = default_path_ .. user.gid
 	local data = require"sys.io".read_file{file=file,key = 'db'};
@@ -55,13 +53,7 @@ function save_user_list(data)
 	local user = user_.get()
 	local file = default_path_ .. user.gid
 	require"sys.api.code".save{file = file,data = data,key = 'db'}
->>>>>>> 06ad7ca0253c61e3ba7dd4b6c61e7d5700ced184
-end
 
-function upload_user_list(arg)
-	local user = user_.get()
-	local file = default_path_ .. user.gid
-	require"sys.net.file".send{name=user.gid;path=file;cbf=arg.cbf};
 end
 
 --arg = {gid,name}
