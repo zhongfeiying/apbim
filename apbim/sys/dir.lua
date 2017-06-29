@@ -122,7 +122,7 @@ end
 返回值：	
 	示例：
 		{
-			['filename1.lua'] = '.lua'; --文件名对应的值是 该文件的类型。
+			['filename1.lua'] = 'lua'; --文件名对应的值是 该文件的类型。
 			['dirname1'] = 0; -- 值是0 代表此 key 为文件夹
 			--如果递归 ['dirname1/filename2.lua'] = 'lua'; --递归时key值包含相对路径，并用斜杠分离。
 			。。。

@@ -41,8 +41,6 @@ local function init_file()
 end 
 
 function init()
-	-- package_loaded_[file] = nil
-	-- data_ = init_file() and type(require (file)) == 'table' and require (file)  or init_data()
 	data_ = init_data()
 end
 
