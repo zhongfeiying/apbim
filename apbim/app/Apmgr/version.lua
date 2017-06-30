@@ -51,7 +51,7 @@ function gid_data(arg)
 		name = arg.name,
 		info = arg.info or {},
 		versions = arg.versions or {};
-		hid = '';
+		gids = {};
 	}
 end
 

@@ -90,6 +90,7 @@ end
 
 
 function create_project_file(zipfile,id,src)
+	
 	local ar,close = zip_.open(zipfile)
 	local mode = 'file'
 	if type(src) == 'table' then 
@@ -97,6 +98,7 @@ function create_project_file(zipfile,id,src)
 		src = serialize_to_str(src)
 	end
 	local file = 'Files/' .. id
+	print(zipfile,file)
 	zip_.add(ar,file,mode,src)
 	close()
 end

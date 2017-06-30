@@ -99,10 +99,10 @@ local function save_zipfile(zipfile,id,src)
 	disk_.create_project_file(zipfile,id,file)
 end
 
-local function save_hid_zipfile(zipfile,src)
+local function save_hid_zipfile(zipfile,src,gid)
 	local file = temp_path_ .. 'temp.lua'
 	disk_.save_file(file,src)
-	local id = version_.hash_file(file)
+	local id = version_.hash_file(file) .. string.sub(gid,-1,-1)
 	disk_.create_project_file(zipfile,id,file)
 	return id
 end
@@ -111,24 +111,11 @@ local function save_project_files(arg)
 	if type(arg) ~= 'table' then return end 
 	local zipfile = arg.zipfile
 	local data = arg.data
-	local function loop_data(data)
-		for k,v in ipairs (data) do 
-			if  v.id  then 
-				save_zipfile(zipfile,v.id,v.data)
-			else
-				local hid = save_hid_zipfile(zipfile,v.data)
-				if v.gid and data[v.gid] then 
-					data[v.gid].data.hid = hid
-				end
-			end
-		end
-		for k,v in ipairs (data) do 
-			if type(v) == 'table' and v.id and v.data then 
-				save_zipfile(zipfile,v.id,v.data)
-			end
+	for k,v in ipairs (data) do 
+		if  v.id  and v.data then 
+			save_zipfile(zipfile,v.id,v.data)
 		end
 	end	
-	loop_data(data)
 end
 
 local function get_gid_data(arg)
@@ -141,11 +128,11 @@ end
 
 local function project_turn_zipdata(arg)
 	local saveData = {}
-	saveData[arg.gid] = {id = arg.gid,data = get_gid_data{gid = arg.gid,name = arg.name,info = arg.info}}
+	saveData[arg.gid] = {id = arg.gid,data = get_gid_data{gid = arg.gid,name = arg.name,info = arg.info,gids = {}}}
 	local data =arg.tpl or {}
 	if type(data) == 'table' and not table_is_empty(data) then
 		local function loop_structure_data(data,gid)
-			local tempt = tempt or {}
+			local tempt =  {}
 			for k,v in ipairs(data) do 
 				local attr = type(v) == 'table' and v.attributes
 				if  type(attr) == 'table' then 
@@ -165,6 +152,14 @@ local function project_turn_zipdata(arg)
 		end
 		loop_structure_data(data,arg.gid)
 	end
+	return saveData
+end
+
+local function project_turn_zipdata(arg)
+	local saveData = {}
+	saveData[arg.gid] = {id = arg.gid,data = {gid = arg.gid,name = arg.name,info = arg.info,gids = {}}}
+	
+	local data =arg.tpl or {}
 	return saveData
 end
 
