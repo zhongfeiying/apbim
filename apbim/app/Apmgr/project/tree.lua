@@ -114,11 +114,11 @@ local function get_insert_pos(id,data)
 	local count = tree_:get_childcount(id)
 	local t = {}
 	local cur_id = id + 1
-	local posId = cur_id;
+	local posId = id;
 	for i = 1,count do 
 		local title = tree_:get_node_title(cur_id)
 		if string.lower(title) > string.lower(data.name)  then 
-			return posId
+				return posId
 		end
 		posId = cur_id
 		cur_id = cur_id + 1+ tree_:get_totalchildcount(cur_id)
@@ -132,6 +132,13 @@ function add_project(arg)
 	if not tree_  then return end 
 	if type(arg) ~= 'table'  then return end 
 	local posid = get_insert_pos(0,arg)
-	tree_:insert_branch(arg.name,posid)
-	tree_:set_node_status( tree_project_attributes(arg),posid + 1+ tree_:get_totalchildcount(posid))
+	if posid == 0 then 
+		tree_:add_branch(arg.name,posid)
+		posid = posid + 1
+	else 
+		tree_:insert_branch(arg.name,posid)
+		posid = posid + 1+ tree_:get_totalchildcount(posid)
+	end
+	tree_:set_node_status( tree_project_attributes(arg),posid)
+	tree_:set_node_marked(posid)
 end

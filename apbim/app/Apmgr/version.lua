@@ -8,6 +8,7 @@ local type = type
 local table = table
 local string = string
 local print = print
+local io_open_ = io.open
 
 
 local M = {}
@@ -16,6 +17,7 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
+local luaext_ = require 'luaext'
 
 function hash_string(str)
 	local dig = require"crypto".digest;
@@ -28,7 +30,7 @@ end
 
 function hash_file(file)
 	if type(file)~='string' then return end
-	local f = io.open(file,"rb");
+	local f = io_open_(file,"rb");
 	if not f then return nil end
 	local str = f:read("*all");
 	f:close();
@@ -44,5 +46,19 @@ function gid_version_data(arg)
 end
 
 function gid_data(arg)
-	return {gid = arg.gid,name = arg.name,attributes = arg.attributes,versions = arg.versions or {}}
+	return {
+		gid = arg.gid or (luaext_.guid()  .. (arg.kind and arg.kind == 'file' and 1 or 0)),
+		name = arg.name,
+		info = arg.info or {},
+		versions = arg.versions or {};
+		hid = '';
+	}
+end
+
+function folder_hid_data(arg)
+	return {
+		gid = arg.gid or (luaext_.guid()  .. (arg.kind and arg.kind == 'file' and 1 or 0));
+		name = arg.name ;
+		hid = arg.hid or '-1';
+	}
 end
