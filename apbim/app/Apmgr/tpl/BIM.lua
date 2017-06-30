@@ -1,12 +1,12 @@
 return {
 	name = 'BIM';
 	information = 'Create  project folder !';
-	icon = 'app/Apmgr/res/default_tpl.png';
-	-- perview = 'app/Apmgr/res/projects.bmp';
+	icon = 'app/Apmgr/res/projects.bmp';
+	-- preview = 'app/Apmgr/res/prebim.bmp';
 	attributes = {
-		{name = 'Name'};
-		{name = 'ID'};
-		{type = 'time',name = 'Create Time'};
+		Name = '';
+		ID = '';
+		['Create Time'] = '';
 	};
 	structure = {
 		{
