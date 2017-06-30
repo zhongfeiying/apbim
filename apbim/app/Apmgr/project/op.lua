@@ -178,8 +178,8 @@ function project_new()
 	local zipfile =  path.. filename
 	disk_.create_project(zipfile,gid)
 	tree_.add_project{name =  project_info.name,file = zipfile}
-	-- local data = project_turn_zipdata{gid = gid,name = project_info.name,tpl = tpldata,info = attributes}
-	-- save_project_files{zipfile = zipfile,data = data}
+	local data = project_turn_zipdata{gid = gid,name = project_info.name,tpl = tpldata,info = attributes}
+	save_project_files{zipfile = zipfile,data = data}
 	if project_info.open then 
 		-- project_open_()
 	end
