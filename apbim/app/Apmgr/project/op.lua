@@ -35,7 +35,7 @@ local temp_path_ = 'app/apmgr/temp/'
 local caches_ = require 'app.Apmgr.project.caches'
 
 
-local project_open;
+local project_open_;
 
 local function table_is_empty(t)
 	return g_next_(t) == nil
@@ -94,6 +94,10 @@ local function save_zip_file(zipfile,data,id)
 	disk_.delete_file(temp_path_ .. 'temp.lua')
 end
 
+local function create_folder_versions(gid,data)
+	
+end
+
 local function project_import_tpl(arg)
 	local data = arg.data
 	local zipfile = arg.zipfile
@@ -124,29 +128,82 @@ local function project_import_tpl(arg)
 	disk_.delete_file(temp_path_ .. 'temp.lua')
 end
 
+local function hid_line(arg)
+	return {
+		gid = arg.gid;
+		hid = arg.hid or '-1';
+		name =arg.name;
+	}
+end
+
+
+--[[
+	data = {
+		{
+			attributes = {gid,name,hid,gidinfo ={},};
+		}
+	}
+--]]
+local function save_project_files(arg)
+	if type(arg) ~= 'table' then return end 
+	local gid = arg.gid
+	local zipfile = arg.zipfile
+	local data = arg.data
+	
+	local waitting_save_files = {}
+	local function loop_structure_data(data,gid)
+		-- folder_hid_files[gid] = folder_hid_files[gid]  or {}
+		-- folder_hid_files[gid].hid = folder_hid_files[gid].hid or {}
+		-- for k,v in ipairs(data) do 
+			-- local t = v.attributes or {}
+			-- local data = folder_hid_line{gid = t.gid,name = t.name,hid = t.hid,state = t.state}
+			-- table.insert( folder_hid_files[gid].hid,data)
+			-- folder_hid_files[gid].info = t.gidinfo
+			-- loop_structure_data(v,data.gid)
+		-- end
+		waitting_save_files[gid]  = {}
+		waitting_save_files[gid].gidinfo = {}
+		if string.sub(gid,-1,-1) == '0' then 
+			waitting_save_files[gid].hid = {}
+			for k,v in ipairs(data) do 
+				-- local t = v.attributes or {}
+				-- local data = folder_hid_line{gid = t.gid,name = t.name,hid = t.hid,state = t.state}
+				-- table.insert( folder_hid_files[gid].hid,data)
+				-- folder_hid_files[gid].info = t.gidinfo
+				-- loop_structure_data(v,data.gid)
+			end
+		else 
+			waitting_save_files[gid].hid = {}
+		end
+	end	
+	loop_structure_data(arg.data,gid)
+end
+
+
+
 function project_new()
 	local project_info,attributes = get_project_data()
+	if type(project_info) ~= 'table' then return end 
 	local gid = luaext_.guid() .. '0'
 	local filename = project_info.name .. '.apc'
 	local path = project_db_.get_project_path()
 	local zipfile =  path.. filename
 	disk_.create_project(zipfile,gid)
 	tree_.add_project{name =  project_info.name,file = zipfile}
-	
-	
-	
-	if type(project_info.structure) == 'table' and not table_is_empty(project_info.structure) then 
+	if type(project_info.structure) == 'table' and not table_is_empty(project_info.structure) then
+		-- save_project_files{gid = gid,zipfile = zipfile,data = project_info.structure}
 		-- versions = project_import_tpl{name =project_info.name,zipfile=zipfile,data =project_info.structure,gid =  gid}
 	end
-	disk_.create_project_file(zipfile,gid,version_.gid_data{gid = gid,name = project_info.name,attributes = attributes,versions = versions})
+	-- disk_.create_project_file(zipfile,gid,version_.gid_data{gid = gid,name = project_info.name,attributes = attributes,versions = versions})
 	if project_info.open then 
-		project_open()
+		-- project_open_()
 	end
 	
 end
 
 function project_open()
 end
+project_open_ = project_open
 
 function project_save()
 	
