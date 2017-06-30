@@ -10,23 +10,23 @@ return {
 	};
 	structure = {
 		{
-			attributes= {title = '图纸';};
+			attributes = {name = '图纸';};
 			{};
 		};
 		{
-			attributes= {title = '模型';};
+			attributes= {name = '模型';};
 			{};
 		};
 		{
-			attributes= {title = '质疑';};
+			attributes= {name = '质疑';};
 			{};
 		};
 		{
-			attributes= {title = '传票';};
+			attributes= {name = '传票';};
 			{};
 		};
 		{
-			attributes= {title = '设计图';};
+			attributes= {name = '设计图';};
 			{};
 		};
 	};

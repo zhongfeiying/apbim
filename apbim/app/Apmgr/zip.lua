@@ -45,6 +45,8 @@ function open(zipfile)
 end
 
 function add(ar,file,mode,src)
+	local f = ar:open(file,zip_.OR(zip_.FL_NOCASE, zip_.FL_NODIR));
+	if f then ar:delete(file) end
 	sys_zip_.add(ar,file,mode,src)
 end
 
