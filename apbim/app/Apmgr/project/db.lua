@@ -41,32 +41,6 @@ function get_projectlist()
 	return project_files
 end
 
-function index_gid_data(zipfile,gidFile)
-	local data = {}
-	local t =  disk_.zip_file_data(zipfile,gidFile)
-	if type(t.Libs) =='table' and #t.Libs ~= 0 then 
-		local curid = #t.Libs
-		data = disk_.zip_file_data(zipfile,curid) or {}
-		data.info = t.Libs[curid]
-	end	
-	return data
-end
-
-function index_hid_data(zipfile,gidFile)
-	local data = {}
-	local t =  disk_.zip_file_data(zipfile,gidFile)
-	if type(t.Libs) =='table' and #t.Libs ~= 0 then 
-		local curid = #t.Libs
-		data = disk_.zip_file_data(zipfile,curid) or {}
-		data.info = t.Libs[curid]
-	end	
-	return data
-end
-
-local function index_project_data(data)
-	local t = disk_.zip_index(data.path)
-	if type(t) ~= 'table' or not t.gid then return end 
-end
 
 function get_project_list()
 	return get_projectlist()
