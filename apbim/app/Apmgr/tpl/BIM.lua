@@ -9,11 +9,12 @@ return {
 	};
 	structure = {
 		{
-			attributes = {name = '图纸';};
-			{};
+			attributes = {name = '模型';};
+			{
+			};
 		};
 		{
-			attributes= {name = '模型';};
+			attributes= {name = '图纸';};
 			{};
 		};
 		{

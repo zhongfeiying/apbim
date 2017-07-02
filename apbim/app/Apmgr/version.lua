@@ -45,17 +45,18 @@ function gid_version_data(arg)
 	}
 end
 
-function gid_data(arg)
+function get_gid_data(arg)
 	return {
 		gid = arg.gid or (luaext_.guid()  .. (arg.kind and arg.kind == 'file' and 1 or 0)),
 		name = arg.name,
 		info = arg.info or {},
 		versions = arg.versions or {};
-		gids = {};
+		--writer;
+		--owner;
 	}
 end
 
-function folder_hid_data(arg)
+function get_folder_data(arg)
 	return {
 		gid = arg.gid or (luaext_.guid()  .. (arg.kind and arg.kind == 'file' and 1 or 0));
 		name = arg.name ;

@@ -24,20 +24,6 @@ function read(arg)
 	return sys_zip_.read(arg)
 end
 
--- function add_file(ar,src,dst)
-	-- ar:add(dst, "file", src)
--- end
-
--- function add_str_to_file(ar,str,dst)
-	-- ar:add(dst, "string", str)
--- end
-
--- function add_zip_file(ar,file,mode,src)
-	-- local fdx = get_fdx(ar,file);
-	-- if fdx then ar:replace(fdx,mode,src) return end
-	-- ar:add(file,mode,src);
--- end
-
 function open(zipfile)
 	local ar = zip_.open(zipfile,zip_.CREATE)
 	local f =function() ar:close() end 
@@ -45,8 +31,6 @@ function open(zipfile)
 end
 
 function add(ar,file,mode,src)
-	local f = ar:open(file,zip_.OR(zip_.FL_NOCASE, zip_.FL_NODIR));
-	if f then ar:delete(file) end
 	sys_zip_.add(ar,file,mode,src)
 end
 
