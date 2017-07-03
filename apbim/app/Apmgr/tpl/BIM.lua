@@ -4,17 +4,17 @@ return {
 	icon = 'app/Apmgr/res/projects.bmp';
 	-- preview = 'app/Apmgr/res/prebim.bmp';
 	attributes = {
-		Name = '';
-		ID = '';
-		['Create Time'] = '';
+		['create time'] = '';
+		
 	};
 	structure = {
 		{
-			attributes = {name = '图纸';};
-			{};
+			attributes = {name = '模型';};
+			{
+			};
 		};
 		{
-			attributes= {name = '模型';};
+			attributes= {name = '图纸';};
 			{};
 		};
 		{

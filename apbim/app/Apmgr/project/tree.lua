@@ -52,7 +52,6 @@ local function tree_root_attributes()
 		} ;
 		data= {
 			rmenu = require 'app.Apmgr.project.rmenu'.get_root;
-			
 		};
 		kind = 'branch';
 		state = 'EXPANDED';
@@ -68,11 +67,31 @@ local function tree_project_attributes(arg)
 		data= {
 			rmenu = require 'app.Apmgr.project.rmenu'.get_project;
 			file = arg.file;
+			gid = arg.gid;
 		};
 		image = {
 			open ='app/Apmgr/res/project_open.bmp',
 			close =  'app/Apmgr/res/project_close.bmp'
 		} ;
+		kind = 'branch';
+		branchopen = branch_open;
+	}
+end
+
+local function tree_branch_attributes(arg)
+	return {
+		title = arg.name;
+		data= {
+			rmenu = require 'app.Apmgr.project.rmenu'.get_project;
+			file = arg.file;
+			gid = arg.gid;
+			hid = arg.hid;
+			name = arg.name;
+		};
+		-- image = {
+			-- open ='app/Apmgr/res/project_open.bmp',
+			-- close =  'app/Apmgr/res/project_close.bmp'
+		-- } ;
 		kind = 'branch';
 		branchopen = branch_open;
 	}
@@ -104,7 +123,9 @@ function set_data(data)
 end
 
 
-
+function set_marked(id)
+	tree_:set_node_marked(id)
+end
 
 
 --------------------------------------------------------------------------------------------------
@@ -141,4 +162,21 @@ function add_project(arg)
 	end
 	tree_:set_node_status( tree_project_attributes(arg),posid)
 	tree_:set_node_marked(posid)
+end
+
+
+--arg = {name,gid,hid}
+function add_branch(arg)
+	if not tree_  then return end 
+	if type(arg) ~= 'table'  then return end 
+	local id = tree_:get_tree_selected()
+	local count = tree_:get_childcount(id)
+	if count  == 0 then
+		tree_:add_branch(arg.name,id)
+	else 
+		id = tree_:get_child_last_id(id)
+		tree_:insert_branch(arg.name,id)
+		id = id + 1+ tree_:get_totalchildcount(id)
+	end
+	tree_:set_node_status( tree_branch_attributes(arg),id)
 end

@@ -18,6 +18,7 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
+local iup = require 'iuplua'
 
 local function require_data_file(file)
 	package_loaded_[file] = nil
@@ -29,14 +30,11 @@ local luaext_ = require 'luaext'
 local disk_ =  require 'app.Apmgr.disk'
 local dlg_create_project_ =  require 'app.apmgr.dlg.dlg_create_project'
 local dlg_info_ = require 'app.apmgr.dlg.dlg_info'
-local project_db_ = require 'app.apmgr.project.db'
 local tree_ =  require 'app.apmgr.project.tree'
 local version_ = require 'app.Apmgr.version'
 local temp_path_ = 'app/apmgr/temp/'
-local caches_ = require 'app.Apmgr.project.caches'
+local project_ = require 'app.Apmgr.project.project'
 
-
-local project_open_;
 
 local function table_is_empty(t)
 	return g_next_(t) == nil
@@ -87,115 +85,111 @@ local function get_project_data()
 		end
 		dlg_info_.pop{data = attributes,on_ok = on_ok}
 	end
-	return project_info,tpldata,attributes
+	return project_info,attributes,tpldata
 end
 
-local function save_zipfile(zipfile,id,src)
-	local file = src
-	if type(src) == 'table' then 
-		disk_.save_file(temp_path_ .. 'temp.lua',src)
-		file = temp_path_ .. 'temp.lua'
-	end
-	disk_.create_project_file(zipfile,id,file)
-end
-
-local function save_hid_zipfile(zipfile,src)
-	local file = temp_path_ .. 'temp.lua'
-	disk_.save_file(file,src)
-	local id = version_.hash_file(file)
-	disk_.create_project_file(zipfile,id,file)
-	return id
-end
 	
 local function save_project_files(arg)
 	if type(arg) ~= 'table' then return end 
 	local zipfile = arg.zipfile
 	local data = arg.data
-	local function loop_data(data)
-		for k,v in ipairs (data) do 
-			if  v.id  then 
-				save_zipfile(zipfile,v.id,v.data)
-			else
-				local hid = save_hid_zipfile(zipfile,v.data)
-				if v.gid and data[v.gid] then 
-					data[v.gid].data.hid = hid
-				end
-			end
-		end
-		for k,v in ipairs (data) do 
-			if type(v) == 'table' and v.id and v.data then 
-				save_zipfile(zipfile,v.id,v.data)
-			end
+	for k,v in ipairs (data) do 
+		if  v.id  and v.str then 
+			disk_.save_to_zipfile(zipfile, v.id,v.str )
 		end
 	end	
-	loop_data(data)
-end
-
-local function get_gid_data(arg)
-	return version_.gid_data(arg)
-end
-
-local function folder_hid_line(arg)
-	return version_.folder_hid_data(arg)
 end
 
 local function project_turn_zipdata(arg)
 	local saveData = {}
-	saveData[arg.gid] = {id = arg.gid,data = get_gid_data{gid = arg.gid,name = arg.name,info = arg.info}}
-	local data =arg.tpl or {}
+	local gid = arg.gid
+	if not gid then return end 
+	saveData[gid] = {}
+	saveData[gid].id =gid
+	local gidData = version_.get_gid_data{gid = gid,name = arg.name,info =  arg.info,versions = {}}
+	saveData[gid].str  = disk_.serialize_to_str(gidData) 
+	local data =arg.tpl 
 	if type(data) == 'table' and not table_is_empty(data) then
-		local function loop_structure_data(data,gid)
-			local tempt = tempt or {}
+		local function loop_data(data,id)
+			local folderIndexData =  {}
 			for k,v in ipairs(data) do 
 				local attr = type(v) == 'table' and v.attributes
 				if  type(attr) == 'table' then 
 					local gid = luaext_.guid() 
 					if #v  ~= 0  then 
 						gid = gid .. '0'
-						loop_structure_data(v,gid)
+						loop_data(v[1],gid)
 					else 
 						gid = gid .. '1'
-						-- table.insert(saveData,{data =tempt,gid = gid})
+						if attr.info and attr.info.disklink then 
+							table.insert(saveData,{str = disk_.read_file(attr.info.disklink,'string'),id =  project_.get_folder_indexId(gid)})
+						end
 					end
-					saveData[gid] = {id = gid,data = get_gid_data{gid = gid,name = attr.name,info = attr}}
-					table.insert(tempt,folder_hid_line{name = attr.name,gid = gid})
+					table.insert(saveData,{str =disk_.serialize_to_str( version_.get_gid_data{gid = gid,name = attr.name,info =  attr.info,versions = {}} ) ,id =  gid})
+					table.insert(folderIndexData,version_.get_folder_data{name = attr.name,gid = gid})
 				end
 			end
-			table.insert(saveData,{data =tempt,gid = gid})
+			table.insert(saveData,{str =disk_.serialize_to_str( folderIndexData ),id =   project_.get_folder_indexId(id)})
 		end
-		loop_structure_data(data,arg.gid)
+		loop_data(data,gid)
 	end
 	return saveData
 end
 
 
 function project_new()
-	local project_info,tpldata,attributes = get_project_data()
+	local project_info,attributes,tpldata = get_project_data()
 	if type(project_info) ~= 'table' then return end 
 	local gid = luaext_.guid() .. '0'
 	local filename = project_info.name .. '.apc'
-	local path = project_db_.get_project_path()
+	local path = project_.get_project_path()
 	local zipfile =  path.. filename
 	disk_.create_project(zipfile,gid)
 	tree_.add_project{name =  project_info.name,file = zipfile}
-	-- local data = project_turn_zipdata{gid = gid,name = project_info.name,tpl = tpldata,info = attributes}
-	-- save_project_files{zipfile = zipfile,data = data}
+	local data = project_turn_zipdata{gid = gid,name = project_info.name,tpl = tpldata,info = attributes}
+	save_project_files{zipfile = zipfile,data = data}
 	if project_info.open then 
-		-- project_open_()
+		-- project_open()
 	end
 	
 end
 
-function project_open()
+local function open()
+	local indexId = project_.open()
+	local data = project_.get_id_data(indexId)
+	if data then 
+		for k,v in ipairs (data) do 
+			tree_.add_branch(v)
+		end
+	end
 end
-project_open_ = project_open
 
-function project_save()
-	
+project_open = function ()
+	local data = tree_.get():get_node_data()
+	if type(data) ~= 'table' or not data.file then return end 
+	local pro = project_.get()
+	if  pro and  data.file ~= pro then
+		project_save('Open')
+	end 
+	print(data.file)
+	project_.set(data.file)
+	open()
+end
+
+project_save = function (open)
+	local pro = project_.get()
+	if not pro then return end
+	if open then 
+		local a =  iup.Alarm('Notice','Whether to save the existing project  ? ','yes','no')
+		if a  ~= 1 then return end 
+	end
+	project_.save()
 end
 
 function project_delete()
 end
 
 function project_close()
+	project_save()
+	project_.init()
 end

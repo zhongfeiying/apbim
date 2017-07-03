@@ -62,6 +62,8 @@ function get_project()
 		item_save_project_;
 		'';
 		item_open_project_;
+		'';
+		item_close_;
 	}
 end
 --------------------------------------------------------------------------------------------
