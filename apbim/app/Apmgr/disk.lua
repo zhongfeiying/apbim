@@ -83,7 +83,7 @@ function get_folder_contents(path)
 end
 
 function zip_file_data(zip,fileId,path)
-	local path = path or 'Files\\'
+	local path = path or 'Files/'
 	local file = path .. fileId
 	return zip_.read{zip = zip,file = file,key = 'db'}
 end
@@ -132,16 +132,13 @@ function read_file(file,state)
 	end
 end
 
-function read_zipfile(zipfile,file,state)
-	if state and state == 'string' then 
-		return zip_.read{zip = zipfile,file = file}
-	else 
-		return zip_.read{zip = zipfile,file =file,key = 'db'}
-	end
+function read_zipfile(zipfile,id,state)
+	return zip_file_data(zipfile,id)
 end
 
 function read_project(zipfile)
-	return zip_index(zipfile)
+	local t = zip_index(zipfile)
+	return t.gid
 end
 
 

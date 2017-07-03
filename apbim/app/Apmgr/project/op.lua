@@ -145,51 +145,86 @@ function project_new()
 	local path = project_.get_project_path()
 	local zipfile =  path.. filename
 	disk_.create_project(zipfile,gid)
-	tree_.add_project{name =  project_info.name,file = zipfile}
+	local posid = tree_.add_project{name =  project_info.name,file = zipfile}
 	local data = project_turn_zipdata{gid = gid,name = project_info.name,tpl = tpldata,info = attributes}
 	save_project_files{zipfile = zipfile,data = data}
 	if project_info.open then 
-		-- project_open()
+		tree_.set_marked(posid)
+		project_open()
 	end
-	
 end
 
-local function open()
-	local indexId = project_.open()
-	local data = project_.get_id_data(indexId)
-	if data then 
-		for k,v in ipairs (data) do 
-			tree_.add_branch(v)
+function open_folder(id)
+	local tree = tree_.get()
+	local tid =id or  tree_.get_id()
+	if not tid then return end 
+	local data = tree:get_node_data(tid)
+	if not data or data.opened then return end
+	data.opened = true
+	tree:set_node_data(data,tid)
+	local gid = data.gid or project_.project_index_id()
+	if not gid then return end 
+	if string.sub(gid,-1,-1) == '1' then return end 
+	local nextIndexId = project_.get_folder_indexId(gid)
+	project_.add_cache_data(nextIndexId)
+	local data = project_.get_id_data(nextIndexId)
+	for k,v in ipairs(data) do 
+		if v.gid then 
+			local nextIndexId = project_.get_folder_indexId(v.gid)
+			project_.add_cache_data(nextIndexId)
 		end
+	end
+	tree_.open_folder(tid)
+end
+
+local function open(data,id)
+	project_.set(data.file)
+	project_.open()
+	local gid = project_.project_index_id()
+	if not gid then return end 
+	local nextIndexId = project_.get_folder_indexId(gid)
+	if not nextIndexId then return end 
+	project_.add_cache_data(nextIndexId)
+	local data = project_.get_id_data(nextIndexId)
+	if data then 
+		tree_.add_folder_list(data,id)
+		open_folder(id)
 	end
 end
 
 project_open = function ()
-	local data = tree_.get():get_node_data()
-	if type(data) ~= 'table' or not data.file then return end 
+	local tree = tree_.get()
+	local id =tree:get_tree_selected()
+	if not id then return end 
+	local data = tree:get_node_data(id)
+	if type(data) ~= 'table' or not data.file  then return end 
 	local pro = project_.get()
 	if  pro and  data.file ~= pro then
-		project_save('Open')
+		if not project_close('Open') then return end 
 	end 
-	print(data.file)
-	project_.set(data.file)
-	open()
+	open(data,id)
+	data.opened = true
+	tree:set_node_data(data,id)
 end
 
-project_save = function (open)
-	local pro = project_.get()
-	if not pro then return end
-	if open then 
-		local a =  iup.Alarm('Notice','Whether to save the existing project  ? ','yes','no')
-		if a  ~= 1 then return end 
-	end
+project_save = function (f)
+	local zipfile = project_.get()
+	if not zipfile then return end
+	local id = tree_.get_index_id(zipfile)
+	if not id then return end 
 	project_.save()
 end
 
 function project_delete()
 end
 
-function project_close()
+function project_close(str)
+	if str and str == 'Open' then 
+		local a =  iup.Alarm('Notice','Whether to quit and save the existing project  ? ','yes','no')
+		if a  ~= 1 then return  end 
+	end
 	project_save()
+	tree_.close_project()
 	project_.init()
+	return true
 end

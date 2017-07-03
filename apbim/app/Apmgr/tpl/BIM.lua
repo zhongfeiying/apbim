@@ -11,6 +11,26 @@ return {
 		{
 			attributes = {name = '模型';};
 			{
+				{
+					attributes = {name = '3D';};
+				};
+				{
+					attributes = {name = 'Views';};
+					{
+						{
+							attributes = {name = '左视图';};
+							{};
+						};
+						{
+							attributes = {name = '俯视图';};
+							{};
+						};
+						{
+							attributes = {name = '前视图';};
+							{};
+						};
+					};
+				};
 			};
 		};
 		{

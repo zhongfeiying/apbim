@@ -16,12 +16,40 @@ _G[modname] = M
 package_loaded_[modname] = M
 _ENV = M
 
+local project_ = require 'app.Apmgr.project.project'
+local op_ = require 'app.Apmgr.project.op'
+
 local tree_;
 local cmds_ = {}
+
+function branch_open(id)	
+	local state = tree_:get_node_state(id)
+	if state == 'EXPANDED' then return end 
+	if tree_:get_node_depth(id) == 1  then 
+		local data = tree_:get_node_data(id)
+		if data and data.opened then return end 
+		op_.project_open()
+	else 
+		op_.open_folder()
+	end
+end
+
+function db_click(id)
+	if id and id == 0 then return end 
+	local kind = tree_:get_node_kind(id)
+	if kind == 'BRANCH' then 
+		-- branch_open(id)
+	elseif kind == 'LEAF' then  
+		-- op_.open_leaf()
+	end
+	
+end
 
 function init()
 	tree_=  iupTree_.Class:new()
 	tree_:set_rastersize('300x') 
+	tree_:set_dlbtn(db_click)
+	tree_:set_branchopen(branch_open)
 end
 
 function get()
@@ -58,8 +86,7 @@ local function tree_root_attributes()
 	}
 end
 
-local function branch_open()
-end
+
 
 local function tree_project_attributes(arg)
 	return {
@@ -74,7 +101,7 @@ local function tree_project_attributes(arg)
 			close =  'app/Apmgr/res/project_close.bmp'
 		} ;
 		kind = 'branch';
-		branchopen = branch_open;
+		
 	}
 end
 
@@ -88,12 +115,7 @@ local function tree_branch_attributes(arg)
 			hid = arg.hid;
 			name = arg.name;
 		};
-		-- image = {
-			-- open ='app/Apmgr/res/project_open.bmp',
-			-- close =  'app/Apmgr/res/project_close.bmp'
-		-- } ;
 		kind = 'branch';
-		branchopen = branch_open;
 	}
 end
 
@@ -127,6 +149,19 @@ function set_marked(id)
 	tree_:set_node_marked(id)
 end
 
+function get_index_id(file)
+	local count = tree_:get_childcount(0)
+	local posid = 1
+	for i = 1,count do 
+		local data = tree_:get_node_data(posid)
+		if data and data.file and data.file == file then 
+			
+			return posid
+		end
+		posid = posid + 1+ tree_:get_totalchildcount(posid)
+	end
+end
+
 
 --------------------------------------------------------------------------------------------------
 --op
@@ -139,7 +174,7 @@ local function get_insert_pos(id,data)
 	for i = 1,count do 
 		local title = tree_:get_node_title(cur_id)
 		if string.lower(title) > string.lower(data.name)  then 
-				return posId
+			return posId
 		end
 		posId = cur_id
 		cur_id = cur_id + 1+ tree_:get_totalchildcount(cur_id)
@@ -161,22 +196,89 @@ function add_project(arg)
 		posid = posid + 1+ tree_:get_totalchildcount(posid)
 	end
 	tree_:set_node_status( tree_project_attributes(arg),posid)
-	tree_:set_node_marked(posid)
+	-- tree_:set_node_marked(posid)
+	return posid
 end
 
 
 --arg = {name,gid,hid}
-function add_branch(arg)
+function add_branch(arg,id,state)
 	if not tree_  then return end 
 	if type(arg) ~= 'table'  then return end 
-	local id = tree_:get_tree_selected()
+	local id = id or tree_:get_tree_selected()
 	local count = tree_:get_childcount(id)
-	if count  == 0 then
+	if count  == 0 or state then
 		tree_:add_branch(arg.name,id)
+		id = id+ 1
 	else 
 		id = tree_:get_child_last_id(id)
 		tree_:insert_branch(arg.name,id)
 		id = id + 1+ tree_:get_totalchildcount(id)
 	end
 	tree_:set_node_status( tree_branch_attributes(arg),id)
+	return id
+end
+
+function add_leaf(arg,id)
+	if not tree_  then return end 
+	if type(arg) ~= 'table'  then return end 
+	local id = id or tree_:get_tree_selected()
+	local count = tree_:get_childcount(id)
+	if count  == 0 then
+		tree_:add_leaf(arg.name,id)
+		id = id+ 1
+	else 
+		id = tree_:get_child_last_id(id)
+		tree_:insert_leaf(arg.name,id)
+		id = id + 1+ tree_:get_totalchildcount(id)
+	end
+	tree_:set_node_status( tree_branch_attributes(arg),id)
+	return id
+end
+
+
+function add_folder_list(data,id)
+	local id = id or tree_:get_tree_selected()
+	for k,v in ipairs (data) do 
+		if v.gid and v.name then 
+			if string.sub(v.gid,-1,-1) == '0' then 
+				add_branch(v,id)
+			elseif string.sub(v.gid,-1,-1) == '1' then 
+				add_leaf(v,id)
+			end
+		end
+	end
+	
+end
+
+function open_folder(id)
+	local id = id or tree_:get_tree_selected()
+	
+	local count = tree_:get_childcount(id)
+	local cur_id = id+ 1
+	for i = 1,count do 
+		local data = tree_:get_node_data(cur_id)
+		if data and data.gid and string.sub(data.gid,-1,-1) == '0' then 
+			local nextIndexId = project_.get_folder_indexId(data.gid)
+			local t = project_.get_id_data(nextIndexId)
+			add_folder_list(t,cur_id)
+		end
+		cur_id = cur_id + 1 + tree_:get_totalchildcount(cur_id)
+	end
+	local state = 'EXPANDED'
+	if count  == 0 then 
+		state = 'COLLAPSED'
+	end
+	tree_:set_node_state(state,id)
+end
+
+function close_project(id)
+	local id = id or get_index_id( project_.get())
+	if not id then return end 
+	local data = tree_:get_node_data(id)
+	if not data then return end 
+	data.opened = nil
+	tree_:set_node_data(data,id)
+	tree_:delete_nodes('CHILDREN',id)
+	tree_:set_node_state('COLLAPSED',id)
 end
