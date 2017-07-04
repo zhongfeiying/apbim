@@ -1,6 +1,6 @@
 return  {
-	-- 'app.BIM.main';
-	-- 'app.Project.main';
+	'app.BIM.main';
+	'app.Project.main';
 	'app.View.main';
 	'app.Show.main';
 	'app.Select.main';
@@ -9,11 +9,11 @@ return  {
 	'app.Graphics.main';
 	'app.Steel.main';
 	'app.Model.main';
-	-- 'app.Report.main';
-	-- 'app.Work.main';
-	-- 'app.sketchup.main';
-	-- 'app.Revit.main';
-	-- 'app.tekla.main';
+	'app.Report.main';
+	'app.Work.main';
+	'app.sketchup.main';
+	'app.Revit.main';
+	'app.tekla.main';
 	'app.LoginPro.main';
 	-- 'app.ProjectMgr.main';
 	'app.language.main';
