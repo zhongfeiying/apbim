@@ -109,13 +109,23 @@ local function tree_branch_attributes(arg)
 	return {
 		title = arg.name;
 		data= {
-			rmenu = require 'app.Apmgr.project.rmenu'.get_project;
-			file = arg.file;
+			rmenu = require 'app.Apmgr.project.rmenu'.get_folder;
 			gid = arg.gid;
 			hid = arg.hid;
-			name = arg.name;
 		};
 		kind = 'branch';
+	}
+end
+
+local function tree_leaf_attributes(arg)
+	return {
+		title = arg.name;
+		data= {
+			rmenu = require 'app.Apmgr.project.rmenu'.get_file;
+			gid = arg.gid;
+			hid = arg.hid;
+		};
+		kind = 'leaf';
 	}
 end
 
@@ -232,7 +242,7 @@ function add_leaf(arg,id)
 		tree_:insert_leaf(arg.name,id)
 		id = id + 1+ tree_:get_totalchildcount(id)
 	end
-	tree_:set_node_status( tree_branch_attributes(arg),id)
+	tree_:set_node_status( tree_leaf_attributes(arg),id)
 	return id
 end
 
@@ -259,7 +269,7 @@ function open_folder(id)
 	for i = 1,count do 
 		local data = tree_:get_node_data(cur_id)
 		if data and data.gid and string.sub(data.gid,-1,-1) == '0' then 
-			local nextIndexId = project_.get_folder_indexId(data.gid)
+			local nextIndexId = project_.get_hid_indexId(data.gid)
 			local t = project_.get_id_data(nextIndexId)
 			add_folder_list(t,cur_id)
 		end
