@@ -31,6 +31,7 @@ local luaext_ = require 'luaext'
 local disk_ =  require 'app.Apmgr.disk'
 local dlg_create_project_ =  require 'app.apmgr.dlg.dlg_create_project'
 local dlg_info_ = require 'app.apmgr.dlg.dlg_info'
+local dlg_save_ = require 'app.apmgr.dlg.dlg_save'
 local tree_ =  require 'app.apmgr.project.tree'
 local version_ = require 'app.Apmgr.version'
 local temp_path_ = 'app/apmgr/temp/'
@@ -63,6 +64,15 @@ local function get_tpl_data()
 	return data
 end
 
+local function pop_dlg_info(data)
+	local attributes;
+	local function on_ok(arg)
+		attributes = arg
+	end
+	dlg_info_.pop{data = data,on_ok = on_ok}
+	return attributes
+end
+
 local function get_project_data()
 	local project_info;--{name,path,data,pop,open}
 	local function on_next(warning,arg)
@@ -81,10 +91,7 @@ local function get_project_data()
 	project_info.data = project_info.data or {}
 	local attributes,tpldata = project_info.data.attributes,project_info.data.structure
 	if project_info.pop then 
-		local function on_ok(arg)
-			attributes = arg
-		end
-		dlg_info_.pop{data = attributes,on_ok = on_ok}
+		attributes = pop_dlg_info(attributes) or attributes
 	end
 	return project_info,attributes,tpldata
 end
@@ -208,11 +215,38 @@ project_open = function ()
 	tree:set_node_data(data,id)
 end
 
-project_save = function (f)
+local function save(id)
+	local function waiting_init(tree,arg)
+		local count =tree:get_totalchildcount(id)
+		count = count + 1
+		if type(arg.waiting_guage) == 'function' then
+			arg.waiting_guage(count)
+		end
+		local curid = id
+		for i = 1,count do 
+			
+		end
+	end
+
+	local function init(arg)
+		arg = arg  or {}
+		local tree =  tree_.get()
+		waiting_init(tree,arg)
+	end
+	dlg_save_.pop{init = init}
+end
+
+local function get_project_id()
 	local zipfile = project_.get()
 	if not zipfile then return end
 	local id = tree_.get_index_id(zipfile)
+	return id
+end
+
+project_save = function (f)
+	local id = get_project_id()
 	if not id then return end 
+	save(id)
 	-- project_.save()
 end
 
@@ -233,4 +267,37 @@ end
 function quit()
 	project_close(str)
 	os_exit_()
+end
+
+function project_submit()
+	local id = get_project_id()
+	if not id then return end 
+end
+
+function edit_info()
+	local tree = tree_.get()
+	local id = tree:get_tree_selected()
+	local gid ;
+	if tree:get_node_depth(id) == 1 then 
+		gid = project_.project_index_id()
+	else 
+		local data = tree:get_node_data(id)
+		gid =data and data.gid
+	end
+	if not gid then error('data error !') return end 
+	local zipfile = project_.get()
+	local t = disk_.read_zipfile(zipfile,gid)
+	local info = pop_dlg_info(t and t.info) 
+	if not info then return end 
+	t.info = info
+	project_.edit(gid,t)
+end
+
+function delete()
+end
+
+function set_style()
+end
+
+function properties()
 end

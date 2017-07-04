@@ -25,12 +25,14 @@ end
 
 
 function init_user_list(arg)
+	arg = arg or {}
 	local user = user_.get()
 	local file = default_path_ .. user.gid
 	if sys_io_.is_there_file(file) then 
 		arg.cbf()
 	else 
-		require"sys.net.file".get{name=user.gid;path=file;cbf=arg.cbf};
+		-- require"sys.net.file".get{name=user.gid;path=file;cbf=arg.cbf};
+		arg.cbf()
 	end
 	-- 
 end
@@ -44,15 +46,29 @@ function get_user_list()
 end
 
 function update_user_list(arg)
+	arg = arg or {}
 	local user = user_.get()
 	local file = default_path_ .. user.gid
-	require"sys.net.file".get{name=user.gid;path=file;cbf=arg.cbf};
+	-- require"sys.net.file".get{name=user.gid;path=file;cbf=arg.cbf};
+	if type(arg.cbf) == 'function' then
+		arg.cbf()
+	end
 end
 
 function save_user_list(data)
 	local user = user_.get()
 	local file = default_path_ .. user.gid
 	require"sys.api.code".save{file = file,data = data,key = 'db'}
+
+
+function upload_user_list(arg)
+	arg = arg or {}
+	local user = user_.get()
+	local file = default_path_ .. user.gid
+	-- require"sys.net.file".send{name=user.gid;path=file;cbf=arg.cbf};
+	if type(arg.cbf) == 'function' then
+		arg.cbf()
+	end
 
 end
 
@@ -69,7 +85,7 @@ end
 function update_user_info(arg)
 	arg = arg or {}
 	local user = user_.get()
-	require 'sys.net.main'.userinfo{user = user.user,gid = user.gid,cbf = arg.cbf}
+	-- require 'sys.net.main'.userinfo{user = user.user,gid = user.gid,cbf = arg.cbf}
 end
 
 function get_user_info(arg)

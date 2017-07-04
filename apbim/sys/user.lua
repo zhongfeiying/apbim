@@ -17,7 +17,10 @@ local code_ = require 'sys.api.code'
 local lfs_ = require 'lfs'
 local path_ = 'user/'
 
-local user_ = {}
+local user_ = {
+	user = 'default';
+	gid = '-1';
+}
 --arg = {user,gid}
 function set(arg)
 	user_ =  type(arg) == 'table' and arg or user_

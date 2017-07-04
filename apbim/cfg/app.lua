@@ -15,7 +15,7 @@ return  {
 	'app.Revit.main';
 	'app.tekla.main';
 	'app.LoginPro.main';
-	-- 'app.ProjectMgr.main';
+	'app.ProjectMgr.main';
 	'app.language.main';
 	-- 'app.bgcolor.main';
 	'app.apmgr.main';

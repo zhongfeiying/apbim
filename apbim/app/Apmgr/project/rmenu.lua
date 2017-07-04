@@ -41,6 +41,7 @@ local title_link_to_exe_ = {English = 'Installable Program',Chinese = 'ø…∞≤◊∞≥Ã–
 local title_model_ = {English = 'Model',Chinese = 'ƒ£–Õ'}
 local title_view_ = {English = 'View',Chinese = ' ”Õº'}
 local title_submit_ = {English = 'Submit',Chinese = 'Ã·Ωª'}
+local title_load_ = {English = 'Loading',Chinese = 'º”‘ÿ'}
 
 local item_create_project_ = {}
 local item_quit_ = {}
@@ -67,6 +68,7 @@ local item_link_to_view_ = {};
 local item_rename_ = {};
 local item_edit_ = {};
 local item_submit_project_ = {}
+local item_open_ = {};
 
 local function sub_import_items()
 	return {
@@ -103,7 +105,7 @@ local function init()
 	cur_language_=  lan and language_support_[lan] or 'English'
 	item_close_project_.title = title_close_[cur_language_]
 	item_create_project_.title = title_create_project_[cur_language_]
-	item_open_project_.title = title_open_[cur_language_]
+	item_open_project_.title = title_load_[cur_language_]
 	item_save_project_.title = title_save_[cur_language_]
 	item_quit_.title = title_close_[cur_language_]
 	item_delete_project_.title = title_delete_[cur_language_]
@@ -128,6 +130,7 @@ local function init()
 	item_create_folder_.title = title_folder_[cur_language_];
 	item_create_file_.title = title_file_[cur_language_];
 	item_submit_project_.title = title_submit_[cur_language_];
+	item_open_.title = title_open_[cur_language_];
 end
 
 function get_root()
@@ -145,7 +148,7 @@ function get_project()
 		item_open_project_;
 		'';
 		item_save_project_;
-		item_submit_project_;
+		-- item_submit_project_;
 		'';
 		item_edit_project_;
 		item_delete_project_;
@@ -160,6 +163,8 @@ end
 function get_folder()
 	init()
 	return {
+		item_open_;
+		'';
 		item_create_;
 		item_import_;
 		'';
@@ -174,6 +179,8 @@ end
 function get_file()
 	init()
 	return {
+		item_open_;
+		'';
 		item_rename_;
 		item_edit_;
 		item_delete_;
@@ -189,4 +196,9 @@ item_quit_.action = op_.quit;
 item_create_project_.action = op_.project_new;
 item_open_project_.action = op_.project_open;
 item_save_project_.action = op_.project_save;
+item_submit_project_.action = op_.project_submit;
+item_edit_project_.action = op_.edit_info;
+item_delete_project_.action = op_.delete;
+item_show_style_.action = op_.set_style;
+item_properties_.action = op_.properties;
 item_close_project_.action = op_.project_close;

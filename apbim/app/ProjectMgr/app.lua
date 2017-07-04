@@ -1,10 +1,10 @@
 return {
 	
 	'projects';
-	-- 'contacts';
-	-- 'privates';
-	-- 'family';
-	-- 'recycles';
+	'contacts';
+	'privates';
+	'family';
+	'recycles';
 }
 
 
