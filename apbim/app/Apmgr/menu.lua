@@ -43,6 +43,34 @@ function on_load()
 		view = true;
 		frame = true;
 	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Delete';
+		action = op_.project_delete;
+		name = 'File.Delete';
+		view = true;
+		frame = true;
+	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Set Show Style';
+		action = op_.project_delete;
+		name = 'File.Set Show Style';
+		view = true;
+		frame = true;
+	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Submit';
+		action = op_.project_delete;
+		name = 'File.Submit';
+		view = true;
+		frame = true;
+	}
+	menu_.add{
+		keyword = 'AP.Apmgr.Properties';
+		action = op_.project_delete;
+		name = 'File.Submit';
+		view = true;
+		frame = true;
+	}
 end
 
 
