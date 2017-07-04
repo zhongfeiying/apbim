@@ -59,7 +59,7 @@ function save_user_list(data)
 	local user = user_.get()
 	local file = default_path_ .. user.gid
 	require"sys.api.code".save{file = file,data = data,key = 'db'}
-
+end
 
 function upload_user_list(arg)
 	arg = arg or {}
