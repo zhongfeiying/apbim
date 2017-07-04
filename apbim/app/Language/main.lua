@@ -16,8 +16,8 @@ end
 
 function on_load()
 	menu_.add{
-		keyword = 'Ap.Language';
-		name = 'Ap.Language';
+		keyword = 'AP.Language';
+		name = 'AP.Language';
 		view = true;
 		frame = true;
 		action = set_language;

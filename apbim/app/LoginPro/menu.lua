@@ -34,6 +34,16 @@ local function change_pwd()
 	-- dlg_change_pwd_
 end
 
+local function register()
+end
+
+local function upload_key()
+	
+end
+
+local function quit()
+end
+
 local function get_languages(str)
 	if not language_package_ then 
 		language_package_ = require_data_file_ 'app.LoginPro.language_package'
@@ -43,27 +53,49 @@ end
 
 function on_load()
 	menu_.add{
-		keyword = 'ApBIM.User.Login';
+		keyword = 'AP.LoginPro.Login';
 		action = login_user;
 		name='User.Login',
 		frame = true,
 		view = true,
 	}
 	menu_.add{
-		keyword = 'ApBIM.User.Logout';
+		keyword = 'AP.LoginPro.Logout';
 		action = logout_user;
 		name='User.Logout',
 		frame = true,
 		view = true,
 	}
 	menu_.add{
-		keyword = 'ApBIM.User.Change Password';
+		keyword = 'AP.LoginPro.Password';
 		action = change_pwd;
 		name='User.Change Password',
 		frame = true,
 		view = true,
 	}
-	login_user('quit')
+	menu_.add{
+		keyword = 'AP.LoginPro.Register';
+		action = register;
+		name='User.Register',
+		frame = true,
+		view = true,
+	}
+	menu_.add{
+		keyword = 'AP.LoginPro.Upload Key';
+		action = upload_key;
+		name='User.Register',
+		frame = true,
+		view = true,
+	}
+	
+	menu_.add{
+		keyword = 'AP.LoginPro.Quit';
+		action = quit;
+		name='User.Register',
+		frame = true,
+		view = true,
+	}
+	-- login_user('quit')
 end
 
 function on_update()
