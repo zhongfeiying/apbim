@@ -24,12 +24,14 @@ local project_cache_ = {}
 function init()
 	current_project_ = nil
 	project_cache_ = {}
+	project_cache_.read = {}
+	project_cache_.save = {}
 end
 
 
 function add_cache_data(id)
 	if not project_cache_[id] then 
-		project_cache_[id] = disk_.read_zipfile( get(),id)
+		project_cache_.read[id] = disk_.read_zipfile( get(),id)
 	end
 end
 
@@ -96,6 +98,10 @@ function open()
 end
 
 function save()
+end
+
+function edit(gid,data)
+	-- add_cache_data(gid,data)
 end
 
 

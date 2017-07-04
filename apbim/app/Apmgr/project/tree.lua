@@ -75,8 +75,8 @@ local function tree_root_attributes()
 	return {
 		title = 'Projects';
 		image = {
-			open ='app/Apmgr/res/projects.bmp',
-			close =  'app/Apmgr/res/projects.bmp'
+			open ='app/Apmgr/res/user.bmp',
+			close =  'app/Apmgr/res/user.bmp'
 		} ;
 		data= {
 			rmenu = require 'app.Apmgr.project.rmenu'.get_root;
@@ -97,9 +97,13 @@ local function tree_project_attributes(arg)
 			gid = arg.gid;
 		};
 		image = {
-			open ='app/Apmgr/res/project_open.bmp',
-			close =  'app/Apmgr/res/project_close.bmp'
+			open ='app/Apmgr/res/Project.bmp',
+			close =  'app/Apmgr/res/Project.bmp'
 		} ;
+		-- image = {
+			-- open ='app/Apmgr/res/Project.bmp',
+			-- close =  'app/Apmgr/res/Project.bmp'
+		-- } ;
 		kind = 'branch';
 		
 	}

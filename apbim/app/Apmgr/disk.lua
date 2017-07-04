@@ -132,7 +132,14 @@ function read_file(file,state)
 	end
 end
 
-function read_zipfile(zipfile,id,state)
+function get_file_info(file)
+	return {
+		hid = '';
+		time = '';
+	};
+end
+
+function read_zipfile(zipfile,id)
 	return zip_file_data(zipfile,id)
 end
 
