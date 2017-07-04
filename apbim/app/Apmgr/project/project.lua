@@ -27,19 +27,15 @@ function init()
 end
 
 
-local function add_cache_data(id)
-	project_cache_[id] = disk_.read_zipfile( get(),id)
+function add_cache_data(id)
+	if not project_cache_[id] then 
+		project_cache_[id] = disk_.read_zipfile( get(),id)
+	end
 end
 
 
 function get_folder_indexId(gid)
 	return gid .. '.nextIndex'
-end
-
-function init_folder_data(id)
-	local indexId = get_folder_indexId(id)
-	add_cache_data(indexId)
-	return indexId
 end
 
 
@@ -83,12 +79,25 @@ function set(file)
 	project_cache_ = {}
 end
 
+
+function init_folder_data(id)
+	local indexId = get_folder_indexId(id)
+	add_cache_data(indexId)
+	return indexId
+end
+
+function project_index_id()
+	return project_cache_.__index
+end
+
+
 function open()
 	local zipfile = get()
-	local projectid = disk_.read_project(zipfile)
-	print(projectid)
-	project_cache_.__index = projectid
-	return init_folder_data(projectid)
+	project_cache_.__index =  disk_.read_project(zipfile)
+	-- init_folder_data(projectid)
+end
+
+function save()
 end
 
 

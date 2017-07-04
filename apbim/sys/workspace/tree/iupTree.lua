@@ -784,7 +784,11 @@ function Class:set_branchopen(f)
 end
 
 
-
+function Class:set_topitem(id)
+	if not map_warning(self) then return end 
+	local id = id or self:get_tree_selected()
+	self.tree["TOPITEM"] = id
+end
 
 
 -----------------------------------------------------------------------------------------
@@ -819,11 +823,10 @@ function Class:init_dlbtn()
 	local function deal_callback(id)
 		local id = self:get_tree_selected() 
 		if  type(self.dlbtn) == 'function' then 
-			self.dlbtn(self,id)
+			self.dlbtn(id)
 		end
-		
 	end
-
+	
 	function tree:button_cb(button,pressed,x,y,str)
 		if string_find_(str,"1") and string_find_(str,"D") then
 			deal_callback(args)
@@ -837,7 +840,6 @@ function Class:init_rbtn()
 	local function deal_callback(id)
 		self:set_node_marked(id)
 		local t = self:get_node_data(id)
-		-- require 'sys.table'.totrace(t)
 		if type(self.selection_cb) == 'function' then 
 			self.selection_cb(id, 1)
 		end
@@ -1277,6 +1279,8 @@ function Class:init_branchopen()
 	
 	local function deal_callback(id)
 		local t = self:get_node_data()
+		id = tonumber(id)
+		self:set_node_marked(id)
 		if t and type(t.branchopen) == 'function' then 
 			t.branchopen(id)
 		elseif type(self.branchopen) == 'function'  then 
