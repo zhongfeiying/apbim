@@ -34,11 +34,9 @@ function add_cache_data(id)
 end
 
 
-function get_folder_indexId(gid)
-	return gid .. '.nextIndex'
+function get_hid_indexId(gid)
+	return gid .. '.hid'
 end
-
-
 
 function get()
 	return current_project_
@@ -81,7 +79,7 @@ end
 
 
 function init_folder_data(id)
-	local indexId = get_folder_indexId(id)
+	local indexId = get_hid_indexId(id)
 	add_cache_data(indexId)
 	return indexId
 end

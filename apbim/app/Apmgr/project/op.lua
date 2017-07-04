@@ -11,6 +11,7 @@ local g_next_ = _G.next
 local os_time_ = os.time
 local print = print
 local ipairs = ipairs
+local os_exit_ = os.exit
 
 local M = {}
 local modname = ...
@@ -121,15 +122,15 @@ local function project_turn_zipdata(arg)
 						loop_data(v[1],gid)
 					else 
 						gid = gid .. '1'
-						if attr.info and attr.info.disklink then 
-							table.insert(saveData,{str = disk_.read_file(attr.info.disklink,'string'),id =  project_.get_folder_indexId(gid)})
+						if attr.disklink then 
+							table.insert(saveData,{str = disk_.read_file(attr.disklink,'string'),id =  project_.get_hid_indexId(gid)})
 						end
 					end
 					table.insert(saveData,{str =disk_.serialize_to_str( version_.get_gid_data{gid = gid,name = attr.name,info =  attr.info,versions = {}} ) ,id =  gid})
 					table.insert(folderIndexData,version_.get_folder_data{name = attr.name,gid = gid})
 				end
 			end
-			table.insert(saveData,{str =disk_.serialize_to_str( folderIndexData ),id =   project_.get_folder_indexId(id)})
+			table.insert(saveData,{str =disk_.serialize_to_str( folderIndexData ),id =   project_.get_hid_indexId(id)})
 		end
 		loop_data(data,gid)
 	end
@@ -165,12 +166,12 @@ function open_folder(id)
 	local gid = data.gid or project_.project_index_id()
 	if not gid then return end 
 	if string.sub(gid,-1,-1) == '1' then return end 
-	local nextIndexId = project_.get_folder_indexId(gid)
+	local nextIndexId = project_.get_hid_indexId(gid)
 	project_.add_cache_data(nextIndexId)
 	local data = project_.get_id_data(nextIndexId)
 	for k,v in ipairs(data) do 
-		if v.gid then 
-			local nextIndexId = project_.get_folder_indexId(v.gid)
+		if v.gid and string.sub(v.gid,-1,-1) == '0' then 
+			local nextIndexId = project_.get_hid_indexId(v.gid)
 			project_.add_cache_data(nextIndexId)
 		end
 	end
@@ -182,7 +183,7 @@ local function open(data,id)
 	project_.open()
 	local gid = project_.project_index_id()
 	if not gid then return end 
-	local nextIndexId = project_.get_folder_indexId(gid)
+	local nextIndexId = project_.get_hid_indexId(gid)
 	if not nextIndexId then return end 
 	project_.add_cache_data(nextIndexId)
 	local data = project_.get_id_data(nextIndexId)
@@ -212,7 +213,7 @@ project_save = function (f)
 	if not zipfile then return end
 	local id = tree_.get_index_id(zipfile)
 	if not id then return end 
-	project_.save()
+	-- project_.save()
 end
 
 function project_delete()
@@ -227,4 +228,9 @@ function project_close(str)
 	tree_.close_project()
 	project_.init()
 	return true
+end
+
+function quit()
+	project_close(str)
+	os_exit_()
 end

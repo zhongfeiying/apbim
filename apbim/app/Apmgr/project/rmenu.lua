@@ -31,20 +31,21 @@ local title_save_ = {English = 'Save',Chinese = '±£´æ'}
 local title_close_ = {English = 'Close',Chinese = '¹Ø±Õ'}
 
 local item_create_project_ = {}
+local item_quit_ = {}
 local item_open_project_ = {}
 local item_save_project_ = {}
-local item_close_ = {}
+local item_close_project_ = {}
 
 --------------------------------------------------------------------------------------------------------
 --api
 local function init()
 	local lan = language_.get()
 	cur_language_=  lan and language_support_[lan] or 'English'
-	item_close_.title = title_close_[cur_language_]
+	item_close_project_.title = title_close_[cur_language_]
 	item_create_project_.title = title_create_project_[cur_language_]
 	item_open_project_.title = title_open_[cur_language_]
 	item_save_project_.title = title_save_[cur_language_]
-	
+	item_quit_.title = title_close_[cur_language_]
 end
 
 function get_root()
@@ -52,7 +53,7 @@ function get_root()
 	return {
 		item_create_project_;
 		'';
-		item_close_;
+		item_quit_;
 	}
 end
 
@@ -63,13 +64,13 @@ function get_project()
 		'';
 		item_open_project_;
 		'';
-		item_close_;
+		item_close_project_;
 	}
 end
 --------------------------------------------------------------------------------------------
 --action function
-
+item_quit_.action = op_.quit;
 item_create_project_.action = op_.project_new;
 item_open_project_.action = op_.project_open;
 item_save_project_.action = op_.project_save;
-item_close_.action = op_.project_close;
+item_close_project_.action = op_.project_close;
